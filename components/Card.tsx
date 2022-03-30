@@ -32,20 +32,6 @@ const CardWrapper = styled.div`
 	overflow: hidden;
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 	box-sizing: border-box;
-
-	&:nth-child(1) {
-		grid-column-start: 1;
-		grid-column-end: 3;
-		grid-row-start: 1;
-		grid-row-end: 2;
-	}
-
-	&:nth-child(7) {
-		grid-column-start: 2;
-		grid-column-end: 4;
-		grid-row-start: 3;
-		grid-row-end: 4;
-	}
 `;
 
 const ContentWrapper = styled.div`
