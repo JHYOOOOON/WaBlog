@@ -5,6 +5,7 @@ import { ChangeEvent, useState } from "react";
 import { allBlogs } from "../.contentlayer/generated";
 import Card from "components/Card";
 import styled from "@emotion/styled";
+import { Description, SectionTitle } from "components/Common.style";
 
 const Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
 	const [searchValue, setSearchValue] = useState("");
@@ -41,20 +42,6 @@ export function getStaticProps() {
 
 	return { props: { posts } };
 }
-
-const SectionTitle = styled.h1`
-	margin-top: 30px;
-	margin-bottom: 0;
-	color: #2d6514;
-	font-size: 45px;
-`;
-
-const Description = styled.p`
-	margin-top: 10px;
-	margin-bottom: 20px;
-	font-size: 18px;
-	color: #555;
-`;
 
 const SearchWrapper = styled.div`
 	position: relative;

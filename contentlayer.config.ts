@@ -26,7 +26,7 @@ const Blog = defineDocumentType(() => ({
 
 const Babchive = defineDocumentType(() => ({
 	name: "Babchive",
-	filPathPattern: "babchive/*.mdx",
+	filePathPattern: "babchive/*.mdx",
 	contentType: "mdx",
 	fields: {
 		title: { type: "string", required: true },

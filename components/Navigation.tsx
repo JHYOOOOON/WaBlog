@@ -52,7 +52,7 @@ const NavItem = styled.li`
 	cursor: pointer;
 	transition: 0.1s;
 	&:hover {
-		background-color: #c3e3e1;
-		border-radius: 15px;
+		background-color: #2d6514;
+		color: #f9fafb;
 	}
 `;
