@@ -6,9 +6,11 @@ const Navigation = () => {
 	return (
 		<NavWrapper>
 			<Nav>
-				<div>
-					<Logo>☃️</Logo>
-				</div>
+				<LogoWrapper>
+					<Link href="/">
+						<Logo src="/static/logo.png" />
+					</Link>
+				</LogoWrapper>
 				<NavRight>
 					{navData.map((data, idx) => (
 						<Link href={`${data.link}`} key={`nav-${idx}`}>
@@ -23,8 +25,15 @@ const Navigation = () => {
 
 export default Navigation;
 
-const Logo = styled.span`
-	font-size: 30px;
+const LogoWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	height: 100%;
+`;
+
+const Logo = styled.img`
+	height: 70%;
+	cursor: pointer;
 `;
 
 const NavWrapper = styled.nav`
