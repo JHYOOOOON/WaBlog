@@ -1,14 +1,14 @@
 import { useMDXComponent } from "next-contentlayer/hooks";
 import type { Babchive } from "contentlayer/generated";
-import Container from "components/Container";
 import { allBabchives } from "contentlayer/generated";
+import BabchiveLayout from "layouts/babchive";
 
 export default function Post({ post }: { post: Babchive }) {
-	const Component = useMDXComponent(post.body.code);
+	const MDXComponent = useMDXComponent(post.body.code);
 	return (
-		<Container>
-			<Component />
-		</Container>
+		<BabchiveLayout post={post}>
+			<MDXComponent />
+		</BabchiveLayout>
 	);
 }
 
