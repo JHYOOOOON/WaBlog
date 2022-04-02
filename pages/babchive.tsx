@@ -8,7 +8,7 @@ const Babchives = ({ posts }) => {
 	return (
 		<Container>
 			<SectionTitle>Babchive</SectionTitle>
-			<Description>정리해서 올리기엔 사소한 글들을 그날 먹은 밥과 함께 정리하는 공간</Description>
+			<Description>정리해서 올리기엔 사소한 글들을 그날 먹은 밥과 함께 기록하는 일기장</Description>
 			<PostWrapper>
 				{posts.map((posts) => (
 					<Bab key={posts._id} {...posts} />

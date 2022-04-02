@@ -41,11 +41,25 @@ const ContentWrapper = styled.div`
 	}
 
 	p {
-		line-height: 1.3;
+		margin-top: 15px;
+		margin-bottom: 20px;
+		line-height: 1.5;
 		code {
-			padding: 1px;
-			border: 1px solid #2d6514;
+			padding: 2px 3px;
 			border-radius: 3px;
+			background-color: #ededed;
+			color: #e97e0c;
+			font-size: 14px;
+		}
+	}
+
+	a {
+		color: #999;
+		border-bottom: 1px solid #999;
+		transition: 0.1s;
+		&:hover {
+			color: #2d6514;
+			border-bottom: 1px solid #2d6514;
 		}
 	}
 
@@ -65,6 +79,22 @@ const ContentWrapper = styled.div`
 		padding: 15px 20px;
 		code {
 			color: #f5f5f5;
+		}
+	}
+
+	ul {
+		padding-left: 25px;
+		li {
+			margin: 7px 0;
+		}
+	}
+
+	.image-wrapper {
+		margin: 25px 0;
+		.description {
+			color: #333;
+			font-size: 14px;
+			margin: 0;
 		}
 	}
 `;
