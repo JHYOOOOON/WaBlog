@@ -28,8 +28,10 @@ const Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
 			</SearchWrapper>
 
 			<PostsWrapper>
-				{!searchValue && posts.map((post) => <Card {...post} />)}
-				{searchValue && filteredBlogPosts && filteredBlogPosts.map((post) => <Card {...post} />)}
+				{!searchValue && posts.map((post, idx) => <Card key={`post-${idx}`} {...post} />)}
+				{searchValue &&
+					filteredBlogPosts &&
+					filteredBlogPosts.map((post, idx) => <Card key={`post-${idx}`} {...post} />)}
 			</PostsWrapper>
 		</Container>
 	);
