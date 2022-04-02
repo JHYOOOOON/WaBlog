@@ -32,6 +32,7 @@ const Container = ({ children, ...customMeta }) => {
 			<Head>
 				<title>{meta.title}</title>
 				<meta name="robots" content="follow, index" />
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 				<meta name="description" content={meta.description} />
 				<meta property="og:url" content={`https://wablog.vercel.app${router.asPath}`} />
 				<link rel="canonical" href={`https://wablog.vercel.app${router.asPath}`} />
