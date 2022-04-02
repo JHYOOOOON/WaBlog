@@ -8,8 +8,8 @@ const Footer = () => {
 				<GithubIcon />
 			</a>
 			<Copyright>&copy; {new Date().getFullYear()} Jeonghyun Yoon</Copyright>
-			<a href="https://localhost:3000">
-				<BlogUrl>wablog.run</BlogUrl>
+			<a href="https://wablog.vercel.app">
+				<BlogUrl>wablog.vercel.app</BlogUrl>
 			</a>
 		</FooterWrapper>
 	);

@@ -21,7 +21,7 @@ const Container = ({ children, ...customMeta }) => {
 	const meta = {
 		title: "wablog - tech, daily blabla",
 		description: "Frontend developer, friendly and humorous",
-		image: "/static/images/banner.jpg",
+		image: "https://wablog.vercel.app/static/images/banner.jpg",
 		type: "website",
 		author: "Jeonghyun Yoon",
 		...customMeta,
