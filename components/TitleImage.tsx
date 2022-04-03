@@ -32,21 +32,23 @@ const Pyongpyong = keyframes`
 
 const TitleImageWrapper = styled.div`
 	position: relative;
-	height: 270px;
+	max-height: 270px;
+	min-height: max-content;
+	height: 60%;
 	border-radius: 20px;
 	overflow: hidden;
 	div {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
+		justify-content: flex-end;
 		align-items: flex-end;
-
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
-		padding: 30px;
+		padding: 20px 25px;
+		box-sizing: border-box;
 		z-index: 1;
 	}
 	&:hover div {
@@ -72,6 +74,7 @@ const Title = styled.p`
 
 const SubTitle = styled.p`
 	margin-top: 2px;
+	margin-bottom: 0;
 	font-size: 18px;
 `;
 

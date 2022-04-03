@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const SectionTitle = styled.h1`
-	margin-top: 30px;
+	margin-top: 0;
 	margin-bottom: 0;
 	color: #2d6514;
 	font-size: 45px;

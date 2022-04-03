@@ -10,9 +10,14 @@ const Section = styled.section`
 	width: 750px;
 	height: 100%;
 	margin: 0 auto;
+
+	@media screen and (max-width: 750px) {
+		width: 100%;
+	}
 `;
 
 const Main = styled.main`
+	padding: 30px 15px;
 	flex: 1;
 `;
 

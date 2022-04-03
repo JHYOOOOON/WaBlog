@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 const MDXContent = ({ title, summary, date, children }) => {
 	return (
-		<PostWrapper>
+		<div>
 			<TitleWrapper>
 				<FlexWrapper>
 					<Title>{title}</Title>
@@ -11,15 +11,11 @@ const MDXContent = ({ title, summary, date, children }) => {
 				<Summary>{summary}</Summary>
 			</TitleWrapper>
 			<ContentWrapper>{children}</ContentWrapper>
-		</PostWrapper>
+		</div>
 	);
 };
 
 export default MDXContent;
-
-const PostWrapper = styled.div`
-	margin-top: 30px;
-`;
 
 const TitleWrapper = styled.div`
 	padding: 20px 25px;
