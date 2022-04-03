@@ -13,7 +13,7 @@ const Navigation = () => {
 		<NavWrapper>
 			<Nav>
 				<NavLeft>
-					<Hamburger onClick={handleHamburger} isOpen={true}>
+					<Hamburger onClick={handleHamburger} isOpen={isOpen}>
 						<HamburgerIcon>
 							<Line />
 							<Line />

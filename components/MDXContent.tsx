@@ -30,8 +30,6 @@ const FlexWrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-	padding: 0 25px;
-
 	h2 {
 		font-size: 25px;
 		font-weight: 700;
@@ -127,4 +125,8 @@ const StyledDate = styled.p`
 	font-size: 14px;
 	text-align: right;
 	color: var(--tx-sub);
+
+	@media screen and (max-width: 400px) {
+		display: none;
+	}
 `;
