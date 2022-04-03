@@ -41,12 +41,16 @@ const ContentWrapper = styled.div`
 		margin-bottom: 20px;
 		line-height: 1.5;
 		code {
-			padding: 2px 3px;
+			padding: 1px 3px;
 			border-radius: 3px;
 			background-color: #ededed;
 			color: #e97e0c;
 			font-size: 14px;
 		}
+	}
+
+	img {
+		max-width: 400px;
 	}
 
 	a {
@@ -69,12 +73,14 @@ const ContentWrapper = styled.div`
 		}
 	}
 
+	/* 코드 블럭 */
 	pre {
 		background: #333;
 		border-radius: 5px;
 		padding: 15px 20px;
 		code {
 			color: #f5f5f5;
+			font-size: 14px;
 		}
 	}
 
