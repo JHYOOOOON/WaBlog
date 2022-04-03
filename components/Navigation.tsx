@@ -13,7 +13,7 @@ const Navigation = () => {
 		<NavWrapper>
 			<Nav>
 				<NavLeft>
-					<Hamburger onClick={handleHamburger} isOpen={isOpen}>
+					<Hamburger onClick={handleHamburger} isOpen={true}>
 						<HamburgerIcon>
 							<Line />
 							<Line />
@@ -26,7 +26,7 @@ const Navigation = () => {
 				</NavLeft>
 				<NavRight>
 					{navData.map((data, idx) => (
-						<Link href={`${data.link}`} key={`nav-${idx}`} passHref={false}>
+						<Link href={`${data.link}`} key={`nav-${idx}`} passHref={true}>
 							<NavItem>{data.name}</NavItem>
 						</Link>
 					))}
@@ -34,7 +34,7 @@ const Navigation = () => {
 			</Nav>
 			<HamburgerMenu isOpen={isOpen}>
 				{navData.map((data, idx) => (
-					<Link href={`${data.link}`} key={`nav-${idx}`} passHref={false}>
+					<Link href={`${data.link}`} key={`nav-${idx}`} passHref={true}>
 						<HamburgerMenuItem>{data.name}</HamburgerMenuItem>
 					</Link>
 				))}

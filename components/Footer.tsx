@@ -4,7 +4,7 @@ import { AiFillGithub } from "react-icons/ai";
 const Footer = () => {
 	return (
 		<FooterWrapper>
-			<a href="https://github.com/JHYOOOOON" target={"_blank"}>
+			<a href="https://github.com/JHYOOOOON" target="_blank" rel="noreferrer">
 				<GithubIcon />
 			</a>
 			<Copyright>&copy; {new Date().getFullYear()} Jeonghyun Yoon</Copyright>
