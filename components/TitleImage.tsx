@@ -63,7 +63,7 @@ const TitleImageWrapper = styled.div`
 `;
 
 const Emoji = styled.span`
-	font-size: 40px;
+	font-size: 35px;
 `;
 
 const Title = styled.p`
@@ -74,7 +74,7 @@ const Title = styled.p`
 const SubTitle = styled.p`
 	margin-top: 2px;
 	margin-bottom: 0;
-	font-size: 18px;
+	font-size: 16px;
 `;
 
 const Image = styled.img`

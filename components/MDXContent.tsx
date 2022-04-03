@@ -5,11 +5,9 @@ const MDXContent = ({ title, summary, date, children }) => {
 	return (
 		<div>
 			<TitleWrapper>
-				<FlexWrapper>
-					<SectionTitle>{title}</SectionTitle>
-					<StyledDate>{date}</StyledDate>
-				</FlexWrapper>
+				<SectionTitle>{title}</SectionTitle>
 				<Summary>{summary}</Summary>
+				<StyledDate>{date}</StyledDate>
 			</TitleWrapper>
 			<ContentWrapper>{children}</ContentWrapper>
 		</div>
@@ -19,14 +17,9 @@ const MDXContent = ({ title, summary, date, children }) => {
 export default MDXContent;
 
 const TitleWrapper = styled.div`
-	padding: 20px 25px;
+	padding: 15px 20px;
 	margin-bottom: 30px;
 	background-color: var(--bg-sub);
-`;
-
-const FlexWrapper = styled.div`
-	display: flex;
-	justify-content: space-between;
 `;
 
 const ContentWrapper = styled.div`
@@ -125,8 +118,4 @@ const StyledDate = styled.p`
 	font-size: 14px;
 	text-align: right;
 	color: var(--tx-sub);
-
-	@media screen and (max-width: 400px) {
-		display: none;
-	}
 `;
