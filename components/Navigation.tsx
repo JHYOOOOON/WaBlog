@@ -26,7 +26,7 @@ const Navigation = () => {
 				</NavLeft>
 				<NavRight>
 					{navData.map((data, idx) => (
-						<Link href={`${data.link}`} key={`nav-${idx}`}>
+						<Link href={`${data.link}`} key={`nav-${idx}`} passHref={false}>
 							<NavItem>{data.name}</NavItem>
 						</Link>
 					))}
@@ -34,7 +34,7 @@ const Navigation = () => {
 			</Nav>
 			<HamburgerMenu isOpen={isOpen}>
 				{navData.map((data, idx) => (
-					<Link href={`${data.link}`} key={`nav-${idx}`}>
+					<Link href={`${data.link}`} key={`nav-${idx}`} passHref={false}>
 						<HamburgerMenuItem>{data.name}</HamburgerMenuItem>
 					</Link>
 				))}

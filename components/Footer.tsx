@@ -4,7 +4,7 @@ import { AiFillGithub } from "react-icons/ai";
 const Footer = () => {
 	return (
 		<FooterWrapper>
-			<a href="https://github.com/JHYOOOOON">
+			<a href="https://github.com/JHYOOOOON" target={"_blank"}>
 				<GithubIcon />
 			</a>
 			<Copyright>&copy; {new Date().getFullYear()} Jeonghyun Yoon</Copyright>
@@ -28,12 +28,6 @@ const GithubIcon = styled(AiFillGithub)`
 
 const Copyright = styled.p`
 	margin: 5px 0;
-	font-size: 14px;
-	color: var(--tx-main);
-`;
-
-const BlogUrl = styled.p`
-	margin: 7px 0;
 	font-size: 14px;
 	color: var(--tx-main);
 `;

@@ -9,7 +9,7 @@ const Card = ({ title, thumbnailUrl, summary, slug, date, ...rest }) => {
 			<ThumbnailWrapper>
 				<Thumbnail src={thumbnailUrl} />
 			</ThumbnailWrapper>
-			<Link href={`/blog/${slug}`}>
+			<Link href={`/blog/${slug}`} passHref>
 				<ArrowButton>
 					<ArrowIcon />
 				</ArrowButton>

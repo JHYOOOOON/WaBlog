@@ -9,7 +9,7 @@ const TitleImage = () => {
 				<Title>Have a Nice Day!</Title>
 				<SubTitle>Frontend Developer, Jeonghyun</SubTitle>
 			</div>
-			<Image src="/static/images/banner.jpg" />
+			<Image src="/static/images/banner.jpg" alt="title image" />
 		</TitleImageWrapper>
 	);
 };

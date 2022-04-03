@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 const Bab = ({ title, date, thumbnailUrl, slug, ...rest }) => {
 	return (
-		<Link href={`/babchive/${slug}`}>
+		<Link href={`/babchive/${slug}`} passHref>
 			<BabWrapper>
 				<Thumbnail src={thumbnailUrl} alt={title} />
 				<ContentWrapper className="content-wrapper">

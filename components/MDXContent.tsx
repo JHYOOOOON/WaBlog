@@ -36,8 +36,8 @@ const ContentWrapper = styled.div`
 		font-size: 25px;
 		font-weight: 700;
 		margin-top: 27px;
-		margin-bottom: 10px;
-		padding-bottom: 13px;
+		margin-bottom: 15px;
+		padding-bottom: 10px;
 		border-bottom: 1px solid var(--border-light);
 	}
 
@@ -59,8 +59,8 @@ const ContentWrapper = styled.div`
 	}
 
 	a {
-		color: #bcbcbc;
-		border-bottom: 1px solid #bcbcbc;
+		color: #ababab;
+		border-bottom: 1px solid #ababab;
 		transition: 0.1s;
 		&:hover {
 			color: var(--tx-point);
@@ -92,8 +92,10 @@ const ContentWrapper = styled.div`
 
 	ul {
 		padding-left: 25px;
+		padding-right: 15px;
 		list-style-type: circle;
 		li {
+			line-height: 1.5;
 			margin: 10px 0;
 		}
 	}
