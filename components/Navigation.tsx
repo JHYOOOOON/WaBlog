@@ -20,7 +20,7 @@ const Navigation = () => {
 							<Line />
 						</HamburgerIcon>
 					</Hamburger>
-					<Link href="/">
+					<Link href="/" passHref={true}>
 						<Logo src="/static/logo.png" />
 					</Link>
 				</NavLeft>
