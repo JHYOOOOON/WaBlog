@@ -35,6 +35,7 @@ const TitleImageWrapper = styled.div`
 	max-height: 270px;
 	min-height: 180px;
 	height: 60%;
+	margin-bottom: 25px;
 	border-radius: 20px;
 	overflow: hidden;
 	div {
@@ -47,8 +48,7 @@ const TitleImageWrapper = styled.div`
 		left: 0;
 		width: 100%;
 		height: 100%;
-		padding: 20px 25px;
-		box-sizing: border-box;
+		padding: 25px 30px;
 		z-index: 1;
 	}
 	&:hover div {
@@ -67,8 +67,7 @@ const Emoji = styled.span`
 `;
 
 const Title = styled.p`
-	margin: 0;
-	font-size: 30px;
+	font-size: 28px;
 	font-weight: 700;
 `;
 

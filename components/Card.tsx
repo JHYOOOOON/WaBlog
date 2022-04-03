@@ -31,7 +31,6 @@ const CardWrapper = styled.div`
 	border-radius: 15px;
 	overflow: hidden;
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-	box-sizing: border-box;
 `;
 
 const ContentWrapper = styled.div`
@@ -53,12 +52,10 @@ const Thumbnail = styled.img`
 `;
 
 const Title = styled.p`
-	margin: 0;
 	font-size: 20px;
 `;
 
 const Summary = styled.p`
-	margin: 0;
 	margin-top: 7px;
 	overflow: hidden;
 	text-overflow: ellipsis;

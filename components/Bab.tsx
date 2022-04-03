@@ -27,14 +27,13 @@ const Thumbnail = styled.img`
 `;
 
 const Title = styled.p`
-	margin: 0;
-	font-size: 20px;
+	font-size: 18px;
+	margin-bottom: 3px;
 `;
 
 const StyledDate = styled.p`
-	margin: 0;
-	font-size: 14px;
-	color: #555;
+	font-size: 12px;
+	color: #333;
 `;
 
 const ContentWrapper = styled.div`

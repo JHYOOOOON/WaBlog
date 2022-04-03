@@ -17,7 +17,7 @@ const Section = styled.section`
 `;
 
 const Main = styled.main`
-	padding: 30px 15px;
+	padding: 25px 15px;
 	flex: 1;
 `;
 

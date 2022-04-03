@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
+import { SectionTitle } from "./Common.style";
 
 const MDXContent = ({ title, summary, date, children }) => {
 	return (
 		<div>
 			<TitleWrapper>
 				<FlexWrapper>
-					<Title>{title}</Title>
+					<SectionTitle>{title}</SectionTitle>
 					<StyledDate>{date}</StyledDate>
 				</FlexWrapper>
 				<Summary>{summary}</Summary>
@@ -32,8 +33,12 @@ const ContentWrapper = styled.div`
 	padding: 0 25px;
 
 	h2 {
+		font-size: 25px;
+		font-weight: 700;
 		margin-top: 27px;
-		margin-bottom: 0;
+		margin-bottom: 10px;
+		padding-bottom: 13px;
+		border-bottom: 1px solid #ededed;
 	}
 
 	p {
@@ -68,9 +73,6 @@ const ContentWrapper = styled.div`
 		padding: 8px 15px;
 		border-left: 5px solid #2d6514;
 		background-color: #f5f5f5;
-		p {
-			margin: 0;
-		}
 	}
 
 	/* 코드 블럭 */
@@ -81,14 +83,24 @@ const ContentWrapper = styled.div`
 		code {
 			color: #f5f5f5;
 			font-size: 14px;
+			line-height: 1.5;
 		}
 	}
 
 	ul {
 		padding-left: 25px;
+		list-style-type: circle;
 		li {
-			margin: 7px 0;
+			margin: 10px 0;
 		}
+	}
+
+	> ul {
+		padding: 20px 0;
+		padding-left: 40px;
+		background-color: #e4f2dd;
+		border-top: 1px dashed #b8d8a9;
+		border-bottom: 1px dashed #b8d8a9;
 	}
 
 	.image-wrapper {
@@ -96,26 +108,17 @@ const ContentWrapper = styled.div`
 		.description {
 			color: #333;
 			font-size: 14px;
-			margin: 0;
 		}
 	}
 `;
 
-const Title = styled.h1`
-	font-size: 45px;
-	color: #2d6514;
-	margin: 0;
-`;
-
 const Summary = styled.p`
-	margin: 0;
-	margin-top: 3px;
+	margin-top: 10px;
 	font-size: 16px;
-	color: #444;
+	color: #555;
 `;
 
 const StyledDate = styled.p`
-	margin: 0;
 	margin-top: 5px;
 	font-size: 14px;
 	text-align: right;

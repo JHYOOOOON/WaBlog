@@ -46,7 +46,7 @@ const PostWrapper = styled.div`
 const SectionTitle = styled.h1`
 	font-weight: 700;
 	margin-bottom: 14px;
-	font-size: 30px;
+	font-size: 28px;
 `;
 
 export function getStaticProps() {

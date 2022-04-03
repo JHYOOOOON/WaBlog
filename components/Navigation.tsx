@@ -111,9 +111,6 @@ const HamburgerMenu = styled.ul<{ isOpen: boolean }>`
 			  `}
 	width: 100%;
 	height: 100%;
-	padding: 0;
-	margin: 0;
-	list-style: none;
 	flex-direction: column;
 	z-index: 2;
 	background-color: #f9fafb;
@@ -160,12 +157,8 @@ const NavWrapper = styled.nav`
 const Nav = styled.div`
 	display: flex;
 	height: 45px;
-	margin: 0;
 	justify-content: space-between;
 	align-items: center;
-	text-decoration: none;
-	padding: 0;
-	list-style-type: none;
 `;
 
 const NavRight = styled.ul`
@@ -173,8 +166,6 @@ const NavRight = styled.ul`
 		display: none;
 	}
 	display: flex;
-	margin: 0;
-	padding: 0;
 	list-style: none;
 `;
 
