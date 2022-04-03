@@ -92,7 +92,7 @@ const Line = styled.span`
 	width: 100%;
 	height: 3px;
 	border-radius: 5px;
-	background-color: #333;
+	background-color: var(--bg-dark);
 	display: block;
 	margin: 6px auto;
 	-webkit-transition: all 0.3s ease-in-out;
@@ -113,7 +113,7 @@ const HamburgerMenu = styled.ul<{ isOpen: boolean }>`
 	height: 100%;
 	flex-direction: column;
 	z-index: 2;
-	background-color: #f9fafb;
+	background-color: var(--bg-main);
 	border-radius: 0 0 5px 5px;
 	overflow: hidden;
 	margin-bottom: 15px;
@@ -128,11 +128,11 @@ const HamburgerMenuItem = styled.li`
 	cursor: pointer;
 	transition: 0.1s;
 	& + & {
-		border-top: 1px solid #ededed;
+		border-top: 1px solid var(--border-light);
 	}
 	&:hover {
-		background-color: #2d6514;
-		color: #f9fafb;
+		background-color: var(--bg-point);
+		color: var(--tx-bright);
 	}
 `;
 
@@ -175,7 +175,7 @@ const NavItem = styled.li`
 	cursor: pointer;
 	transition: 0.1s;
 	&:hover {
-		background-color: #2d6514;
-		color: #f9fafb;
+		background-color: var(--bg-point);
+		color: var(--tx-bright);
 	}
 `;

@@ -21,7 +21,7 @@ export default MDXContent;
 const TitleWrapper = styled.div`
 	padding: 20px 25px;
 	margin-bottom: 30px;
-	background-color: #f5f5f5;
+	background-color: var(--bg-sub);
 `;
 
 const FlexWrapper = styled.div`
@@ -38,7 +38,7 @@ const ContentWrapper = styled.div`
 		margin-top: 27px;
 		margin-bottom: 10px;
 		padding-bottom: 13px;
-		border-bottom: 1px solid #ededed;
+		border-bottom: 1px solid var(--border-light);
 	}
 
 	p {
@@ -59,29 +59,32 @@ const ContentWrapper = styled.div`
 	}
 
 	a {
-		color: #999;
-		border-bottom: 1px solid #999;
+		color: #bcbcbc;
+		border-bottom: 1px solid #bcbcbc;
 		transition: 0.1s;
 		&:hover {
-			color: #2d6514;
-			border-bottom: 1px solid #2d6514;
+			color: var(--tx-point);
+			border-bottom: 1px solid var(--border-point);
 		}
 	}
 
 	blockquote {
 		margin-left: 0;
-		padding: 8px 15px;
-		border-left: 5px solid #2d6514;
-		background-color: #f5f5f5;
+		padding: 10px 15px;
+		border-left: 5px solid var(--border-point);
+		background-color: var(--bg-sub);
+		> p {
+			margin: 0;
+		}
 	}
 
 	/* 코드 블럭 */
 	pre {
-		background: #333;
+		background: var(--bg-dark);
 		border-radius: 5px;
 		padding: 15px 20px;
 		code {
-			color: #f5f5f5;
+			color: var(--tx-bright);
 			font-size: 14px;
 			line-height: 1.5;
 		}
@@ -98,15 +101,15 @@ const ContentWrapper = styled.div`
 	> ul {
 		padding: 20px 0;
 		padding-left: 40px;
-		background-color: #e4f2dd;
-		border-top: 1px dashed #b8d8a9;
-		border-bottom: 1px dashed #b8d8a9;
+		background-color: var(--bg-subpoint);
+		border-top: 1px dashed var(--border-subpoint);
+		border-bottom: 1px dashed var(--border-subpoint);
 	}
 
 	.image-wrapper {
 		margin: 25px 0;
 		.description {
-			color: #333;
+			color: var(--tx-main);
 			font-size: 14px;
 		}
 	}
@@ -115,12 +118,11 @@ const ContentWrapper = styled.div`
 const Summary = styled.p`
 	margin-top: 10px;
 	font-size: 16px;
-	color: #555;
 `;
 
 const StyledDate = styled.p`
 	margin-top: 5px;
 	font-size: 14px;
 	text-align: right;
-	color: #666;
+	color: var(--tx-sub);
 `;

@@ -33,7 +33,7 @@ const Title = styled.p`
 
 const StyledDate = styled.p`
 	font-size: 12px;
-	color: #333;
+	color: var(--tx-sub);
 `;
 
 const ContentWrapper = styled.div`

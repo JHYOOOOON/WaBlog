@@ -8,9 +8,6 @@ const Footer = () => {
 				<GithubIcon />
 			</a>
 			<Copyright>&copy; {new Date().getFullYear()} Jeonghyun Yoon</Copyright>
-			<a href="https://wablog.vercel.app">
-				<BlogUrl>wablog.vercel.app</BlogUrl>
-			</a>
 		</FooterWrapper>
 	);
 };
@@ -22,7 +19,7 @@ const FooterWrapper = styled.footer`
 	align-items: center;
 	margin-top: 100px;
 	padding: 30px 0 20px 0;
-	border-top: 1px solid #ededed;
+	border-top: 1px solid var(--border-light);
 `;
 
 const GithubIcon = styled(AiFillGithub)`
@@ -32,13 +29,13 @@ const GithubIcon = styled(AiFillGithub)`
 const Copyright = styled.p`
 	margin: 5px 0;
 	font-size: 14px;
-	color: #333;
+	color: var(--tx-main);
 `;
 
 const BlogUrl = styled.p`
 	margin: 7px 0;
 	font-size: 14px;
-	color: #333;
+	color: var(--tx-main);
 `;
 
 export default Footer;

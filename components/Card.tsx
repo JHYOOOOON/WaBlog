@@ -100,7 +100,7 @@ const ArrowButton = styled.button`
 	width: 55px;
 	height: 55px;
 	cursor: pointer;
-	background-color: #fff;
+	background-color: var(--bg-main);
 	border-radius: 50%;
 	border: none;
 	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;

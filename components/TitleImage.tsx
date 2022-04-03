@@ -48,7 +48,7 @@ const TitleImageWrapper = styled.div`
 		left: 0;
 		width: 100%;
 		height: 100%;
-		padding: 25px 30px;
+		padding: 35px 40px;
 		z-index: 1;
 	}
 	&:hover div {

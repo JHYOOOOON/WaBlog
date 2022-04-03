@@ -49,32 +49,33 @@ const SearchWrapper = styled.div`
 	position: relative;
 	display: flex;
 	align-items: center;
-	background-color: #f9fafb;
+	background-color: var(--bg-main);
 	margin-bottom: 45px;
 `;
 
 const SearchIcon = styled(IoIosSearch)`
 	position: absolute;
 	left: 15px;
-	color: #b5b5b5;
+	color: var(--tx-bright);
 	font-size: 20px;
 `;
 
 const Input = styled.input`
 	flex: 1;
 	border-radius: 30px;
-	border: 2px solid #c4c3c3;
+	border: 2px solid var(--tx-bright);
 	padding: 10px 10px 10px 40px;
 	width: 100%;
 	font-size: 18px;
 	background: transparent;
 	transition: 0.2s;
 	&::placeholder {
-		color: #b5b5b5;
+		font-family: inherit;
+		color: var(--tx-bright);
 	}
 	&:focus {
 		outline: none;
-		border: 2px solid #7c9d39;
+		border: 2px solid var(--border-subpoint);
 	}
 `;
 

@@ -24,12 +24,35 @@
 		url("./fonts/woff/NotoSansKR-Black.woff") format("woff");
 }
 
+:root {
+	--bg-main: #f9fafb;
+	--bg-sub: #f0eeee;
+	--bg-code: #e4f2dd;
+	--bg-dark: #333;
+	--bg-point: #2d6514;
+	--bg-subpoint: #e4f2dd;
+	--border-main: #999;
+	--border-sub: #b8d8a9;
+	--border-point: #2d6514;
+	--border-subpoint: #7c9d39;
+	--border-light: #ededed;
+	--tx-point: #2d6514;
+	--tx-main: #333;
+	--tx-sub: #555;
+	--tx-link: #dfdfdf;
+	--tx-bright: #f9fafb;
+}
+
 html,
 body,
 #__next {
-	background-color: #f9fafb;
 	width: 100%;
 	height: 100%;
+}
+
+body {
+	color: var(--tx-main);
+	background-color: #f9fafb;
 }
 
 * {
