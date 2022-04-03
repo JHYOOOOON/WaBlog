@@ -109,7 +109,7 @@ const ContentWrapper = styled.div`
 `;
 
 const Summary = styled.p`
-	margin-top: 10px;
+	margin-top: 7px;
 	font-size: 16px;
 `;
 

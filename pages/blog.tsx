@@ -56,14 +56,14 @@ const SearchWrapper = styled.div`
 const SearchIcon = styled(IoIosSearch)`
 	position: absolute;
 	left: 15px;
-	color: var(--tx-bright);
+	color: var(--tx-sub);
 	font-size: 20px;
 `;
 
 const Input = styled.input`
 	flex: 1;
 	border-radius: 30px;
-	border: 2px solid var(--tx-bright);
+	border: 2px solid var(--border-main);
 	padding: 10px 10px 10px 40px;
 	width: 100%;
 	font-size: 18px;
@@ -71,7 +71,7 @@ const Input = styled.input`
 	transition: 0.2s;
 	&::placeholder {
 		font-family: inherit;
-		color: var(--tx-bright);
+		color: var(--tx-sub);
 	}
 	&:focus {
 		outline: none;
