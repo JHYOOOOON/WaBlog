@@ -33,7 +33,7 @@ const Pyongpyong = keyframes`
 const TitleImageWrapper = styled.div`
 	position: relative;
 	max-height: 270px;
-	min-height: max-content;
+	min-height: 180px;
 	height: 60%;
 	border-radius: 20px;
 	overflow: hidden;
