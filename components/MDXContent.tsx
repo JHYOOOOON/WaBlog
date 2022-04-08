@@ -32,6 +32,10 @@ const ContentWrapper = styled.div`
 		border-bottom: 1px solid var(--border-light);
 	}
 
+	strong {
+		font-weight: 700;
+	}
+
 	p {
 		margin-top: 15px;
 		margin-bottom: 20px;
@@ -45,8 +49,13 @@ const ContentWrapper = styled.div`
 		}
 	}
 
+	em {
+		font-style: italic;
+	}
+
 	img {
-		max-width: 400px;
+		max-width: 90%;
+		margin: 15px 0;
 	}
 
 	a {
@@ -82,6 +91,7 @@ const ContentWrapper = styled.div`
 	}
 
 	ul {
+		box-sizing: border-box;
 		padding-left: 25px;
 		padding-right: 15px;
 		list-style-type: circle;

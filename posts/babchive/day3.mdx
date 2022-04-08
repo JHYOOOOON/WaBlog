@@ -1,0 +1,110 @@
+---
+title: "벚꽃이 폈다"
+summary: "ref를 자식에게 넘겨주려면?"
+date: "2022.04.08"
+thumbnailUrl: "/static/images/babchive/day3/20220407.jpg"
+---
+
+<div align="center">
+	<img src="/static/images/babchive/day3/20220407.jpg" width="300px" alt="벚꽃" />
+</div>
+
+## 🌸 엄청난 봄
+
+> 출퇴근 할 때는 하나도 안 보였는데, 꽃이 만개했더라.
+
+오늘은 금요일! 뭔데 벌써 금요일이냐  
+어제 회사 동료분들이랑 점심시간에 벚꽃을 보러 다녀왔다.  
+이렇게 꽃 보러가는 게 얼마만인지.. 근 2년은 코로나때문에 집에만 있었던 것 같다.  
+간만에 꽃 보니까 봄이 온 게 실감도 나고, 환기되는 기분이었다!  
+능률이 쬐꼼 더 올라간 것 같기도..?👀
+
+<div align="center">
+	<img src="/static/images/babchive/day3/20220408.jpg" width="300px" alt="버즈라이브" />
+</div>
+
+그리고 오늘은 대망의 버즈라이브가 왔다.  
+큰맘 먹고 산 강낭콩. 과연 얼마나 자주 쓸 것인지.  
+착용감이 호불호가 갈린다는데 나는 괜찮았다.  
+유선이어폰 쓸 때는 볼륨 2칸이면 적당했는데, 이건 더 올려도 이게 소리가 큰 건지 작은 건지 잘 모르겠다.  
+다들 어떻게 쓰고 있는거지..?
+
+## 🫱 ref를 자식에게 props로 넘겨주려면?
+
+ref는 DOM에 접근하는 방법 중 하나이다.  
+내가 써본 DOM에 접근하는 방법은 크게 두 가지가 있는데,  
+첫번째는 `DOM Selector`를 이용하는 방법, 두번째는 `useRef`를 이용한 방법이다.
+
+**🍀 DOM Selector**  
+&nbsp;우리가 흔히 알고 자주 쓰는 바로 그 `querySeletor`, `getElementById` 같은 것들이다. React에서는 이와 같은 Selector의 사용을 지양해야한다고 어디선가 주워들었던 것 같다. 왜지..? ~~늘 쓰지말라는 소리만 어디서 주워듣고 왜 쓰지 말라고 했는지는 기억을 못하는 것 같다.~~  
+&nbsp;React는 `Virtual DOM`을 사용한다. 그런데 이 `DOM Selector` 친구들을 사용하게 되면 `Real DOM`에 접근하게 된다. 그렇게 되면, `React LifeCycle` 밖에서 접근하게 됐을 경우, 이 친구가 지금 가상돔에도 존재하고 있는 친구인지 보장할 수 없는 값이 된다. 그래서 `React Lifecycle`을 고려해 지금 가상돔에 이 친구가 있는 걸 신뢰할 수 있는 ref를 쓰자는 얘기가 나왔던 것이다. (그렇구나🤔)
+
+**🍀 useRef**  
+&nbsp;`useRef`는 DOM에 접근하는 편리한 방법이다. `useRef.current`를 통해 원하는 친구에게 접근할 수 있는데, 이 current 값이 바뀐다고 해서 리렌더링이 일어나지는 않는다(변경된 걸 알려주지 않음!).
+
+👉 사용 방법
+
+```
+function App() {
+	const inputRef = useRef(null);
+	useEffect(() => { console.log(inputRef, ":::inputRef") }, []);
+	return (
+		<div className="App">
+		<input type="text" ref={inputRef}/>
+		</div>
+	);
+}
+```
+
+→ 한 번 렌더링이 된 다음에 적용이 되기 때문에, `useEffect` 안에서 출력해 확인해볼 수 있다. `useEffect` 밖에서 출력해보면 아직 값이 할당되기 전이기 때문에 `null`이 나오는 걸 볼 수 있다.
+
+&nbsp;그래서 글을 쓰게 된 이유는, 어떠한 이유로 부모 컴포넌트에서 자식 컴포넌트 안에 있는 친구를 접근해야할 때가 있다.
+
+```
+function App() {
+  const [text, setText] = useState("");
+  const inputRef = useRef(null);
+
+  const handleClick = () => {
+    setText(inputRef.current.value);
+  }
+
+  return (
+    <StyledApp className="App">
+      <Flex>
+        <Text>{text}</Text>
+        <Button onClick={handleClick}>불러오기</Button>
+      </Flex>
+      <Line />
+      <Input ref={inputRef} />
+    </StyledApp>
+  );
+}
+
+const Input = forwardRef((props, ref) => {
+  return <StyledInput type="text" {...props} ref={ref} />
+})
+```
+
+<div align="center">
+	<img src="/static/images/babchive/day3/example.png" width="1000px" alt="시연" />
+</div>
+
+적절한지는 모르겠지만 예시를 만들어봤는데..  
+이럴 경우, 부모에서 ref를 내려주면 콘솔창에서 forwardRef를 쓰라고 경고한다.  
+그래서 이번에 써보게 된 것이다!
+
+근데 `forwardRef`를 안 써도 꼼수로 넘어갈 수가 있더라.  
+바로바로 ref로 넘겨주는 게 아니고 다른 이름으로 넘겨주는 방법!  
+꼼수긴 하지만, 안 쓸 수 있는데 `forwardRef`를 왜 써야할까?  
+궁금해서 찾아봤다.
+
+[스택오버플로우](https://stackoverflow.com/questions/60961526/react-forwardref-is-already-possible-without-it-so-whats-the-use-of-it)에서 나랑 똑같은 생각을 하는 사람을 찾을 수 있었다.  
+답변 왈: 혼자 개발하는 사람이라면 괜찮지만, 여러명이 같이 개발하는 상황에서는 알아보기 쉽게 약속을 지켜 작성해야한다.  
+_💡 그렇구나!_  
+그치만 스택오버플로우가 공식문서는 아니니까 참고만 해야지.
+
+오늘 공부한 건 이게 끝이다.  
+고생했다!
+
+-끝-
