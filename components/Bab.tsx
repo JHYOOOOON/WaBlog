@@ -1,11 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import styled from "@emotion/styled";
 
 const Bab = ({ title, date, thumbnailUrl, slug, ...rest }) => {
 	return (
 		<Link href={`/babchive/${slug}`} passHref>
 			<BabWrapper>
-				<Thumbnail src={thumbnailUrl} alt={title} />
+				<Thumbnail layout="fill" objectFit="cover" src={thumbnailUrl} alt={title} />
 				<ContentWrapper className="content-wrapper">
 					<Title>{title}</Title>
 					<StyledDate>{date}</StyledDate>
@@ -17,7 +18,7 @@ const Bab = ({ title, date, thumbnailUrl, slug, ...rest }) => {
 
 export default Bab;
 
-const Thumbnail = styled.img`
+const Thumbnail = styled(Image)`
 	position: absolute;
 	top: 0;
 	left: 0;

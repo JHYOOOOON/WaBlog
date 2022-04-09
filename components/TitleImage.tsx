@@ -1,4 +1,5 @@
 import { keyframes } from "@emotion/react";
+import Image from "next/image";
 import styled from "@emotion/styled";
 
 const TitleImage = () => {
@@ -9,7 +10,12 @@ const TitleImage = () => {
 				<Title>Have a Nice Day!</Title>
 				<SubTitle>Frontend Developer, Jeonghyun</SubTitle>
 			</div>
-			<Image src="/static/images/banner.jpg" alt="title image" />
+			<StyledImage
+				layout="fill"
+				objectFit="cover"
+				src="/static/images/banner.jpg"
+				alt="title image"
+			/>
 		</TitleImageWrapper>
 	);
 };
@@ -77,10 +83,9 @@ const SubTitle = styled.p`
 	font-size: 16px;
 `;
 
-const Image = styled.img`
+const StyledImage = styled(Image)`
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
 	transition: 0.2s;
 `;
