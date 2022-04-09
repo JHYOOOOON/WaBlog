@@ -53,6 +53,10 @@ const ContentWrapper = styled.div`
 		font-style: italic;
 	}
 
+	del {
+		text-decoration-line: line-through;
+	}
+
 	img {
 		max-width: 90%;
 		margin: 15px 0;
@@ -83,6 +87,7 @@ const ContentWrapper = styled.div`
 		background: var(--bg-dark);
 		border-radius: 5px;
 		padding: 15px 20px;
+		overflow-x: auto;
 		code {
 			color: var(--tx-bright);
 			font-size: 14px;
