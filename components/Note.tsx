@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import styled from "@emotion/styled";
 
-const Bab = ({ title, date, thumbnailUrl, slug, ...rest }) => {
+const Memo = ({ title, date, thumbnailUrl, slug, ...rest }) => {
 	return (
-		<Link href={`/babchive/${slug}`} passHref>
+		<Link href={`/memo/${slug}`} passHref>
 			<BabWrapper>
 				<Thumbnail layout="fill" objectFit="cover" src={thumbnailUrl} alt={title} />
 				<ContentWrapper className="content-wrapper">
@@ -16,7 +16,7 @@ const Bab = ({ title, date, thumbnailUrl, slug, ...rest }) => {
 	);
 };
 
-export default Bab;
+export default Memo;
 
 const Thumbnail = styled(Image)`
 	position: absolute;

@@ -24,9 +24,9 @@ const Blog = defineDocumentType(() => ({
 	},
 }));
 
-const Babchive = defineDocumentType(() => ({
-	name: "Babchive",
-	filePathPattern: "babchive/*.mdx",
+const Memo = defineDocumentType(() => ({
+	name: "Memo",
+	filePathPattern: "memo/*.mdx",
 	contentType: "mdx",
 	fields: {
 		title: { type: "string", required: true },
@@ -44,7 +44,7 @@ const Babchive = defineDocumentType(() => ({
 
 const contentLayerConfig = makeSource({
 	contentDirPath: "posts",
-	documentTypes: [Blog, Babchive],
+	documentTypes: [Blog, Memo],
 	mdx: {
 		remarkPlugins: [remarkGfm],
 		rehypePlugins: [

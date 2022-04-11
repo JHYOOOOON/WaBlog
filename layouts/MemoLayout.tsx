@@ -1,7 +1,7 @@
 import Container from "components/Container";
 import MDXContent from "components/MDXContent";
 
-const BabchiveLayout = ({ post, children }) => {
+const MemoLayout = ({ post, children }) => {
 	return (
 		<Container
 			title={`wablog - ${post.title}`}
@@ -17,4 +17,4 @@ const BabchiveLayout = ({ post, children }) => {
 	);
 };
 
-export default BabchiveLayout;
+export default MemoLayout;
