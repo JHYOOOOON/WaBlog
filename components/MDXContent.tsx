@@ -107,7 +107,7 @@ const ContentWrapper = styled.div`
 	}
 
 	> ul {
-		padding: 20px 0;
+		padding: 20px 15px;
 		padding-left: 40px;
 		background-color: var(--bg-subpoint);
 		border-top: 1px dashed var(--border-subpoint);

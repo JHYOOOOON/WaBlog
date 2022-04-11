@@ -1,0 +1,86 @@
+---
+title: "220411"
+summary: "useRecoilCallback은 어렵다"
+date: "2022.04.11"
+thumbnailUrl: "/static/images/memo/day4/20220411.jpg"
+---
+
+<div align="center">
+	<img src="/static/images/memo/day4/20220411.jpg" width="300px" alt="떡볶이" />
+</div>
+
+## 🤤 4시만 되면 배가 고파지는..
+
+> 회사 다니면 원래 다 이런건가? 학생 때도 안 그랬는데
+
+오늘은 일 하다보니 좀 늦게 퇴근해서 집에 8시쯤에 들어왔다.  
+진심 배에서 천둥쳐서 집에 오자마자 떡볶이 만들어서 허겁지겁 먹었다.  
+마켓컬리에서 산 금미옥 떡볶이.. 이 떡볶이는 국물떡볶이계의 전설이다.  
+맵찔이도 먹을 수 있는 진짜로 안 매운 떡볶이. 최고다.
+
+<div align="center">
+	<img src="/static/images/memo/day4/091420.jpg" width="300px" alt="고구마라떼" />
+</div>
+
+그리고 요즘 거의 매일 내 아침을 책임지는 고구마라떼. 엄청 달고 맛있다.  
+이거 먹으면 아침에 살 것 같다. 아무래도 밥보다는 잠이기에..
+
+## 🚙 useRecoilCallback이란?
+
+_⚠️ 모든 걸 써본 게 아니기 때문에 써본 내용만 적음주의_
+
+[Recoil 공식문서](https://recoiljs.org/ko/docs/api-reference/core/useRecoilCallback/)에는 이렇게 적혀있다.
+
+- atom 혹은 selector가 업데이트 될 때 리렌더링하기 위해 React 컴포넌트를 구독하지 않고 비동기적으로 Recoil 상태를 읽기 위해 사용하기
+- 렌더링 할 때에 수행하고 싶지 않은 비동기 동작에 대한 값비싼 조회를 연기할 때
+- Recoil 상태에 읽거나 쓰려는 경우 부수효과가 실행시킵니다.
+- 렌더링 시점에 어떤 atom 혹은 selector가 업데이트를 원하는지 모르는 atom 혹은 selector를 동적으로 업데이트하므로 useSetRecoilState() 는 사용할 수 없습니다.
+- 렌더링 이전에 데이터를 미리 가져옵니다.(Pre-fetching)
+
+공부할 때는 '그런가보다~' 또는 '이게 무슨 말이지'하고 넘기는데, 솔직히 실제로 써보기 전까지는 잘 모른다.  
+뭐든 직접 써보는 게 짱인 것 같다.
+
+위에 나열한 것 중에 렌더링 이전에 데이터를 미리 가져오는 게 무슨 말인지 실제 코드를 짜보면서 이해하게 됐다.  
+나는 `atom`이랑 `selector`값을 가져다 쓸 때 구독하고 있는 친구들이 업데이트가 되면 알아서 업데이트 해주는줄 알았다.  
+그런데 코드를 짜보니, 해당 값들이 내가 생각했던대로 업데이트가 안 되는 것이다..! (두둥)  
+그래서 찾아봤더니 리렌더링될 때 친구들 값이 업데이트 되는 것이었던 것이었던 것이었다.  
+맨날 내가 틀렸다는 걸 받아들이는 순간들의 연속인 것 같다. 엄청난 진화중..
+
+암튼, 나는 리렌더링되기 이전에 변경된 값이 필요한 상태였다. 이걸 어떡하나 하고 있었는데 `useRecoilCallback`이 있다는 조언을 받았고, 적용했더니 놀랍게도 잘 동작하더라.  
+렌더링 이전에 값을 불러오는 게 되네? 그저 신기..
+
+```
+const logCartItems = useRecoilCallback(({ snapshot }) => async () => {
+	const numItemsInCart = await snapshot.getPromise(itemsInCart);
+	return numItemsInCart;
+});
+```
+
+공식문서에 있는 코드인데 이런 식으로 업데이트 된 값이 필요할 때 `async-await`을 이용해 리턴되는 값을 받아서 사용했다.
+
+```
+type CallbackInterface = {
+  snapshot: Snapshot,
+  gotoSnapshot: Snapshot => void,
+  set: <T>(RecoilState<T>, (T => T) | T) => void,
+  reset: <T>(RecoilState<T>) => void,
+  refresh: <T>(RecoilValue<T>) => void,
+  transact_UNSTABLE: ((TransactionInterface) => void) => void,
+};
+
+function useRecoilCallback<Args, ReturnValue>(
+  callback: CallbackInterface => (...Args) => ReturnValue,
+  deps?: $ReadOnlyArray<mixed>,
+): (...Args) => ReturnValue
+```
+
+공식문서에 있는 예제코드이다.  
+`snapshot`은 말그대로 스냅사진이다! 해당 함수가 호출 됐을 때 찍히는 사진.  
+그래서 딱 그 순간에 찍힌 사진에 있는 `atom`, `selector`들을 불러올 수 있다.  
+이 스냅샷을 찍어서 이전의 스냅샷으로 이동하고 이런 것도 할 수 있더라. 그러면 이전 사진을 찍었던 때로 돌아가서 그 때의 state들을 이용할 수 있다!  
+그리고 `useRecoilCallback`에 첫번째 인자로 들어가는 함수 파라미터에 `snapshot` 외에도 `gotoSnapshot`, `set`, `reset`, `refresh`를 넣을 수 있다.
+안 써봤기 때문에 써보고 이어서 작성해야지..
+
+그렇다.
+
+-끝-
