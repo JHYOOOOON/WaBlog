@@ -2,21 +2,20 @@ import Link from "next/link";
 import Image from "next/image";
 import styled from "@emotion/styled";
 
-const Memo = ({ title, date, thumbnailUrl, slug, ...rest }) => {
+const Note = ({ title, date, thumbnailUrl, slug, ...rest }) => {
 	return (
 		<Link href={`/memo/${slug}`} passHref>
-			<BabWrapper>
+			<NoteWrapper>
 				<Thumbnail layout="fill" objectFit="cover" src={thumbnailUrl} alt={title} />
 				<ContentWrapper className="content-wrapper">
 					<Title>{title}</Title>
-					<StyledDate>{date}</StyledDate>
 				</ContentWrapper>
-			</BabWrapper>
+			</NoteWrapper>
 		</Link>
 	);
 };
 
-export default Memo;
+export default Note;
 
 const Thumbnail = styled(Image)`
 	position: absolute;
@@ -30,11 +29,6 @@ const Thumbnail = styled(Image)`
 const Title = styled.p`
 	font-size: 18px;
 	margin-bottom: 3px;
-`;
-
-const StyledDate = styled.p`
-	font-size: 12px;
-	color: var(--tx-sub);
 `;
 
 const ContentWrapper = styled.div`
@@ -51,7 +45,7 @@ const ContentWrapper = styled.div`
 	transition: 0.2s;
 `;
 
-const BabWrapper = styled.div`
+const NoteWrapper = styled.div`
 	overflow: hidden;
 	position: relative;
 	cursor: pointer;
