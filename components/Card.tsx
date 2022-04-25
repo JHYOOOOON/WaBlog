@@ -52,7 +52,10 @@ const Thumbnail = styled.img`
 `;
 
 const Title = styled.p`
+	width: 90%;
 	font-size: 20px;
+	line-height: 1.15;
+	word-break: keep-all;
 `;
 
 const Summary = styled.p`
@@ -65,11 +68,13 @@ const Summary = styled.p`
 	word-wrap: break-word;
 	line-height: 1.2em;
 	height: 2.4em;
+	color: var(--tx-sub);
 `;
 
 const StyledDate = styled.span`
 	font-size: 14px;
-	color: gray;
+	margin-top: 5px;
+	color: var(--tx-sub);
 `;
 
 const Gogo = keyframes`

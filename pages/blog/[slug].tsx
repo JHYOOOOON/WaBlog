@@ -1,14 +1,14 @@
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { allBlogs } from "contentlayer/generated";
 import type { Blog } from "contentlayer/generated";
-import Container from "components/Container";
+import BlogLayout from "layouts/BlogLayout";
 
 export default function Post({ post }: { post: Blog }) {
-	const Component = useMDXComponent(post.body.code);
+	const MDXComponent = useMDXComponent(post.body.code);
 	return (
-		<Container>
-			<Component />
-		</Container>
+		<BlogLayout post={post}>
+			<MDXComponent />
+		</BlogLayout>
 	);
 }
 

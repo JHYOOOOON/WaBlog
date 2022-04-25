@@ -1,0 +1,185 @@
+---
+title: "자바스크립트로 알고리즘을 풀다보면 자주 찾게되는 것들"
+summary: "다른 분들은 어떠실지 모르겠지만 일단 저는 자주 찾습니다"
+date: "2022.04.25"
+thumbnailUrl: "/static/images/blog/20220425.jpg"
+---
+
+<div align="center">
+	<img src="/static/images/blog/20220425.jpg" width="300px" alt="도망가는 검은고양이" />
+</div>
+
+## 🤔 왜 이런 글을?
+
+들어가기에 앞서, ~~저는 기억력이 좋지 않습니다.~~  
+그래서 늘 단점을 극복하고자 메모를 하곤 하는데요. 알고리즘을 풀 때는 꼭 같은 걸 찾아보게 되더라고요.  
+`나 같은 사람이 있지 않을까?` 싶어서 제가 정리한 것들을 공유합니다.
+
+## 👀 자주 찾게되는 것들
+
+### 🌟 2차원 배열 선언 및 초기화하기
+
+일단, 1차원 배열은 이런 식으로 선언하고 초기화합니다.
+
+```
+    const arr = Array(배열 길이).fill(초기화할 값);
+
+    const ex = Array(5).fill(5);
+    // [5, 5, 5, 5, 5]
+```
+
+2차원 배열은?
+
+```
+    const arr = Array.from(Array(행 길이), () => Array(열 길이).fill(초기화할 값));
+
+    const ex = Array.from(Array(2), () => Array(3).fill(0));
+    // [ [ 0, 0, 0 ], [ 0, 0, 0 ] ]
+```
+
+그런데 2차원 배열을 동적으로 선언하고 싶다? 그렇다면?
+
+```
+    const array = Array.from(Array(행 길이), () => new Array());
+
+    const graph = Array.from(Array(n+1), () => new Array());
+    console.log(graph);
+    graph[0].push(1);
+    console.log(graph);
+
+    // [
+    //     [], [], [], [],
+    //     [], [], []
+    // ]
+
+    // [
+    //     [ 1 ], [], [],
+    //     [],    [], [],
+    //     []
+    // ]
+```
+
+그렇습니다.
+
+### 🌟 indexOf와 findIndex
+
+`indexOf`는
+
+```
+    const arr = ['월', '화', '수', '목', '금'];
+    console.log(arr.indexOf('월'));
+    console.log(arr.indexOf('토'));
+
+    // 0
+    // -1
+```
+
+이렇게 해당 원소가 배열에 있을 경우에는 해당 인덱스를, 없을 경우 -1을 반환해줍니다.
+
+`findIndex`는
+
+```
+    const arr = ['월', '화', '수', '목', '금'];
+    console.log(arr.findIndex((element) => element === '월'));
+    console.log(arr.findIndex((element) => element === '토'));
+    console.log(arr.findIndex((element) => element.length === 1));
+
+    // 0
+    // -1
+    // 1
+```
+
+콜백함수를 넣어줘야합니다. 조건을 넣어서 그에 해당하는 인덱스를 반환합니다.  
+`indexOf`와 마찬가지로 있을 경우, 해당 인덱스 / 없을 경우, -1을 반환해주고,  
+만약 조건을 만족하는 친구들이 많을 경우, 제일 앞의 인덱스를 반환합니다.
+
+### 🌟 forEach와 map
+
+`forEach`는 for문과 비슷합니다. 한 바퀴 돌아줍니다. 저는 `forEach`를 for문처럼 씁니다.  
+`map`은 바뀐 배열을 반환해줍니다. 기존에 있던 배열을 수정하지 않습니다.
+
+```
+    const arr = ['월', '화', '수', '목', '금'];
+    const n_arr = arr.forEach((element) => {
+        console.log(element);
+        return element += "요일"
+    });
+    console.log(arr, n_arr);
+
+    // 월
+    // 화
+    // 수
+    // 목
+    // 금
+    // [ '월', '화', '수', '목', '금' ] undefined
+```
+
+그렇습니다. `forEach`는 정말 한 바퀴만 돌아주고 뭐 달라지는 게 없습니다.
+
+```
+    const arr = ['월', '화', '수', '목', '금'];
+    const n_arr = arr.map((element) => {
+        console.log(element);
+        return element += "요일"
+    });
+    console.log(arr, n_arr);
+
+    // 월
+    // 화
+    // 수
+    // 목
+    // 금
+    // ["월", "화", "수", "목", "금"], ["월요일", "화요일", "수요일", "목요일", "금요일"]
+
+```
+
+그와 달리 `map`은? 한 바퀴 돌면서 원래 있던 배열은 그대로 두고, 바뀐 배열을 리턴해줍니다.
+그렇습니다.
+
+### 🌟 slice와 splice
+
+둘 다 똑같이 자르는 건데 뭐가 다를까? 궁금하죠..  
+맨날 찾아보는데 매번 기억 못해서 계속 찾아보는 부분입니다.
+
+`slice`는
+
+```
+    const arr = ['월', '화', '수', '목', '금'];
+    const n_arr = arr.slice(0, 3);
+    console.log(arr, n_arr);
+
+    // [ '월', '화', '수', '목', '금' ] [ '월', '화', '수' ]
+```
+
+얕은 복사로 `시작점 < 원소 < 시작점+개수` 범위를 잘라줍니다.  
+기존 배열은 건드리지 않고, 바뀐 배열을 리턴해줍니다.
+
+`splice`는?
+
+```
+    const arr = ['월', '화', '수', '목', '금'];
+    const n_arr = arr.splice(0, 1);
+    console.log(arr, n_arr);
+
+    // [ '화', '수', '목', '금' ] [ '월' ]
+```
+
+자른 배열을 리턴해주고, 기존 배열은 자르고 남은 자투리를 남겨놓습니다.
+이 외에도
+
+```
+    const arr = ['월', '화', '수', '목', '금'];
+    arr.splice(0, 3, '토', '일');
+    console.log(arr);
+
+    // [ '토', '일', '목', '금' ]
+```
+
+이런 식으로 시작점부터 끝점까지 자른 뒤, 전달된 원소로 바꿔주는 기능도 있습니다.  
+저는 지금 정리하면서 처음 알았네요.. (신기)
+
+## 🚀 급 마무리
+
+많이 쌓였다고 생각했는데 정리하다보니 얼마 안 되네요.  
+이 다음부터는 2탄으로 올리거나 업데이트 하도록 하겠습니다.  
+즐거운 하루 되세요!

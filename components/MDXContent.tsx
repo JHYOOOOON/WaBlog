@@ -26,10 +26,18 @@ const ContentWrapper = styled.div`
 	h2 {
 		font-size: 25px;
 		font-weight: 700;
-		margin-top: 27px;
+		margin-top: 35px;
 		margin-bottom: 15px;
 		padding-bottom: 10px;
 		border-bottom: 1px solid var(--border-light);
+	}
+
+	h3 {
+		margin-top: 30px;
+		font-size: 18px;
+		font-weight: 700;
+		background-color: var(--bg-subpoint);
+		padding: 7px 5px;
 	}
 
 	strong {
@@ -124,7 +132,7 @@ const ContentWrapper = styled.div`
 `;
 
 const Summary = styled.p`
-	margin-top: 7px;
+	margin-top: 10px;
 	font-size: 16px;
 `;
 
