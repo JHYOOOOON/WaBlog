@@ -3,9 +3,9 @@ import { InferGetStaticPropsType } from "next";
 import { IoIosSearch } from "react-icons/io";
 import { ChangeEvent, useState } from "react";
 import { allBlogs } from "../.contentlayer/generated";
-import Card from "components/Card";
 import styled from "@emotion/styled";
 import { Description, SectionTitle } from "components/Common.style";
+import Posting from "components/Posting";
 
 const Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
 	const [searchValue, setSearchValue] = useState("");
@@ -27,12 +27,12 @@ const Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
 				<Input value={searchValue} placeholder="Search Posts" onChange={handleSearchChange} />
 			</SearchWrapper>
 
-			<PostsWrapper>
-				{!searchValue && posts.map((post, idx) => <Card key={`post-${idx}`} {...post} />)}
+			<div>
+				{!searchValue && posts.map((post, idx) => <Posting key={`post-${idx}`} {...post} />)}
 				{searchValue &&
 					filteredBlogPosts &&
-					filteredBlogPosts.map((post, idx) => <Card key={`post-${idx}`} {...post} />)}
-			</PostsWrapper>
+					filteredBlogPosts.map((post, idx) => <Posting key={`post-${idx}`} {...post} />)}
+			</div>
 		</Container>
 	);
 };
@@ -77,10 +77,4 @@ const Input = styled.input`
 		outline: none;
 		border: 2px solid var(--border-subpoint);
 	}
-`;
-
-const PostsWrapper = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	gap: 20px;
 `;
