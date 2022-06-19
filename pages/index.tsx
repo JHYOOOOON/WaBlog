@@ -1,46 +1,48 @@
 import styled from "@emotion/styled";
-import TitleImage from "components/TitleImage";
-import { allBlogs } from "contentlayer/generated";
+import { allBlogs, allMemos } from "contentlayer/generated";
 import Component from "components/Container";
-import Card from "components/Card";
+import Posting from "components/Posting";
+import TitleImage from "components/TitleImage";
+import Note from "components/Note";
 
-export default function Home({ posts }) {
+export default function Home({ blogPosts, memoPosts }) {
 	return (
 		<Component>
-			<TitleImage />
 			<section>
+				<SectionTitle>Recent Memos</SectionTitle>
+				<MemoWrapper>
+					{memoPosts.length <= 5
+						? memoPosts.map((post) => <Note key={post.id} {...post} />)
+						: memoPosts.slice(0, 5).map((post) => <Note key={post._id} {...post} />)}
+				</MemoWrapper>
+			</section>
+			<Section>
 				<SectionTitle>Recent Posts</SectionTitle>
 				<PostWrapper>
-					{posts.length <= 7
-						? posts.map((post) => <Card key={post._id} {...post} />)
-						: posts.slice(0, 7).map((post) => {
-								<Card key={post._id} {...post} />;
+					{blogPosts.length <= 5
+						? blogPosts.map((post) => <Posting key={post._id} {...post} />)
+						: blogPosts.slice(0, 7).map((post) => {
+								<Posting key={post._id} {...post} />;
 						  })}
 				</PostWrapper>
-			</section>
+			</Section>
 		</Component>
 	);
 }
 
+const Section = styled.section`
+	margin-top: 45px;
+`;
+
 const PostWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+`;
+
+const MemoWrapper = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-rows: 1fr 1fr 1fr;
+	grid-template-columns: repeat(5, 1fr);
 	gap: 20px;
-
-	& > div:nth-child(1) {
-		grid-column-start: 1;
-		grid-column-end: 3;
-		grid-row-start: 1;
-		grid-row-end: 2;
-	}
-
-	& > div:nth-child(7) {
-		grid-column-start: 2;
-		grid-column-end: 4;
-		grid-row-start: 3;
-		grid-row-end: 4;
-	}
 `;
 
 const SectionTitle = styled.h1`
@@ -50,7 +52,8 @@ const SectionTitle = styled.h1`
 `;
 
 export function getStaticProps() {
-	const posts = allBlogs.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
+	const blogPosts = allBlogs.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
+	const memoPosts = allMemos.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
 
-	return { props: { posts } };
+	return { props: { blogPosts, memoPosts } };
 }
