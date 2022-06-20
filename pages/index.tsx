@@ -43,6 +43,15 @@ const MemoWrapper = styled.div`
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	gap: 20px;
+
+	@media screen and (max-width: 750px) {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 20px;
+		div:nth-child(4),
+		div:nth-child(5) {
+			display: none;
+		}
+	}
 `;
 
 const SectionTitle = styled.h1`
