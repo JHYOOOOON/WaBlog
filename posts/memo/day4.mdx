@@ -49,7 +49,7 @@ _⚠️ 모든 걸 써본 게 아니기 때문에 써본 내용만 적음주의_
 암튼, 나는 리렌더링되기 이전에 변경된 값이 필요한 상태였다. 이걸 어떡하나 하고 있었는데 `useRecoilCallback`이 있다는 조언을 받았고, 적용했더니 놀랍게도 잘 동작하더라.  
 렌더링 이전에 값을 불러오는 게 되네? 그저 신기..
 
-```
+```javascript
 const logCartItems = useRecoilCallback(({ snapshot }) => async () => {
 	const numItemsInCart = await snapshot.getPromise(itemsInCart);
 	return numItemsInCart;
@@ -58,7 +58,7 @@ const logCartItems = useRecoilCallback(({ snapshot }) => async () => {
 
 공식문서에 있는 코드인데 이런 식으로 업데이트 된 값이 필요할 때 `async-await`을 이용해 리턴되는 값을 받아서 사용했다.
 
-```
+```javascript
 type CallbackInterface = {
   snapshot: Snapshot,
   gotoSnapshot: Snapshot => void,

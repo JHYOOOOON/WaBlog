@@ -44,13 +44,15 @@ ref는 DOM에 접근하는 방법 중 하나이다.
 
 👉 사용 방법
 
-```
+```javascript
 function App() {
 	const inputRef = useRef(null);
-	useEffect(() => { console.log(inputRef, ":::inputRef") }, []);
+	useEffect(() => {
+		console.log(inputRef, ":::inputRef");
+	}, []);
 	return (
 		<div className="App">
-		<input type="text" ref={inputRef}/>
+			<input type="text" ref={inputRef} />
 		</div>
 	);
 }
@@ -60,30 +62,30 @@ function App() {
 
 &nbsp;그래서 글을 쓰게 된 이유는, 어떠한 이유로 부모 컴포넌트에서 자식 컴포넌트 안에 있는 친구를 접근해야할 때가 있다.
 
-```
+```javascript
 function App() {
-  const [text, setText] = useState("");
-  const inputRef = useRef(null);
+	const [text, setText] = useState("");
+	const inputRef = useRef(null);
 
-  const handleClick = () => {
-    setText(inputRef.current.value);
-  }
+	const handleClick = () => {
+		setText(inputRef.current.value);
+	};
 
-  return (
-    <StyledApp className="App">
-      <Flex>
-        <Text>{text}</Text>
-        <Button onClick={handleClick}>불러오기</Button>
-      </Flex>
-      <Line />
-      <Input ref={inputRef} />
-    </StyledApp>
-  );
+	return (
+		<StyledApp className="App">
+			<Flex>
+				<Text>{text}</Text>
+				<Button onClick={handleClick}>불러오기</Button>
+			</Flex>
+			<Line />
+			<Input ref={inputRef} />
+		</StyledApp>
+	);
 }
 
 const Input = forwardRef((props, ref) => {
-  return <StyledInput type="text" {...props} ref={ref} />
-})
+	return <StyledInput type="text" {...props} ref={ref} />;
+});
 ```
 
 <div align="center">

@@ -83,3 +83,9 @@ body {
 .token.number {
 	color: rgb(125, 235, 47);
 }
+
+.token.operator,
+.token.punctuation,
+.token.attr-name {
+	color: #8c9d93;
+}
