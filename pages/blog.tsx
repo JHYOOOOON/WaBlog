@@ -27,12 +27,12 @@ const Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
 				<Input value={searchValue} placeholder="Search Posts" onChange={handleSearchChange} />
 			</SearchWrapper>
 
-			<div>
+			<BlogPostWrapper>
 				{!searchValue && posts.map((post, idx) => <Posting key={`post-${idx}`} {...post} />)}
 				{searchValue &&
 					filteredBlogPosts &&
 					filteredBlogPosts.map((post, idx) => <Posting key={`post-${idx}`} {...post} />)}
-			</div>
+			</BlogPostWrapper>
 		</Container>
 	);
 };
@@ -50,7 +50,7 @@ const SearchWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	background-color: var(--bg-main);
-	margin-bottom: 45px;
+	margin-bottom: 25px;
 `;
 
 const SearchIcon = styled(IoIosSearch)`
@@ -77,4 +77,10 @@ const Input = styled.input`
 		outline: none;
 		border: 2px solid var(--border-subpoint);
 	}
+`;
+
+const BlogPostWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 `;
