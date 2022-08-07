@@ -1,0 +1,33 @@
+---
+title: "transform: translate(-50%, -50%) 텍스트 블러 현상"
+summary: "transform: translate(-50%, -50%)를 썼을 때 글자가 흐려짐"
+date: "2022.08.07"
+thumbnailUrl: "/static/images/blog/20220425.jpg"
+---
+
+<div align="center">
+	<img src="/static/images/blog/20220807.jpg" width="300px" alt="이파리" />
+</div>
+
+## 🌟 어디서 발생하는 버그인가?
+
+&nbsp;크롬에서 `transform: translate(-50%, -50%)`를 이용해 엘리먼트를 가운데 정렬하려고 할 때, 해당 엘리먼트 내부의 텍스트가 뿌얘지는 버그가 발생한다.
+([참고 stackoverflow](https://stackoverflow.com/questions/32034574/font-looks-blurry-after-translate-in-chrome))
+
+## 🔮 해결방법
+
+```css
+transform: translate(calc(-50% + 0.5px), calc(-50% + 0.5px));
+```
+
+`0.5px`을 더해주고 빼주는 식으로 해결할 수 있다.
+
+그치만 최선의 방법은 아닌 것 같아, `position: absolute`를 꼭 사용해서 가운데정렬을 해야하는 상황이 아니라면, 다른 방법으로 구현하는 게 더 좋을 거 같다.
+
+정가운데에 정렬하는 또다른 방법으로는 `display: flex`를 이용하는 방법이 있다.
+
+```css
+display: flex;
+justify-content: center;
+align-items: center;
+```
