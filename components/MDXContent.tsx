@@ -24,7 +24,7 @@ const TitleWrapper = styled.div`
 
 const ContentWrapper = styled.div`
 	h2 {
-		font-size: 25px;
+		font-size: 23px;
 		font-weight: 700;
 		margin-top: 35px;
 		margin-bottom: 15px;
@@ -33,7 +33,7 @@ const ContentWrapper = styled.div`
 	}
 
 	h3 {
-		margin-top: 30px;
+		margin-top: 20px;
 		font-size: 18px;
 		font-weight: 700;
 		background-color: var(--bg-subpoint);
