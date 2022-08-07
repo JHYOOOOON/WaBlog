@@ -37,6 +37,7 @@ const Section = styled.section`
 const PostWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
+	gap: 20px;
 `;
 
 const MemoWrapper = styled.div`
@@ -56,7 +57,7 @@ const MemoWrapper = styled.div`
 
 const SectionTitle = styled.h1`
 	font-weight: 700;
-	margin-bottom: 14px;
+	margin-bottom: 15px;
 	font-size: 28px;
 `;
 

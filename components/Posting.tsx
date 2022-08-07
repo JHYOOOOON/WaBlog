@@ -22,7 +22,7 @@ const PostingWrapper = styled.div`
 `;
 
 const Title = styled.p`
-	font-size: 25px;
+	font-size: 22px;
 	font-weight: 700;
 	line-height: 1.25;
 	cursor: pointer;
