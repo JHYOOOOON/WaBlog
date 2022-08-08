@@ -1,0 +1,145 @@
+---
+title: "알고리즘 스터디 1주차"
+summary: "프로그래머스 Lv.1 문제 풀어보기"
+date: "2022.08.08"
+thumbnailUrl: "/static/images/blog/20220808.jpg"
+---
+
+<div align="center">
+	<img src="/static/images/blog/20220808.jpg" width="300px" alt="앉아있는 고양이" />
+</div>
+
+## 🍬 문제 풀면서 든 생각
+
+&nbsp;취업 이전에는 알고리즘을 어떻게든 짧게 풀려고 노력했었는데, 이제는 다른 사람들도 알아보기 쉽게 짜는 걸로 생각이 바뀌었다. 아마 기업에서도 짧고 알아보기 어려운 코드보다는 조금 길더라도 알아보기 쉬운 코드를 짜는 사람을 더 뽑고 싶지 않을까? 예전에는 .. (웃기지만) 너무 겉멋에 치중했던 것 같다. 이번에 알고리즘 스터디하면서 좀더 나은 코드를 짤 수 있도록 노력해야지!
+
+## ⛄️ 최대공약수와 최소공배수(Lv. 1)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12940)
+
+```javascript
+function lcm(a, b) {
+	return (a * b) / gcd(a, b);
+}
+
+function gcd(a, b) {
+	let c;
+	while (b != 0) {
+		c = a % b;
+		a = b;
+		b = c;
+	}
+
+	return a;
+}
+
+function solution(n, m) {
+	return [gcd(n, m), lcm(n, m)];
+}
+```
+
+&nbsp;알고리즘 처음 시작했을 때 많이 풀었던 문제. GCD(Greatest Common Divisor)는 최대공약수, LCM(Least Common Multiple)은 최소공배수이다. 공식처럼 외우고 있어서 가져다가 썼다.
+
+### 유클리드 호제법
+
+> 두 수가 서로 상대방 수를 나누어서 결국 원하는 수를 얻는 방법(`nlogN`)
+
+## 🐥 문자열 내 마음대로 정렬하기(Lv. 1)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12915?language=javascript)
+
+```javascript
+function solution(strings, n) {
+	return strings.sort((a, b) => {
+		if (a[n] === b[n]) {
+			if (a === b) {
+				return 0;
+			} else if (a > b) {
+				return 1;
+			} else {
+				return -1;
+			}
+		} else if (a[n] > b[n]) {
+			return 1;
+		} else {
+			return -1;
+		}
+	});
+}
+```
+
+&nbsp;mdn sort 보고 푼 문제. string은 빼기가 안 되더라 `return a - b` 이런 식으로 늘 풀었었는데.. 그래서 다른 사람 풀이 보니까 `String.prototype.charCodeAt()` 이런 방식으로 숫자로 변경해서 풀더라.
+
+## 🏝 하샤드 수(Lv. 1)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12947?language=javascript)
+
+```javascript
+function solution(x) {
+	let n = x;
+	let sum = 0;
+	while (n >= 1) {
+		sum += n % 10;
+		n = Math.floor(n / 10);
+	}
+
+	return x % sum === 0;
+}
+```
+
+&nbsp;문제 설명에 나와있는 그대로 풀었다. 10으로 나눴을 때의 나머지를 더하면 한 자리수씩 나눠서 더할 수 있다. 자바스크립트는 소수점 밑에 버림을 안 해주기 때문에 `Math.floor()`로 소수점 밑의 숫자를 버려줘가면서 더해주었다.
+
+## ✨ K번째 수(Lv. 1)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42748?language=javascript)
+
+```javascript
+function solution(array, commands) {
+	const answer = [];
+	commands.forEach((command) => {
+		const [i, j, k] = command;
+		answer.push(array.slice(i - 1, j).sort((a, b) => a - b)[k - 1]);
+	});
+	return answer;
+}
+```
+
+&nbsp;`slice`로 자르고 `sort`로 오름차순 정렬한 다음에 k번째 수를 answer 배열에 넣어줬다. 처음에 두 번째 테스트케이스에서 실패했는데, `sort`에 비교 함수를 넣어주니까 해결됐다. 원래 비교 함수 없으면 오름차순으로 알아서 정렬되는 게 아닌가..? 좀더 알아봐야할 것 같다.
+
+## 🏃 완주하지 못한 선수(Lv. 1)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42576)
+
+```javascript
+function solution(participant, completion) {
+	participant.sort();
+	completion.sort();
+
+	for (let index = 0; index < completion.length; index++) {
+		if (completion[index] !== participant[index]) {
+			return participant[index];
+		}
+	}
+
+	return participant[participant.length - 1];
+}
+```
+
+&nbsp;처음에는 `filter`로 완주자에 이름 없는 사람들 다 거른 다음에 한 명 남은 사람 리턴해주는 방식으로 했는데, 효율성에서 0점 받았다. 그래서 그 다음에는 처음부터 다 오름차순으로 정렬시켜준 다음, 같은 index에 같은 이름이 아닐 경우! 해당 참여자를 리턴시켜줬다.
+
+## 🐹 폰켓몬(Lv. 1)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/1845?language=javascript)
+
+```javascript
+function solution(nums) {
+	const ponkemon = new Set(nums).size;
+	return nums.length / 2 < ponkemon ? nums.length / 2 : ponkemon;
+}
+```
+
+&nbsp;일단 nums에서 중복되는 원소들을 제거해줬다. `new Set(Array)`하게 되면 중복이 제거된 친구들이 남는다. 그런 다음, `N/2`마리를 선택한다고 했으니, 만약에 `N/2`마리가 중복 제거된 개수보다 적으면, `N/2`를, 아닐 경우에는 중복 제거된 개수를 리턴해주면 된다.(최대 N/2마리까지 선택 가능하기 때문)
+
+## 😎 다음주는
+
+&nbsp;간만에 알고리즘 푸니까 리프레쉬도 되고 재밌었다. 다음주는 스택, 큐, 덱이다. 계속해서 가보자고~

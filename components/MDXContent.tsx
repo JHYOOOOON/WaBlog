@@ -34,6 +34,7 @@ const ContentWrapper = styled.div`
 
 	h3 {
 		margin-top: 20px;
+		margin-bottom: 10px;
 		font-size: 18px;
 		font-weight: 700;
 		background-color: var(--bg-subpoint);
