@@ -19,6 +19,13 @@ const PostingWrapper = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
+	&:first-child {
+		padding-top: 0;
+	}
+	padding: 15px 0;
+	&:not(:last-child) {
+		border-bottom: 1px solid var(--border-light);
+	}
 `;
 
 const Title = styled.p`

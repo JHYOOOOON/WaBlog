@@ -37,7 +37,6 @@ const Section = styled.section`
 const PostWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
 `;
 
 const MemoWrapper = styled.div`
