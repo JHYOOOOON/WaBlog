@@ -22,7 +22,7 @@ const PostingWrapper = styled.div`
 	&:first-child {
 		padding-top: 0;
 	}
-	padding: 15px 0;
+	padding: 18px 0;
 	&:not(:last-child) {
 		border-bottom: 1px solid var(--border-light);
 	}
