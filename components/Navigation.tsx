@@ -1,15 +1,33 @@
-import Link from "next/link";
-import { useState } from "react";
-import styled from "@emotion/styled";
-import navData from "data/navData";
-import { css } from "@emotion/react";
+import { useEffect, useState } from "react";
+import _ from "lodash";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
+import navData from "data/navData";
+
+const MOBILE_WIDTH = 750;
+const TIME_FOR_CHECK_MOBILE = 500;
 
 const Navigation = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const router = useRouter();
 
 	const handleHamburger = () => setIsOpen((prev) => !prev);
+
+	useEffect(() => {
+		const checkIsMobile = () => {
+			if (window.innerWidth < MOBILE_WIDTH) {
+				setIsOpen(false);
+			}
+		};
+
+		window.addEventListener("resize", _.throttle(checkIsMobile, TIME_FOR_CHECK_MOBILE));
+
+		return () => {
+			window.removeEventListener("resize", _.throttle(checkIsMobile, TIME_FOR_CHECK_MOBILE));
+		};
+	}, []);
 
 	return (
 		<NavWrapper>
@@ -80,7 +98,7 @@ const Hamburger = styled.div<{ isOpen: boolean }>`
 			}
 		`}
 
-	@media screen and (max-width: 750px) {
+	@media screen and (max-width: ${MOBILE_WIDTH}px) {
 		display: block;
 	}
 `;
