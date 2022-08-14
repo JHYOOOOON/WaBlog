@@ -11,7 +11,7 @@ const Header = () => {
 
 const StyledHeader = styled.header`
 	width: 100%;
-	padding: 7px 15px;
+	padding: 0px 15px;
 `;
 
 export default Header;

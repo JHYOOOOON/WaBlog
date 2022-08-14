@@ -3,9 +3,11 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import navData from "data/navData";
 import { css } from "@emotion/react";
+import { useRouter } from "next/router";
 
 const Navigation = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const router = useRouter();
 
 	const handleHamburger = () => setIsOpen((prev) => !prev);
 
@@ -26,8 +28,10 @@ const Navigation = () => {
 				</NavLeft>
 				<NavRight>
 					{navData.map((data, idx) => (
-						<Link href={`${data.link}`} key={`nav-${idx}`} passHref={true}>
-							<NavItem>{data.name}</NavItem>
+						<Link href={data.link} key={`nav-${idx}`} passHref={true}>
+							<NavItem className={data.link === router.pathname ? "active" : ""}>
+								{data.name}
+							</NavItem>
 						</Link>
 					))}
 				</NavRight>
@@ -174,6 +178,7 @@ const NavItem = styled.li`
 	text-align: center;
 	cursor: pointer;
 	transition: 0.1s;
+	&.active,
 	&:hover {
 		background-color: var(--bg-point);
 		color: var(--tx-bright);
