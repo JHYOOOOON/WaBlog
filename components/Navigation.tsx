@@ -39,7 +39,9 @@ const Navigation = () => {
 			<HamburgerMenu isOpen={isOpen}>
 				{navData.map((data, idx) => (
 					<Link href={`${data.link}`} key={`nav-${idx}`} passHref={true}>
-						<HamburgerMenuItem>{data.name}</HamburgerMenuItem>
+						<HamburgerMenuItem className={data.link === router.pathname ? "active" : ""}>
+							{data.name}
+						</HamburgerMenuItem>
 					</Link>
 				))}
 			</HamburgerMenu>
@@ -134,6 +136,7 @@ const HamburgerMenuItem = styled.li`
 	& + & {
 		border-top: 1px solid var(--border-light);
 	}
+	&.active,
 	&:hover {
 		background-color: var(--bg-point);
 		color: var(--tx-bright);
