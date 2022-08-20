@@ -1,0 +1,183 @@
+---
+title: "알고리즘 스터디 2주차"
+summary: "스택, 큐, 덱"
+date: "2022.08.20"
+thumbnailUrl: "/static/images/blog/20220820.jpg"
+---
+
+<div align="center">
+	<img src="/static/images/blog/20220820.jpg" width="300px" alt="사람 구경하는 고양이" />
+</div>
+
+## 🫧 같은 숫자는 싫어(Lv. 1)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12906)
+
+&nbsp;기본적인 스택 문제. for문을 돌면서 스택이 비었거나 스택 맨 위값이 num과 다르면 스택에 쌓아주었다.
+
+```javascript
+function solution(arr) {
+	const answer = [];
+
+	for (const num of arr) {
+		if (answer.length === 0 || answer[answer.length - 1] !== num) {
+			answer.push(num);
+		}
+	}
+
+	return answer;
+}
+```
+
+## 🐻 크레인 인형뽑기 게임(Lv. 1)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/64061?language=javascript)
+
+&nbsp;문제에 나와있는 그대로 풀었다. move 배열을 돌면서 해당하는 열에서 인형을 뽑아주고, stack의 top 값과 비교해 뽑은 인형과 stack의 맨 위 인형이 같으면 stack에서 인형을 제거해주고 answer에 2씩 더해줬다.
+
+```javascript
+function solution(board, moves) {
+	let answer = 0;
+	const stack = [];
+
+	moves.forEach((move) => {
+		for (let index = 0; index < board.length; index++) {
+			const doll = board[index][move - 1];
+			if (doll !== 0) {
+				if (stack.length && stack[stack.length - 1] === doll) {
+					stack.pop();
+					answer += 2;
+				} else {
+					stack.push(doll);
+				}
+				board[index][move - 1] = 0;
+				break;
+			}
+		}
+	});
+
+	return answer;
+}
+```
+
+## 🥊 올바른 괄호(Lv. 2)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12909)
+
+&nbsp;처음에는 for문 대신에 `forEach`를 이용해서 풀었는데, 효율성 2번에서 시간초과가 나서 for문으로 변경했더니 통과됐다. 성능에서 그렇게까지 많이 차이가 나나..?
+
+&nbsp;s를 index 0부터 돌면서 `(`일 경우에는 stack에 쌓았다. `)`일 경우에는 stack의 맨 위값이 `(`일 경우에 `stack.pop()`을 통해 맨 위값을 빼주고, 그 외의 경우에는 `false`를 바로 리턴해줬다. 그리고 for문을 다 돈 다음에, stack에 값이 남아있으면 올바르지 않은 괄호이기 때문에 (예: `((((`)`false`를 리턴, 비었을 경우 true를 리턴해주었다.
+
+```javascript
+function solution(s) {
+	const stack = [];
+
+	for (const bracket of s) {
+		if (bracket === "(") {
+			stack.push("(");
+		} else {
+			if (stack.length > 0 && stack[stack.length - 1] === "(") {
+				stack.pop();
+			} else {
+				return false;
+			}
+		}
+	}
+
+	return stack.length === 0 ? true : false;
+}
+```
+
+## 🧑‍💻 기능개발(Lv. 2)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42586?language=javascript)
+
+&nbsp;남은 작업 일(`day`)를 계산한 다음, answer가 비어있거나, 최장 작업 일이 현재 작업 일보다 적으면 answer에 1을 넣어주었다. 그 외에 maxDay가 현재 작업 일과 같거나 적으면 answer의 마지막 원소에 하나를 더해줬다(같이 처리되기 때문).
+
+```javascript
+function solution(progresses, speeds) {
+	const answer = [];
+	let maxDay = 0;
+
+	for (let index = 0; index < progresses.length; index++) {
+		const day = Math.ceil((100 - progresses[index]) / speeds[index]);
+
+		if (answer.length === 0 || maxDay < day) {
+			maxDay = day;
+			answer.push(1);
+		} else {
+			answer[answer.length - 1]++;
+		}
+	}
+
+	return answer;
+}
+```
+
+## 🖨 프린터(Lv. 2)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42587)
+
+&nbsp;priorities_index`로 인덱스를 따로 관리하고, priorities 배열을 돌면서 맨 앞의 priority가 priorities 배열의 최댓값 보다 작으면 맨 뒤로 보내고, 아닐 경우 print_count(몇 번째로 프린트되는지)를 1 더해주고 index가 location과 같을 경우 바로 그 값을 리턴해줬다.
+
+```javascript
+function solution(priorities, location) {
+	let print_count = 0;
+	const priorities_index = Array.from(Array(priorities.length).keys());
+
+	while (priorities.length) {
+		const priority = priorities.shift();
+		const index = priorities_index.shift();
+		const max_priority = Math.max(...priorities);
+
+		if (priority < max_priority) {
+			priorities.push(priority);
+			priorities_index.push(index);
+		} else {
+			print_count += 1;
+			if (index === location) {
+				return print_count;
+			}
+		}
+	}
+}
+```
+
+## 🚚 다리를 지나는 트럭(Lv. 2)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42584)
+
+&nbsp;시간을 1씩 증가시켜가면서, total_weights(현재 다리 위에 있는 트럭 무게)를 이용해 풀어줬습니다. 그리고 현재 시간과 다리에 올라와있는 트럭 중 제일 앞에있는 트럭이 다리를 빠져나가는 시간이 같으면 total_weight에서 그 무게를 빼주고 queue(다리)에서 해당 트럭을 빼줬습니다.
+
+```javascript
+function solution(bridge_length, weight, truck_weights) {
+	let time = 0;
+	let index = 0;
+	let total_weights = 0;
+	const queue = [];
+
+	while (++time) {
+		if (queue.length > 0 && queue[0].time === time) {
+			total_weights -= queue[0].weight;
+			queue.shift();
+		}
+
+		if (total_weights + truck_weights[index] <= weight) {
+			total_weights += truck_weights[index];
+			queue.push({
+				weight: truck_weights[index],
+				time: time + bridge_length,
+			});
+			index += 1;
+		}
+
+		if (queue.length === 0 && index === truck_weights.length) break;
+	}
+
+	return time;
+}
+```
+
+## 🪄 소감
+
+&nbsp;이번주 스택, 큐 문제 재밌었다! 공식이 있는 문제가 아니라서 짧은 시간동안 머리 쓰는 게 재밌었던 것 같다. 다음주는 BFS, DFS인데 개념정리가 필요할 것 같다. 가보자고~
