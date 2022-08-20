@@ -12,17 +12,17 @@ export default function Home({ blogPosts, memoPosts }) {
 				<SectionTitle>Recent Memos</SectionTitle>
 				<MemoWrapper>
 					{memoPosts.length <= 5
-						? memoPosts.map((post) => <Note key={post.id} {...post} />)
-						: memoPosts.slice(0, 5).map((post) => <Note key={post._id} {...post} />)}
+						? memoPosts.map((post) => <Note key={`note_${post._id}`} {...post} />)
+						: memoPosts.slice(0, 5).map((post) => <Note key={`note_${post._id}`} {...post} />)}
 				</MemoWrapper>
 			</section>
 			<Section>
 				<SectionTitle>Recent Posts</SectionTitle>
 				<PostWrapper>
 					{blogPosts.length <= 5
-						? blogPosts.map((post) => <Posting key={post._id} {...post} />)
+						? blogPosts.map((post) => <Posting key={`blog_${post._id}`} {...post} />)
 						: blogPosts.slice(0, 7).map((post) => {
-								<Posting key={post._id} {...post} />;
+								<Posting key={`blog_${post._id}`} {...post} />;
 						  })}
 				</PostWrapper>
 			</Section>
