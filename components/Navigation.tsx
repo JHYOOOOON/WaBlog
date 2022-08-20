@@ -47,7 +47,9 @@ const Navigation = () => {
 				<NavRight>
 					{navData.map((data, idx) => (
 						<Link href={data.link} key={`nav-${idx}`} passHref={true}>
-							<NavItem className={data.link === router.pathname ? "active" : ""}>
+							<NavItem
+								className={data.link === `/${router.pathname.split("/")[1]}` ? "active" : ""}
+							>
 								{data.name}
 							</NavItem>
 						</Link>
@@ -57,7 +59,9 @@ const Navigation = () => {
 			<HamburgerMenu isOpen={isOpen}>
 				{navData.map((data, idx) => (
 					<Link href={`${data.link}`} key={`nav-${idx}`} passHref={true}>
-						<HamburgerMenuItem className={data.link === router.pathname ? "active" : ""}>
+						<HamburgerMenuItem
+							className={data.link === `/${router.pathname.split("/")[1]}` ? "active" : ""}
+						>
 							{data.name}
 						</HamburgerMenuItem>
 					</Link>
