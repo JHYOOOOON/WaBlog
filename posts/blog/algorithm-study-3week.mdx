@@ -1,0 +1,196 @@
+---
+title: "알고리즘 스터디 3주차"
+summary: "BFS, DFS"
+date: "2022.08.23"
+thumbnailUrl: "/static/images/blog/20220823.jpg"
+---
+
+<div align="center">
+	<img src="/static/images/blog/20220823.jpg" width="300px" alt="떡잎방범대" />
+</div>
+
+## 🕹 게임 맵 최단거리(Lv. 2)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/1844)
+
+&nbsp;BFS로 풀었다. 시작점(0, 0)을 큐에 넣고 큐가 비기 전까지 while문을 돌았다. x, y가 도착점일 경우에는 바로 해당 지점의 visited 값을 리턴해주었다(제일 처음 나오는 값이 최솟값이기 때문). while문을 빠져나온 시점에는 -1을 리턴해주었다. 도착지점에 도착하지 못했기 때문이다!
+
+```javascript
+function solution(maps) {
+	const ROW = maps.length;
+	const COL = maps[0].length;
+	const dx = [0, 1, 0, -1];
+	const dy = [-1, 0, 1, 0];
+	const visited = Array.from(Array(ROW), () => Array(COL).fill(-1));
+	const queue = [];
+
+	visited[0][0] = 1;
+	queue.push([0, 0]);
+
+	while (queue.length) {
+		const [x, y] = queue.shift();
+		if (x === ROW - 1 && y === COL - 1) return visited[x][y];
+		for (let index = 0; index < 4; index++) {
+			const nx = x + dx[index];
+			const ny = y + dy[index];
+			if (nx < 0 || nx >= ROW || ny < 0 || ny >= COL) continue;
+			if (visited[nx][ny] >= 0 || maps[nx][ny] === 0) continue;
+			visited[nx][ny] = visited[x][y] + 1;
+			queue.push([nx, ny]);
+		}
+	}
+
+	return -1;
+}
+```
+
+## 🔫 타겟 넘버(Lv. 2)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43165)
+
+&nbsp;재귀함수를 이용해 풀었다. total에 numbers 배열의 해당 index 값을 더하고, 빼주면서 numbers 배열 끝까지 다 돌았고, total이 target 값과 같으면 answer에 카운트 해주었다.
+
+```javascript
+function solution(numbers, target) {
+	let answer = 0;
+
+	const checkTarget = (numbers, target, index, total) => {
+		if (index === numbers.length) {
+			if (total === target) {
+				answer += 1;
+			}
+			return;
+		}
+
+		checkTarget(numbers, target, index + 1, total + numbers[index]);
+		checkTarget(numbers, target, index + 1, total - numbers[index]);
+	};
+
+	checkTarget(numbers, target, 0, 0);
+
+	return answer;
+}
+```
+
+## 🧙 단어 변환(Lv. 3)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43163)
+
+&nbsp;DFS로 풀었다. `checkChange`에서 for문으로 words 배열의 처음부터 끝까지 돌면서, 변환하는 데 사용하지 않은 단어(`isUsed[index] === false`)면서 현재 단어와 알파벳 하나 차이날 때! `isUsed[index]`를 true로 해주고 다음 단어로 변환한 다음 `isUsed[index]`를 다시 false로 바꿔주었다. (이렇게 해야 이번 depth에서 다음 index가 현재 index의 isUsed 배열 변화에 영향을 받지 않기 때문)
+
+```javascript
+const MAX = 50 + 1;
+
+function solution(begin, target, words) {
+	let answer = MAX;
+	const isUsed = Array.from({ length: words.length }, () => false);
+
+	const checkChange = (word, stage) => {
+		if (word === target) {
+			if (answer > stage) {
+				answer = stage;
+			}
+			return;
+		}
+
+		for (let index = 0; index < words.length; index++) {
+			if (isUsed[index]) continue;
+			if (isDiffOne(word, words[index])) {
+				isUsed[index] = true;
+				checkChange(words[index], stage + 1);
+				isUsed[index] = false;
+			}
+		}
+	};
+
+	const isDiffOne = (a, b) => {
+		let count = 0;
+		for (let index = 0; index < a.length; index++) {
+			if (a[index] !== b[index]) {
+				count++;
+				if (count > 1) {
+					return false;
+				}
+			}
+		}
+		return true;
+	};
+
+	checkChange(begin, 0);
+
+	return answer === MAX ? 0 : answer;
+}
+```
+
+## 🪢 네트워크(Lv. 3)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43162)
+
+&nbsp;DFS로 풀었다. for문으로 돌면서 start 컴퓨터가 방문되지 않았을 때, answer를 1 증가시키고, 해당 컴퓨터와 연결된 친구들을 다 방문처리 해주도록 했다. 그렇게되면 만약에 1, 2, 3 / 4 이렇게 연결이면 start가 1일 때, answer는 1이고 1, 2, 3이 방문처리 되게 되고, start 2, 3, 4는 이미 방문처리 됐기 때문에 지나간 뒤, start가 4일 때 4가 방문처리 되고 answer가 2가 되게 된다.
+
+```javascript
+function solution(n, computers) {
+	let answer = 0;
+	const visited = Array.from(Array(n), () => false);
+
+	const dfs = (start) => {
+		visited[start] = true;
+
+		for (let index = 0; index < n; index++) {
+			if (computers[start][index] && visited[index] === false) {
+				dfs(index);
+			}
+		}
+	};
+
+	for (let start = 0; start < n; start++) {
+		if (visited[start] === false) {
+			dfs(start);
+			answer += 1;
+		}
+	}
+
+	return answer;
+}
+```
+
+## 🚄 여행 경로(Lv. 3)
+
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43164)
+
+&nbsp;DFS로 풀었다. paths에 가능한 모든 경로를 담도록 했다. 그리고 마지막에 sort한 뒤 첫 번째 경로를 리턴해줬다. dfs 함수 내부를 보면, depth가 tickets.length와 같을 때, 즉 모든 티켓을 다 돌았을 때의 경로를 paths에 담아주고 리턴하도록 했다. 그리고 그 밑에 for문은, tickets의 길이만큼 돌면서 만약 해당 티켓을 사용하지 않았고, 그 티켓의 출발지점이 현재 출발지점(before)과 같을 때, 티켓 사용 처리 후 한 depth 더 들어가도록 했다.
+
+```javascript
+function solution(tickets) {
+	const paths = [];
+	const isUsed = Array.from(Array(tickets.length), () => false);
+
+	const dfs = (before, path, depth) => {
+		if (depth === tickets.length) {
+			paths.push(path);
+			return;
+		}
+
+		for (let index = 0; index < tickets.length; index++) {
+			if (isUsed[index] === false) {
+				const [departure, destination] = tickets[index];
+				if (departure === before) {
+					isUsed[index] = true;
+					dfs(destination, path.concat(destination), depth + 1);
+					isUsed[index] = false;
+				}
+			}
+		}
+	};
+
+	dfs("ICN", ["ICN"], 0);
+
+	return paths.sort()[0];
+}
+```
+
+## 🍒 소감
+
+&nbsp;이번주에는 bfs, dfs 문제를 풀었다. 타겟 넘버 같은 경우에는 bfs인지 dfs인지 안 쓰고 재귀함수를 이용했다고 적었는데, 저게 dfs가 맞나라는 생각이 든다. 맞나..? 아직 확실한 개념 이해가 좀 부족한 것 같다. 풀기는 어째저째 푸는데.. 문제를 풀 때 유형을 금방 캐치하면 좀 더 풀기 쉬울 것 같다.
+
+&nbsp;벌써 이번 알고리즘 스터디 마지막주만 남았다. 끝까지 화이팅!
