@@ -1,9 +1,9 @@
-#Wablog
+# Wablog
 
 ## Description
 
-NextJS를 공부하기 위해 만든 개인블로그입니다.
-SSG 방식으로 동작합니다.
+NextJS를 공부하기 위해 만든 개인블로그입니다.<br/>
+SSG 방식으로 동작합니다.<br/>
 [wablog.vercel.app](https://wablog.vercel.app)
 
 ## Skills
