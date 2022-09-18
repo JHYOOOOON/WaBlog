@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { allBlogs, allMemos } from "contentlayer/generated";
 import Component from "components/Container";
 import Posting from "components/Posting";
-import TitleImage from "components/TitleImage";
 import Note from "components/Note";
 
 export default function Home({ blogPosts, memoPosts }) {
@@ -11,19 +10,13 @@ export default function Home({ blogPosts, memoPosts }) {
 			<section>
 				<SectionTitle>Recent Memos</SectionTitle>
 				<MemoWrapper>
-					{memoPosts.length <= 5
-						? memoPosts.map((post) => <Note key={`note_${post._id}`} {...post} />)
-						: memoPosts.slice(0, 5).map((post) => <Note key={`note_${post._id}`} {...post} />)}
+					{memoPosts.map((post) => <Note key={`note_${post._id}`} {...post} />)}
 				</MemoWrapper>
 			</section>
 			<Section>
 				<SectionTitle>Recent Posts</SectionTitle>
 				<PostWrapper>
-					{blogPosts.length <= 5
-						? blogPosts.map((post) => <Posting key={`blog_${post._id}`} {...post} />)
-						: blogPosts.slice(0, 7).map((post) => {
-								<Posting key={`blog_${post._id}`} {...post} />;
-						  })}
+					{blogPosts.map((post) => <Posting key={`blog_${post._id}`} {...post} />)}
 				</PostWrapper>
 			</Section>
 		</Component>
@@ -61,8 +54,8 @@ const SectionTitle = styled.h1`
 `;
 
 export function getStaticProps() {
-	const blogPosts = allBlogs.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
-	const memoPosts = allMemos.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
+	const blogPosts = allBlogs.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date))).slice(0, 5);
+	const memoPosts = allMemos.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date))).slice(0, 5);
 
 	return { props: { blogPosts, memoPosts } };
 }
