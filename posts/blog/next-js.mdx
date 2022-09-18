@@ -1,0 +1,92 @@
+---
+title: "NextJS가 뭘까?"
+summary: "그동한 조사했던 NextJS 압축 설명 모음집"
+date: "2022.09.18"
+thumbnailUrl: "/static/images/blog/next-js/nextjs.png"
+---
+
+<div align="center">
+	<img src="/static/images/blog/next-js/nextjs.png" width="300px" alt="next.js 로고" />
+</div>
+
+## 🌿 Next.js란?
+&nbsp;vercel팀에서 만든 React Framework로 주요 장점으로는 `SSR/SSG`, `SEO`, `동적 라우팅` 등이 있다.
+
+## 🐸 장점
+&nbsp;사용하는 여러가지 장점들이 있지만, 그중에서도 핵심이라고 생각되는 3가지 장점을 소개한다. 더 많은 내용은 [NextJS 공식 홈페이지](https://nextjs.org/)에서 확인할 수 있다.
+
+### 🐶 SSG/SSR
+&nbsp;두 방식 모두 클라이언트 단에 처음부터 서버에서 만들어진 HTML을 그려줄 수 있다는 공통점이 있다.
+- SSG(Static Site Generation)<br/>
+	<img src="/static/images/blog/next-js/ssg.png" width="300px" alt="SSG description image"/><br/>
+	빌드 시간에 만들어진 HTML을 요청에 따라 <strong>재사용</strong>한다.<br/>
+	(블로그, 마켓팅 사이트 등 요청에 따라 응답이 매번 변화하지 않는 사이트에 사용)
+- SSR(Server Side Rendering)<br/>
+	<img src="/static/images/blog/next-js/ssr.png" width="300px" alt="SSR description image"/><br/>
+    요청에 따라 <strong>그때그때</strong> HTML을 생성한다.<br/>
+    (실시간으로 요청에 따라 응답이 다른 사이트에 사용)
+
+### 🐱 SEO(Search Engine Optimization)
+&nbsp;구글 검색창에 검색어를 입력하고 엔터를 눌렀을 때, 검색 결과가 나오는 과정은 다음과 같다.
+<div style={{display: "flex", gap: "10px"}}>
+	<img src="/static/images/blog/next-js/googlebot.png" width="300px" alt="Google bot"/>
+	<div>
+		- 크롤러가 페이지 데이터를 추출한다.
+		- 기준에 따른 순위를 세운다.
+		- 순위에 따른 검색 결과를 노출한다.
+	</div>
+</div>
+&nbsp;검색 엔진을 최적화하기 위해서는 다음과 같은 내용을 고려해야한다. ([링크 참고](https://developers.google.com/search/docs/beginner/seo-starter-guide?hl=ko))
+- title 및 meta 태그를 때에 따라 알맞게 수정
+- 시멘틱 마크업 작성
+- 사용자가 원하는 콘텐츠 작성(콘텐츠 최적화) 등
+
+**👀 리액트와의 차이점**
+
+<div style={{display: "flex", gap: "10px"}}>
+	<img src="/static/images/blog/next-js/react.png" width="300px" alt="React description"/>
+	<div>
+		**React**
+		- 처음에 빈 페이지 렌더
+			→ `SEO` 문제 발생
+		- JS가 로드 된 후, 리렌더링
+	</div>
+</div>
+<br/>
+<div style={{display: "flex", gap: "10px"}}>
+	<img src="/static/images/blog/next-js/next.png" width="300px" alt="Next description"/>
+	<div>
+		**Next**
+		- 처음에 서버에서 만들어진 HTML 렌더
+		- JS가 로드 된 후, 인터랙티브 컴포넌트만 활성화 작업
+	</div>
+</div>
+
+⇒ 각 1번의 이유로 실행속도에서도 많은 차이가 남
+
+**🧐 React의 SEO 문제를 극복하기 위한 노력**
+
+&nbsp;React 사용자들은 이러한 문제를 해결하기 위해 [React-helmet](https://www.npmjs.com/package/react-helmet)이라는 라이브러리를 사용한다.
+<blockquote>
+💡 **React-helmet이란?**
+
+&nbsp;React에서 head 태그 내부요소(title, meta 태그 등)를 동적으로 변경하기 위해 사용하는 라이브러리
+</blockquote>
+
+=> 그래서 대부분 안정적인 SEO 지원을 위해, SSR, SSG 렌더링 방식을 지원하는 프레임워크를 사용한다.
+
+&nbsp;React 프레임워크로는 `Next`, `Gatsby`, `Remix` 등이 있다. 개발자들은 어떤 프레임워크를 선호하나 궁금해서 찾아봤는데 [인기차트](https://npmtrends.com/gatsby-vs-next-vs-remix)를 보니 `Next`가 현재로서는 압도적인 인기를 끌고 있는 것을 볼 수 있었다. 대박..!
+
+### ✅ 동적 라우팅
+- `React`에서는 `React-router-dom`와 `React.lazy`등을 이용해 구현
+- `Next`에서는 기본 제공
+    - pages 폴더 아래에 폴더 또는 파일을 만들 경우 경로를 생성
+    - 경로가 `pages/file/[id]`일 경우, `file/123152413`
+
+실제로 사용해보면 `Next`가 훨씬 간단하다.
+
+
+## 🐴 주저리
+&nbsp;`Next`를 조사하고 정리하는 과정에서 이 블로그를 만들었는데, 아직 `Next`에서 제공해주는 장점들을 100% 활용하지는 못한 것 같다. 앞으로 사이드 프로젝트를 몇 가지 진행하면서 이용해보고 더 좋은 점이 있으면 포스팅 할 계획이다. 사이드 프로젝트를 진행하려고 하는 이유는, 신기술을 접하는 건 늘 새롭고 재밌지만, 한 편으로는 정보의 양이 방대해서 어떤 게 맞고 어떤 게 틀린지 판단하는 게 조금 힘든 것 같다. 그래서 직접 겪어보면서 깨닫는 게 제일 나은 것 같다는 결론을 내렸다.
+
+>결론: 다들 `Next` 한 번 잡솨보세요!

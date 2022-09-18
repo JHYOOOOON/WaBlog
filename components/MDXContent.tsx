@@ -37,7 +37,6 @@ const ContentWrapper = styled.div`
 		margin-bottom: 10px;
 		font-size: 18px;
 		font-weight: 700;
-		background-color: var(--bg-subpoint);
 		padding: 7px 5px;
 	}
 
@@ -47,7 +46,7 @@ const ContentWrapper = styled.div`
 
 	p {
 		margin-top: 15px;
-		margin-bottom: 20px;
+		margin-bottom: 15px;
 		line-height: 1.5;
 		code {
 			padding: 1px 3px;
@@ -68,7 +67,7 @@ const ContentWrapper = styled.div`
 
 	img {
 		max-width: 90%;
-		margin: 15px 0;
+		margin: 5px 0;
 	}
 
 	a {
