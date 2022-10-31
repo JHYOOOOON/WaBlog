@@ -66,8 +66,9 @@ const ContentWrapper = styled.div`
 	}
 
 	img {
+		display: block;
 		max-width: 90%;
-		margin: 5px 0;
+		margin: 5px auto;
 	}
 
 	a {
