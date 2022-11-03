@@ -48,7 +48,11 @@ const ContentWrapper = styled.div`
 		margin-top: 15px;
 		margin-bottom: 15px;
 		line-height: 1.5;
-		code {
+	}
+
+	p,
+	li {
+		> code {
 			padding: 1px 3px;
 			border-radius: 3px;
 			background-color: #ededed;
@@ -104,15 +108,30 @@ const ContentWrapper = styled.div`
 		}
 	}
 
-	ul {
-		box-sizing: border-box;
+	ol {
+		list-style-type: decimal;
 		padding-left: 25px;
 		padding-right: 15px;
-		list-style-type: circle;
 		li {
 			line-height: 1.5;
 			margin: 10px 0;
 		}
+	}
+
+	ul {
+		box-sizing: border-box;
+		padding-left: 25px;
+		padding-right: 15px;
+		list-style-type: revert;
+		li {
+			line-height: 1.5;
+			margin: 10px 0;
+		}
+	}
+
+	div > ul {
+		background-color: none;
+		border: none;
 	}
 
 	> ul {

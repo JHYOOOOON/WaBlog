@@ -1,0 +1,83 @@
+---
+title: "React 불필요한 리렌더링 방지하기"
+summary: "메모이제이션 훅(useMemo, useCallback)과 React.memo()"
+date: "2022.11.03"
+thumbnailUrl: "/static/images/blog/20221103.jpg"
+---
+
+<div align="center">
+	<img src="/static/images/blog/20221103.jpg" width="400px" alt="바닷물" />
+</div>
+
+## 🎨 리렌더링이 발생하는 상황
+
+1. 부모 컴포넌트가 리렌더링 될 때
+2. 자신의 `state`가 변경될 때
+3. 전달받은 `props`가 변경될 때
+4. `forceUpdate`(강제 리렌더링) 함수가 실행될 때
+
+## 🤖 메모이제이션이란?
+
+&nbsp;메모이제이션이란 기존의 수행한 연산 결과값을 저장해두고 **동일한 입력이 들어오면 재활용**하는 프로그래밍 기법을 말한다. 즉, 메모이제이션을 적절히 사용하면 중복 연산을 피할 수 있어 메모리를 조금 더 쓰더라도 성능 최적화가 가능하다.
+
+## 📝 useMemo
+
+```javascript
+const memoizedValue = useMemo(() => returnValue, [deps]);
+```
+<br/>
+- 메모이제이션된 **값**을 반환
+- `deps`가 변경됐을 때에만 함수 실행 후, 값을 반환<br/>
+	→ 해당 값이 있는 컴포넌트가 리렌더링 되어도 `deps`가 변경되지 않았으면 그 값을 기억하고 있음
+
+## 🌬 useCallback
+
+```javascript
+const memoizedFunction = useCallback(fn, [deps]);
+```
+<br/>
+- 메모이제이션된 **함수**를 반환
+- `useMemo(() => fn, [deps])`와 같은 동작<br/>
+	→ 해당 함수가 있는 컴포넌트가 리렌더링 되어도 `deps`가 변경되지 않았으면 그 함수를 기억하고 있음
+
+## 💡 React.memo()
+```javascript
+React.memo(Component, callback);
+```
+<br/>
+- 이전 `props`와 현재 `props`를 얕은 비교해 같을 경우, 해당 컴포넌트의 리렌더링을 방지
+- 비교 시에 같은 함수/값이라도 재선언 되었을 경우에 다른 값으로 인지<br/>
+	→ 메모이제이션 훅(`useMemo`, `useCallback`)의 사용이 필요
+- 콜백함수에서 `props` 비교 연산이 가능<br/>
+	→ 콜백함수에서 `true`를 리턴했을 경우, 리렌더링 방지
+
+## 🤔 언제 사용해야할까?
+&nbsp;이것들을 사용해서 메모이제이션 하는 게 좋아보이긴 하는데, 매번 쓰는 게 좋으면 코드 짤 때마다 다 이거 쓸텐데 그러지는 않고.. 언제 사용하는 게 좋을까?
+<div>
+- 사용해보자
+	- 불필요한 재연산, 리렌더링이 자주 일어날 때<br/>
+	- `React.memo`를 이용해 메모이제이션 한 자식 컴포넌트로 함수나 값을 넘겨줄 때
+		- 함수는 `useCallback`, 값은 `useMemo(Object, Array 등 referecne value)`
+		- 부모 컴포넌트가 리렌더링될 때마다 넘겨주는 함수/값이 재선언되어 자식 컴포넌트는 `props`가 달라졌다고 인식하기 때문
+- 다시 생각해보자
+	- 비싼 연산이 아닐 때(`Data Fetching` 등)
+	- 대부분의 경우 `primitive value`는 그냥 계산하는 것이 `useMemo`를 적용하는 것보다 메모리 소모 적음
+	- `useState`의 초기값은 컴포넌트가 언마운트될 때까지 재연산하지 않기 때문에 적용하지 않는 편이 나음
+</div>
+
+## ✅ 더 나아가서,
+> useMemo를 사용하는것과 useState + useEffect는 어떤 차이가 있을까?
+<br/>
+- `useState + useEffect`일 경우, 불필요한 리렌더링 발생<br/>
+	→ 일단 `useState` 초기값을 선언한 다음, `useEffect`로 해당 값을 업데이트 하기 때문
+- 코드의 가독성 측면에서 봤을 때 `useMemo` 하나로 처리하는 게 더 깔끔
+
+## 📚 참고자료
+<div>
+- [Hooks API Reference](https://ko.reactjs.org/docs/hooks-reference.html#usememo)
+- [React Top-Level API](https://reactjs.org/docs/react-api.html)
+- [React.memo() 현명하게 사용하기](https://ui.toast.com/weekly-pick/ko_20190731)
+- [이제는 사용해보자 useMemo & useCallback](https://leehwarang.github.io/2020/05/02/useMemo&useCallback.html)
+- [[React] useEffect dependency array에 object와 array 넣기](https://developer-alle.tistory.com/362)
+- [When Using useMemo is A Really Bad Idea](https://blog.bitsrc.io/when-using-usememo-is-a-really-bad-idea-a2bdeb909812)
+</div>
