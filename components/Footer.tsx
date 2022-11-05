@@ -18,6 +18,7 @@ const Footer = () => {
 };
 
 const FooterWrapper = styled.footer`
+	font-family: inherit;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

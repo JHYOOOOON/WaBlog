@@ -80,12 +80,6 @@ const Hamburger = styled.div<{ isOpen: boolean }>`
 	height: 100%;
 	cursor: pointer;
 
-	&:hover {
-		div > span {
-			background-color: var(--bg-point);
-		}
-	}
-
 	${({ isOpen }) =>
 		isOpen &&
 		css`
@@ -187,6 +181,7 @@ const NavWrapper = styled.nav`
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	font-family: inherit;
 `;
 
 const Nav = styled.div`
