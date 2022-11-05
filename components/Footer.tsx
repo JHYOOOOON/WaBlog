@@ -18,7 +18,6 @@ const Footer = () => {
 };
 
 const FooterWrapper = styled.footer`
-	font-family: inherit;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -42,6 +41,8 @@ const IconWrapper = styled.div`
 `;
 
 const Copyright = styled.p`
+	font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+		Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 	margin: 5px 0;
 	font-size: 14px;
 `;
