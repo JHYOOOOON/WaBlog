@@ -23,18 +23,20 @@ const TitleWrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+	h2, h3, p, li, pre code {
+		line-height: 1.5;
+	}
+
 	h2 {
 		font-size: 23px;
 		font-weight: 700;
 		margin-top: 35px;
-		margin-bottom: 15px;
 		padding-bottom: 10px;
 		border-bottom: 1px solid var(--border-light);
 	}
 
 	h3 {
 		margin-top: 20px;
-		margin-bottom: 10px;
 		font-size: 18px;
 		font-weight: 700;
 		padding: 7px 5px;
@@ -45,9 +47,8 @@ const ContentWrapper = styled.div`
 	}
 
 	p {
-		margin-top: 15px;
-		margin-bottom: 15px;
-		line-height: 1.5;
+		margin-top: 10px;
+		margin-bottom: 10px;
 	}
 
 	p,
@@ -105,7 +106,6 @@ const ContentWrapper = styled.div`
 		code {
 			color: var(--tx-dark);
 			font-size: 15px;
-			line-height: 1.5;
 		}
 
 		.token.keyword {
@@ -152,7 +152,6 @@ const ContentWrapper = styled.div`
 		padding-left: 25px;
 		padding-right: 15px;
 		li {
-			line-height: 1.5;
 			margin: 10px 0;
 		}
 	}
@@ -164,7 +163,6 @@ const ContentWrapper = styled.div`
 		list-style-type: revert;
 		li {
 			word-break: keep-all;
-			line-height: 1.5;
 			margin: 10px 0;
 		}
 	}
