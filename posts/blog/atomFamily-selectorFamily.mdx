@@ -1,0 +1,164 @@
+---
+title: "atomFamily, selectorFamily를 이용한 상태관리"
+summary: "어떻게 하면 상태관리를 보다 더 효율적으로 할 수 있을까?"
+date: "2022.11.05"
+thumbnailUrl: "/static/images/blog/20221105.jpg"
+---
+
+<div align="center">
+	<img
+		src="/static/images/blog/20221105.jpg"
+		width="300px"
+		alt="석촌호수에 뜬 러버덕"
+	/>
+</div>
+
+## 👀 들어가기 전에
+&nbsp;어떻게 하면 리렌더링을 줄이고, 보다 더 효율적인 상태관리를 할 수 있을까 생각하고 있을 때 회사 선배님이 조언해주셨던 `atomFamily`, `selectorFamily`가 생각나 공부한 내용을 정리한 글입니다. 본문은 공부하면서 짠 코드 [TodoList](https://codesandbox.io/s/github/JHYOOOOON/TodoList)를 바탕으로 작성했습니다.
+
+## 💎 atomFamily
+
+`atomFamily`는 `atom`의 집합으로, 매개변수에 따른 `atom`을 제공하는 팩토리 함수를 리턴한다.
+
+> 💡 팩토리 함수는 **객체를 반환하는 함수**를 말한다.
+
+<br />
+```typescript:recoil.ts
+const todoListAtom = atomFamily<Todo, Id>({
+	key: "atomFamily/todoList",
+	default: (id) => ({
+		id,
+		task: "",
+		isDone: false
+	})
+});
+```
+<br/>
+<div>
+- Todo 자리에는 `atom`, Id 자리에는 매개변수 타입 자리
+- `default`에 예시와 같은 형태로 작성할 수 있고, 기본값을 리턴해주는 함수를 넣어줄 수도 있음
+	```javascript
+	/* 공식문서 예시 */
+	const myAtomFamily = atomFamily({
+		key: ‘MyAtom’,
+		default: param => defaultBasedOnParam(param),
+	});
+	```
+</div>
+
+## 🎯 selectorFamily
+`selectorFamily`는 `atom`과 `atomFamily`의 관계와 마찬가지로, 매개변수에 따른 `selector`를 반환하는 팩토리 함수를 리턴한다.
+```typescript:recoil.ts
+export const todoListSelector = selectorFamily<Todo, Id>({
+	key: "selectorFamily/todoList",
+	get: (id) => ({ get }) => get(todoListAtom(id)),
+	set: (id) => ({ get, set, reset }, todo) => {
+	if (todo instanceof DefaultValue) {
+		reset(todoListAtom(id));
+		set(todoIdListAtom, (prev) => prev.filter((todoId) => todoId !== id));
+		return;
+	}
+	set(todoListAtom(id), todo);
+	set(todoIdListAtom, (prev) => Array.from(new Set([...prev, id])));
+	}
+});
+```
+<div>
+	- `get`을 통해 `todoListAtom(id)`값을 가져옴
+	- `set`을 통해 내부에서 `atom`값을 리셋하거나 가져오거나 조작할 수 있음
+		- 해당 selector가 컴포넌트에서 `useResetRecoilState`로 생성되었다면 `todo`는 `DefaultValue`의 인스턴스가 됨
+		- `reset`의 경우, 해당 투두리스트를 리셋해주고, 투두리스트 아이디를 관리하는 상태에서 제거해줌
+		- 그 외의 경우, `atomFamily`에 해당 값을 저장하고, 투두리스트 아이디를 관리하는 상태에 업데이트 해줌
+</div>
+
+## 🤔 투두리스트에 atomFamily/selectorFamily를 이용한 이유
+&nbsp;내가 생각했을 때, 투두리스트 아이템을 관리할 수 있는 방법은 두 가지가 있다.
+1. `atom` 배열로 관리
+	```typescript
+	const todoListAtom = atom<Todo[]>({
+		key: "item",
+		default: []
+	});
+	```
+2. `atomFamily`로 관리
+	```typescript
+	const todoListAtom = atomFamily<Todo, Id>({
+		key: "atomFamily/todoList",
+		default: (id) => ({
+			id,
+			task: "",
+			isDone: false
+		})
+	});
+	```
+
+### 1️⃣ atom으로 관리
+&nbsp;`atom`으로 관리한다면 투두리스트가 추가/제거, 수정될 때마다, `todoListAtom`의 상태가 바뀔 수밖에 없다. 배열 하나로 관리하고 있기 때문에, 아래와 같은 코드로 투두를 추가한다면, 해당 상태를 바라보고 있는 컴포넌트에서는 상태가 업데이트 될 때마다 리렌더링이 일어나게 된다.
+```typescript
+const [todo, setTodo] = useRecoilState(todoListAtom);
+
+const addTodo = (todoItem) => setTodo((prev) => [...prev, todoItem]);
+```
+&nbsp;단, 이 방법을 사용했을 때에는 `id`값을 따로 관리해줄 필요가 없다. 원하는 아이템에 접근할 수 있고, 배열로 관리되고 있기 때문에 `length`를 이용해 투두리스트의 개수를 바로 알 수 있다.
+
+### 2️⃣ atomFamily로 관리
+&nbsp;`atomFamily`로 관리한다면 각 아이템의 상태를 따로 관리하고 있기 때문에, `아이템1`의 값이 수정되거나 `아이템3`이 추가/제거된다고 해도 본인(`아이템2`)의 상태에 영향을 주지 않는다. 따라서, 업데이트되는 해당 아이템 외에는 리렌더링이 발생하지 않는다(각자 본인 상태값만 바라보고 있기 때문).
+```typescript:Input.tsx
+const addTodo = useRecoilCallback(
+	({ set }) => async (task: string) => {
+		const id = v4();
+		set(todoListSelector(id), { id, task, isDone: false });
+	},
+	[]
+);
+```
+
+```typescript:App.tsx
+export default function App() {
+	const todoIdList = useRecoilValue(todoIdListAtom);
+	return (
+	<div className="App">
+		<h1>오늘 할 일</h1>
+		<Input />
+		<ul>
+		{todoIdList.map((id, index) => (
+			<TodoListItem id={id} key={index} />
+		))}
+		</ul>
+	</div>
+	);
+}
+```
+
+```typescript:TodoLisitItem.tsx
+const [todo, setTodo] = useRecoilState(todoListSelector(id));
+const deleteTodo = useResetRecoilState(todoListSelector(id));
+
+/* 중략 */
+
+export default React.memo(TodoListItem);
+```
+&nbsp;단, 이 방법을 사용했을 때에는 `id`값을 관리하는 상태가 따로 필요하다. 내가 이해하기로는 `atomFamily`는 객체같은 형태라, 해당 키 값(매개변수)이 없으면 값에 접근이 불가하고, `length`를 구할 수 없어 현재 리스트가 몇 개 있는지를 가져올 수 없다.
+
+&nbsp;따라서, 위 코드에서도 `id`값을 관리하는 `todoIdListAtom`을 따로 생성하고, 부모에서 `id`값을 props로 넘긴 다음, 자식을 `React.memo()`로 감싸주었다. 이렇게 하면 투두리스트 추가/수정/삭제로 인해 `todoIdListAtom`의 상태가 업데이트 되어 부모가 리렌더링 되더라도, props가 변경되지 않기 때문에 업데이트와 관련되지 않은 자식들은 리렌더링되지 않는다.
+
+&nbsp;각자의 장단점이 있으나, 1번의 경우 상태가 업데이트될 때마다 배열을 계속 새 배열로 갈아끼워 상태를 구독하고 있는 모든 컴포넌트에서 **불필요한 리렌더링이 발생**하는 문제가 있어, 2번 방법이 보다 더 효율적인 상태관리 방법이라고 판단했다.
+
+
+## 💫 마지막으로
+&nbsp;상태 관리하는 여러 방식이 있고, 각각의 장단점이 있기 때문에 꼭 이걸 써야한다는 **정답은 없다**. 그치만, 상황에 따른 최선의 방법은 있을 수 있다고 생각하기 때문에, 앞으로도 최대한 고민해서 그때그때 상황에 맞는 최적의 방법을 찾고 싶다.
+
+&nbsp;앞으로도 열심히 공부해보자~ **아자아자 화이팅🔥**
+
+## 📚 참고자료
+<div>
+- [Recoil 공식문서](https://recoiljs.org/ko/)
+	- `useResetRecoilState`
+	- `useRecoilCallback`
+	- `atomFamily`, `selectorFamily`
+- [Recoil 레시피: 스냅샷과 상태 모니터링](https://taegon.kim/archives/10126)
+- [Recoil atomFamily를 사용한 상태 관리](https://blog.rhostem.com/posts/2021-07-07-state-management-with-recoil-atomfamily)
+- [Recoil atomFamily를 통해 여러 개의 Atom 관리하기(with Typescript)](https://junglast.com/blog/recoil-atomfamily-atom)
+- [React) Recoil의 atomFamily와 selectorFamily 사용해보기](https://velog.io/@2ast/React-Recoil%EC%9D%98-atomFamily%EC%99%80-selectorFamily-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0)
+- [Recoil - 또 다른 React 상태 관리 라이브러리?](https://ui.toast.com/weekly-pick/ko_20200616)
+</div>

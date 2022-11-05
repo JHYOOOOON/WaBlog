@@ -107,6 +107,44 @@ const ContentWrapper = styled.div`
 			font-size: 15px;
 			line-height: 1.5;
 		}
+
+		.token.keyword {
+			color: #8c98f0;
+		}
+
+		.token.property,
+		.token.constant,
+		.token.variable {
+			color: #8642d5;
+		}
+
+		.token.function {
+			color: #226eb1;
+		}
+
+		.token.boolean {
+			color: #fc9ac4;
+		}
+
+		.token.comment {
+			color: #7e7e7e;
+		}
+
+		.token.operator,
+		.token.punctuation,
+		.token.attr-name {
+			color: #999;
+		}
+	}
+
+	.rehype-code-title {
+		color: var(--tx-sub);
+		background-color: var(--bg-subpoint);
+		width: fit-content;
+		padding: 7px 10px;
+		border-radius: 3px 3px 0 0;
+		font-size: 14px;
+		margin-top: 5px;
 	}
 
 	ol {

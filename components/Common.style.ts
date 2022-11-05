@@ -6,6 +6,7 @@ export const SectionTitle = styled.h1`
 	color: var(--border-point);
 	font-size: 35px;
 	font-weight: 700;
+	word-break: keep-all;
 `;
 
 export const Description = styled.p`
