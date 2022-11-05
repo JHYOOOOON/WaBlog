@@ -24,7 +24,7 @@ const Main = styled.main`
 const Container = ({ children, ...customMeta }) => {
 	const router = useRouter();
 	const meta = {
-		title: "wablog - tech, daily blabla",
+		title: "wablog | tech, daily blabla",
 		description: "Frontend developer, friendly and humorous",
 		image: "https://wablog.vercel.app/static/images/banner.jpg",
 		type: "website",

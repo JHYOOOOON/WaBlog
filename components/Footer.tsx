@@ -25,6 +25,7 @@ const FooterWrapper = styled.footer`
 	margin-top: 40px;
 	padding: 30px 0 20px 0;
 	border-top: 1px solid var(--border-light);
+	color: var(--tx-footer);
 `;
 
 const IconWrapper = styled.div`
@@ -42,7 +43,6 @@ const IconWrapper = styled.div`
 const Copyright = styled.p`
 	margin: 5px 0;
 	font-size: 14px;
-	color: var(--tx-main);
 `;
 
 export default Footer;

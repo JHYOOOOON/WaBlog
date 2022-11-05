@@ -8,7 +8,7 @@ const MemoLayout = ({ post, children }) => {
 
 	return (
 		<Container
-			title={`wablog - ${post.title}`}
+			title={`${post.title} | wablog`}
 			description={post.summary}
 			image={post.thumbnailUrl}
 			date={new Date(post.date).toISOString()}

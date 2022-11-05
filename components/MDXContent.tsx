@@ -53,10 +53,11 @@ const ContentWrapper = styled.div`
 	p,
 	li {
 		> code {
-			padding: 1px 3px;
+			padding: 2px 5px;
 			border-radius: 3px;
 			background-color: #ededed;
 			color: #e97e0c;
+			box-sizing: border-box;
 			font-size: 14px;
 		}
 	}
@@ -89,7 +90,7 @@ const ContentWrapper = styled.div`
 		margin-left: 0;
 		padding: 10px 15px;
 		border-left: 5px solid var(--border-point);
-		background-color: var(--bg-sub);
+		background-color: var(--bg-sub-light);
 		> p {
 			margin: 0;
 		}
@@ -97,13 +98,13 @@ const ContentWrapper = styled.div`
 
 	/* 코드 블럭 */
 	pre {
-		background: var(--bg-dark);
-		border-radius: 5px;
+		background: var(--bg-code);
+		border-radius: 3px;
 		padding: 15px 20px;
 		overflow-x: auto;
 		code {
-			color: var(--tx-bright);
-			font-size: 14px;
+			color: var(--tx-dark);
+			font-size: 15px;
 			line-height: 1.5;
 		}
 	}
@@ -124,22 +125,22 @@ const ContentWrapper = styled.div`
 		padding-right: 15px;
 		list-style-type: revert;
 		li {
+			word-break: keep-all;
 			line-height: 1.5;
 			margin: 10px 0;
 		}
 	}
 
 	div > ul {
-		background-color: none;
 		border: none;
 	}
 
 	> ul {
-		padding: 20px 15px;
-		padding-left: 40px;
-		background-color: var(--bg-subpoint);
-		border-top: 1px dashed var(--border-subpoint);
-		border-bottom: 1px dashed var(--border-subpoint);
+		padding: 17px 15px;
+		padding-left: 35px;
+		background-color: var(--bg-list);
+		border: 1px dashed var(--border-subpoint);
+		border-radius: 3px;
 	}
 
 	.image-wrapper {
@@ -154,6 +155,7 @@ const ContentWrapper = styled.div`
 const Summary = styled.p`
 	margin-top: 10px;
 	font-size: 16px;
+	line-height: 1.5;
 `;
 
 const StyledDate = styled.p`

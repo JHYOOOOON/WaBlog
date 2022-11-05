@@ -3,15 +3,15 @@ import styled from "@emotion/styled";
 
 const Posting = ({ title, thumbnailUrl, summary, slug, date, ...rest }) => {
 	return (
-		<PostingWrapper>
-			<div>
-				<Link href={`/blog/${slug}`} passHref>
+		<Link href={`/blog/${slug}`} passHref>
+			<PostingWrapper>
+				<div>
 					<Title>{title}</Title>
-				</Link>
-				<Date>{date}</Date>
-				<Summary>{summary}</Summary>
-			</div>
-		</PostingWrapper>
+					<Date>{date}</Date>
+					<Summary>{summary}</Summary>
+				</div>
+			</PostingWrapper>
+		</Link>
 	);
 };
 
@@ -19,13 +19,19 @@ const PostingWrapper = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
+	padding: 18px 0;
 	&:first-child {
 		padding-top: 0;
 	}
-	padding: 18px 0;
 	&:not(:last-child) {
 		border-bottom: 1px solid var(--border-light);
 	}
+	&:hover {
+		p:first-child {
+			color: var(--tx-point);
+		}
+	}
+	cursor: pointer;
 `;
 
 const Title = styled.p`
@@ -34,15 +40,12 @@ const Title = styled.p`
 	line-height: 1.25;
 	cursor: pointer;
 	transition: color 0.2s;
-	&:hover {
-		color: var(--tx-point);
-	}
 `;
 
 const Date = styled.p`
-	font-size: 14px;
+	font-size: 13px;
 	color: var(--tx-sub);
-	margin: 6px 0;
+	margin: 7px 0 10px 0;
 `;
 
 const Summary = styled.p`
