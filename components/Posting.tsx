@@ -40,6 +40,7 @@ const Title = styled.p`
 	line-height: 1.25;
 	cursor: pointer;
 	transition: color 0.2s;
+	word-break: keep-all;
 `;
 
 const Date = styled.p`
