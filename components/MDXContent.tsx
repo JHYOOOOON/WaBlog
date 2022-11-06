@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { SectionTitle } from "./Common.style";
+import TopButton from "./TopButton";
 
 const MDXContent = ({ title, summary, date, children }) => {
 	return (
@@ -10,6 +11,7 @@ const MDXContent = ({ title, summary, date, children }) => {
 				<StyledDate>{date}</StyledDate>
 			</TitleWrapper>
 			<ContentWrapper>{children}</ContentWrapper>
+			<TopButton />
 		</div>
 	);
 };
@@ -23,7 +25,11 @@ const TitleWrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-	h2, h3, p, li, pre code {
+	h2,
+	h3,
+	p,
+	li,
+	pre code {
 		line-height: 1.5;
 	}
 
