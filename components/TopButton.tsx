@@ -24,7 +24,7 @@ const TopButton = () => {
 	}, []);
 
 	return (
-		<Button className={`${isTopButtonShow && "isShow"} `} onClick={handleTopButtonClick}>
+		<Button className={`${isTopButtonShow ? "isShow" : ""}`} onClick={handleTopButtonClick}>
 			<BsArrowUpShort />
 		</Button>
 	);
@@ -36,6 +36,8 @@ const Button = styled.button`
 	position: fixed;
 	bottom: 2%;
 	right: 2%;
+	visibility: hidden;
+	opacity: 0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -50,6 +52,7 @@ const Button = styled.button`
 	transition: all 0.2s;
 	cursor: pointer;
 	&.isShow {
+		visibility: visible;
 		opacity: 1;
 	}
 	&:hover {
