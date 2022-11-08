@@ -180,7 +180,7 @@ const ContentWrapper = styled.div`
 	> ul {
 		padding: 17px 15px;
 		padding-left: 35px;
-		background-color: var(--bg-list);
+		background-color: var(--bg-white);
 		border: 1px dashed var(--border-subpoint);
 		border-radius: 3px;
 	}
