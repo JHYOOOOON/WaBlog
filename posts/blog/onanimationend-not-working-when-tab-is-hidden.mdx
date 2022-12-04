@@ -1,0 +1,80 @@
+---
+title: "다른 탭을 사용하고 있을 때, onAnimationEnd가 동작을 안 해요"
+summary: "animation, transition not working when tab is inactive site:stackoverflow.com"
+date: "2022.12.04"
+thumbnailUrl: "/static/images/blog/20221204.jpg"
+---
+
+<div align="center">
+	<img src="/static/images/blog/20221204.jpg" width="300px" alt="궁금한 스폰지밥" />
+</div>
+
+## 🙊 다른 탭을 사용하고 있을 때, onAnimationEnd 동작이 이상해
+
+이슈가 하나 올라왔다.
+
+1. 다른 탭을 사용하고 있음
+2. 애니메이션 트리거(이때 애니메이션이 시작되어야함)
+3. 한참 뒤에 해당 탭으로 돌아감 -> 애니메이션이 이때 시작하는 문제가 발생
+
+&nbsp;왓더.. `onAnimationEnd` 이벤트에서 해당 애니메이션을 트리거하는 친구를 제거해주도록 되어있는데 그게 동작을 안 하는 것 같았다. 그래서 처음에는 `onAnimationEnd` 이벤트가 애니메이션의 마지막을 못잡는 것 같아 열심히 구글링했는데 결과는 다음과 같았다.
+
+> 브라우저에서 `animation`과 `transition`은 해당 탭이 활성화되어있을 때에만 동작
+
+&nbsp;애니메이션이 트리거될 때가 아닌 해당 탭이 활성화되었을 때 css 애니메이션이 시작해 발생한 이슈였다.
+
+&nbsp;애니메이션의 또다른 방법인 `requestAnimationFrame`으로 애니메이션을 구현할 경우에는, 대부분의 브라우저에서 성능과 배터리 수명 향상을 위해 백그라운드에서 동작중일 경우에 애니메이션을 멈추게 한다고 한다.
+
+'나는 애니메이션을 동작시킨다음 마지막 타이밍을 잡아야하는데...' 머리를 싸매다가 몇 가지 해결방법을 찾았다.
+
+## 🌝 해결 방법
+
+1. 해당 css 애니메이션을 JS로 구현<br/>
+   처음에는 이 방법을 쓰려고 머리를 짜냈으나 이것보다 더 좋은 방법이 있을 것 같았다.
+2. 탭이 숨겨져있으니 애니메이션을 트리거하지 않음<br/>
+   **당연함. 안 보고 있음.**<br/>
+   생각해보면 해당 탭을 안 보고 있는데 애니메이션을 굳이 그려줄 필요가 없는 것이었다.<br/>
+   그래서 해당 탭이 활성화되어 있을 때에만 이벤트를 트리거해주도록 했다. ~~간단하죠?~~<br/>
+   ```javascript
+   if (document.hidden === false) {
+   	// 이벤트 트리거
+   }
+   ```
+
+## 👀 해당 탭 활성화 여부 체크
+
+> 탭이 활성화되었다는 건? 해당 탭을 **보고 있다는 것**(창 최소화X, 다른 탭 보고 있기X)
+
+<br />
+
+- `visibilitychange` 이벤트<br/>
+  창이 최소화되었을 때, 다른 탭을 볼 때, 해당 탭을 볼 때 등등에 발생하는 이벤트
+  ```javascript
+  document.addEventListener("visibilitychange", () => {
+  	console.log(document.visibilityState);
+  });
+  ```
+- 값
+
+  ```javascript
+  // visible, hidden, prerender, unloaded
+  console.log(document.visibilityState);
+
+  // boolean
+  console.log(document.hidden);
+  ```
+
+  - `visible`: 탭 활성화
+  - `hidden`: 탭 숨겨짐(창 최소화, 다른 탭 활성화, OS 잠금화면 등)
+  - `prerender`: 페이지가 prerender되어 사용자에게 보여지지 않음(`document.hidden` -> `false`)
+  - `unloaded`: 페이지가 메모리에서 로드되지 않음
+
+## 📚 참고문서
+
+<div>
+	- [animationend](https://developer.mozilla.org/en-US/docs/Web/API/Element/animationend_event) 
+    - [visibilitychange](https://developer.mozilla.org/ko/docs/Web/API/Document/visibilitychange_event)
+    - [document.hidden](https://developer.mozilla.org/ko/docs/Web/API/Document/hidden) 
+    - [document.visibilityState](https://developer.mozilla.org/ko/docs/Web/API/Document/visibilityState)
+    - [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame)
+</div>
