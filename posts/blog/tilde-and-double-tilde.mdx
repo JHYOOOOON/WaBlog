@@ -1,0 +1,100 @@
+---
+title: "tilde(~)와 double tilde(~~) 연산자는 어디다 쓰는 걸까"
+summary: "알고리즘 풀다가 처음 본 물결 연산자"
+date: "2023.01.04"
+thumbnailUrl: "/static/images/blog/20230104.jpg"
+---
+
+<div align="center">
+	<img src="/static/images/blog/20230104.jpg" width="300px" alt="쌓인 눈에 찍힌 강아지 발자국" />
+</div>
+
+## ✨ 틸드 연산자란?
+&nbsp;`NOT` 비트 연산자로, 내부에서 32비트로 변환 후 NOT 연산을 실행하게 된다. 결과적으로는 -(n+1) 값을 반환한다.
+> 💡 ~n = -(n+1)
+```javascript:mdn예제
+const a = 5;     // 00000000000000000000000000000101
+const b = -3;    // 11111111111111111111111111111101
+
+console.log(~a); // 11111111111111111111111111111010
+// expected output: -6
+
+console.log(~b); // 00000000000000000000000000000010
+// expected output: 2
+```
+
+그렇다면 이 연산자를 어디다가 사용할까?
+
+자바스크립트에는 찾는 값이 없을 경우, `-1`로 반환되는 몇 가지 메소드들이 있다.
+
+- String.prototype.search()
+- String.prototype.indexOf()
+- Array.prototype.indexOf()
+- Array.prototype.findIndex()
+
+이와 같은 경우에 틸드 연산자를 사용하면 마치 `Boolean` 값인 것처럼 사용이 가능하다.
+
+```javascript
+const weekend = ['토', '일'];
+const target = '금';
+// if (weekend.indexOf(target) !== -1)
+if (~weekend.indexOf(target)) {
+    console.log("찾았다!");
+} else {
+    console.log("이런..");
+}
+```
+&nbsp;`weekend.indexOf(target)`이 `-1`이므로 틸드 연산을 하면 `-(n+1)` → `-(-1+1)=0`이 된다. 따라서 `false` 효과를 내는 것!
+
+> 💡 사실 타겟의 존재 유무만 알고 싶은 거라면 boolean 값으로 반환해주는 Array.prototype.includes(), String.prototype.includes()를 사용하면 된다🤓
+
+## 🌊 이중 틸드 연산자란?
+&nbsp;말그대로 틸드를 두 번 쓴 것! `NOT` 연산을 두 번 한 거라고 생각하면 된다.
+
+그렇다면 이러한 이중 틸드 연산자는 어디다가 사용할까? 별 메리트가 없어보이는데..🤔
+
+&nbsp;틸드 연산자는 기본적으로 `소수점 아래를 버리는 효과`가 있다. 이를 이용해 `Math.floor`와 같은 효과를 낼 수 있다(단, 양수에서만).
+
+```javascript
+const a = 2.34242;
+console.log(~~a); // 2
+console.log(Math.floor(a)); // 2
+
+// 음수에서는 양수와 같은 효과 X
+const b = -1.534;
+console.log(~~b); // -1
+console.log(Math.floor(b)); // -2
+```
+<br/>
+또한, 항상 숫자를 반환하여 `string`을 `number`로 변환할 수 있다.
+```javascript
+console.log(~~"131231"); // 131231
+console.log(~~"-124124"); // -124124
+```
+<br/>
+항상 숫자를 반환한다고 하면 `null`, `undefined`, `NaN`과 같은 친구들은 어떨까?
+```javascript
+console.log(~~NaN); // 0
+console.log(~~undefined); // 0
+console.log(~~null); // 0
+```
+
+<br/>
+그렇군!
+
+<div align="center">
+	<img src="/static/images/blog/good.jpeg" width="200px" alt="라인 따봉 이모티콘" />
+</div>
+
+
+
+## 🫧 주저리
+&nbsp;알고리즘 문제 풀면서 다른 사람의 풀이에서 처음 봐서 찾아봤다. 개인적인 생각으로는 가독성이 좋지 않은 거 같아서 실무에서는 사용하지 않을 거 같고, 알고리즘 문제 풀 때, 나 혼자서 빨리빨리 짤 때나 사용할 것 같다. 처음보는 문법을 발견해서 재밌었다!
+
+## 참고자료
+<div>
+- [Bitwise NOT (~) mdn](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_NOT)
+- [How and when to use the tilde operator (~) in Javascript](https://medium.com/@amishav/how-and-when-to-use-the-tilde-operator-in-javascript-b3030cbbb1e)
+- [JavaScript Tilde ~ (Bitwise Not operator)](https://wsvincent.com/javascript-tilde/)
+- [(ES) ~(Tilde) 연산자](https://perfectacle.github.io/2017/02/13/es-tilt-operator/)
+</div>

@@ -105,7 +105,6 @@ const ContentWrapper = styled.div`
 
 	/* 코드 블럭 */
 	pre {
-		margin-top: 5px;
 		background: var(--bg-code);
 		border-radius: 3px;
 		padding: 15px 20px;
