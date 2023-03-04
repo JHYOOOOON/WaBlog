@@ -132,20 +132,20 @@ const HamburgerMenu = styled.ul<{ isOpen: boolean }>`
 	${({ isOpen }) =>
 		isOpen
 			? css`
-					display: flex;
+					max-height: 180px;
 			  `
 			: css`
-					display: none;
+					max-height: 0;
 			  `}
 	width: 100%;
-	height: 100%;
 	flex-direction: column;
-	z-index: 2;
 	background-color: var(--bg-main);
 	border-radius: 0 0 5px 5px;
 	overflow: hidden;
 	margin-bottom: 15px;
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	transition: max-height 0.2s ease-in-out;
+	z-index: 1100;
 `;
 
 const HamburgerMenuItem = styled.li`
