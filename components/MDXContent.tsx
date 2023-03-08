@@ -77,7 +77,7 @@ const ContentWrapper = styled.div`
 		text-decoration-line: line-through;
 	}
 
-	img {
+	img, iframe {
 		display: block;
 		max-width: 90%;
 		margin: 5px auto;
