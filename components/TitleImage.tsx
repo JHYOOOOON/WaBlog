@@ -1,22 +1,42 @@
+import { useState } from "react";
 import { keyframes } from "@emotion/react";
-import Image from "next/image";
 import styled from "@emotion/styled";
+import Image from "next/image";
 
 const TitleImage = () => {
+	const [hover, setHover] = useState(false);
+
 	return (
-		<TitleImageWrapper>
-			<div>
-				<Emoji>😊💫</Emoji>
-				<Title>Have a Nice Day!</Title>
-				<SubTitle>Frontend Developer, Jeonghyun</SubTitle>
-			</div>
-			<StyledImage
-				layout="fill"
-				objectFit="cover"
-				src="/static/images/banner.jpg"
-				alt="title image"
-			/>
-		</TitleImageWrapper>
+		<a
+			href="https://garrulous-front-8cf.notion.site/87bfa5e43d0d467f9e4fe968022dcb0f"
+			title="이력서 보기"
+			target="_blank"
+			onMouseEnter={() => setHover(true)}
+			onMouseLeave={() => setHover(false)}
+		>
+			<TitleImageWrapper>
+				{hover === false && (
+					<div>
+						<Emoji>😊💫</Emoji>
+						<Title>Have a Nice Day!</Title>
+						<SubTitle>Frontend Developer, Jeonghyun</SubTitle>
+					</div>
+				)}
+				{hover && (
+					<div>
+						<Emoji>🙂🫧</Emoji>
+						<Title>별 탈 없는 하루 되세요</Title>
+						<SubTitle>프론트엔드 개발자, 윤정현</SubTitle>
+					</div>
+				)}
+				<StyledImage
+					layout="fill"
+					objectFit="cover"
+					src="/static/images/banner.jpg"
+					alt="title image"
+				/>
+			</TitleImageWrapper>
+		</a>
 	);
 };
 
@@ -28,7 +48,7 @@ const Pyongpyong = keyframes`
 	}
 
 	70%{
-		transform: translateY(-20%);
+		transform: translateY(-15%);
 	}
 
 	100%{
@@ -54,7 +74,7 @@ const TitleImageWrapper = styled.div`
 		left: 0;
 		width: 100%;
 		height: 100%;
-		padding: 35px 40px;
+		padding: 25px 30px;
 		z-index: 1;
 	}
 	&:hover div {
@@ -75,11 +95,11 @@ const Emoji = styled.span`
 const Title = styled.p`
 	font-size: 28px;
 	font-weight: 700;
+	margin: 5px 0;
 `;
 
 const SubTitle = styled.p`
-	margin-top: 2px;
-	margin-bottom: 0;
+	margin: 0;
 	font-size: 16px;
 `;
 
