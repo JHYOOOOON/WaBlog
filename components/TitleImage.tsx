@@ -11,6 +11,7 @@ const TitleImage = () => {
 			href="https://garrulous-front-8cf.notion.site/87bfa5e43d0d467f9e4fe968022dcb0f"
 			title="이력서 보기"
 			target="_blank"
+			rel="noreferrer"
 			onMouseEnter={() => setHover(true)}
 			onMouseLeave={() => setHover(false)}
 		>
