@@ -7,11 +7,13 @@ import TitleImage from "components/TitleImage";
 export default function Home({ blogPosts }) {
 	return (
 		<Component>
-			<TitleImage/>
+			<TitleImage />
 			<Section>
 				<SectionTitle>Recent Posts</SectionTitle>
 				<PostWrapper>
-					{blogPosts.map((post) => <Posting key={`blog_${post._id}`} {...post} />)}
+					{blogPosts.map((post) => (
+						<Posting key={`blog_${post._id}`} {...post} />
+					))}
 				</PostWrapper>
 			</Section>
 		</Component>
@@ -19,7 +21,7 @@ export default function Home({ blogPosts }) {
 }
 
 const Section = styled.section`
-	margin-top: 45px;
+	margin-top: 30px;
 `;
 
 const PostWrapper = styled.div`
@@ -34,7 +36,9 @@ const SectionTitle = styled.h1`
 `;
 
 export function getStaticProps() {
-	const blogPosts = allBlogs.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date))).slice(0, 5);
+	const blogPosts = allBlogs
+		.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)))
+		.slice(0, 5);
 
 	return { props: { blogPosts } };
 }
