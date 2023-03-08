@@ -8,7 +8,7 @@ const Section = styled.section`
 	display: flex;
 	flex-direction: column;
 	width: 750px;
-	height: 100%;
+	/* height: 100%; */
 	margin: 0 auto;
 
 	@media screen and (max-width: 750px) {
