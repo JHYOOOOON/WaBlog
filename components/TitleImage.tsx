@@ -25,7 +25,7 @@ const TitleImage = () => {
 				)}
 				{hover && (
 					<div>
-						<Emoji>🙂🫧</Emoji>
+						<Emoji>🙂🍀</Emoji>
 						<Title>별 탈 없는 하루 되세요</Title>
 						<SubTitle>프론트엔드 개발자, 윤정현</SubTitle>
 					</div>
