@@ -1,0 +1,54 @@
+---
+title: "이미지 드래그 방지하는 방법"
+summary: "브라우저 내 이미지가 드래그가 되네"
+date: "2023.03.15"
+thumbnailUrl: "/static/images/blog/prevent-image-drag/20230315.jpeg"
+---
+
+<div align="center">
+	<img
+		src="/static/images/blog/prevent-image-drag/20230315.jpeg"
+		width="300px"
+		alt="노래 듣는 스펀지밥"
+	/>
+</div>
+
+## 🙄 브라우저 내 이미지가 드래그가 되네
+
+&nbsp;기능 중에 이미지 드래그\&드롭으로 업로드하는 기능이 있었는데, 컴퓨터에 있는 이미지를 드래그 해서 올리면 이미지가 브라우저에 드래그 되었다는 표시를 그려주는 게 있었다.
+그런데, 생각지도 못한 곳에서 버그가 발생했다. 바로 브라우저 내 이미지를 드래그 했을 때, 드래그 되었다는 표시가 뜨는 것이었다.
+이 버그를 해결하는 과정에서 알게된 이미지 드래그를 막는 방법은 다음과 같다.
+
+## 🫠 브라우저 내 이미지 드래그를 막는 방법
+
+    <img
+        src="/static/images/blog/prevent-image-drag/ghostimage.png"
+        width="150px"
+        alt="img태그 고스트이미지"
+    />
+
+&nbsp;이렇게 브라우저 내에서 이미지를 드래그 했을 때 뜨는 투명한 이미지를 `ghost image`라고 하더라. 이 이미지를 보이지 않기 위해 시도한 두 가지 방법!
+
+1. `img` 태그의 `draggable` 속성을 `false`로 주기
+   ```html
+   <img src="" draggable="false" />
+   ```
+2. css `user-drag`
+
+   ```css
+   img {
+   	-webkit-user-drag: none;
+   	-khtml-user-drag: none;
+   	-moz-user-drag: none;
+   	-o-user-drag: none;
+   }
+   ```
+
+&nbsp;개인적으로 두 번째 방식이 편했다. 1번 같은 경우에는 모든 이미지 태그에 다 넣어줘야하는 거였기 때문에.. 2번을 최상단 element에 적용해주는 것으로 수정했다.
+
+## 📚 참고자료
+
+<div>
+	- [mdn draggable](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable)
+	- [-webkit-user-drag](https://developer.apple.com/library/archive/documentation/AppleApplications/Conceptual/SafariJSProgTopics/DragAndDrop.html#//apple_ref/doc/uid/30001233-178644)
+</div>
