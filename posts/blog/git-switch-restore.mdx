@@ -1,0 +1,33 @@
+---
+title: "git switch와 restore"
+summary: "checkout에서의 기능 분리"
+date: "2023.05.06"
+thumbnailUrl: "/static/images/blog/git.jpeg"
+---
+
+<div align="center">
+	<img src="/static/images/blog/git.jpeg" width="300px" alt="git 로고" />
+</div>
+
+## 👀 switch와 restore
+
+&nbsp;[git 2.23.0](https://git-scm.com/docs/git/2.23.0) 버전에 나온 기능으로, 기존의 `git checkout`의 기능 분리.
+
+<div>
+- `switch`
+	브랜치 생성 및 이동
+	```bash
+	# feature/jhyoon/addTodo 브랜치로 이동
+	git switch feature/jhyoon/addTodo
+
+	# feature/jhyoon/addTodo 브랜치 생성 후 이동
+	git switch -c feature/jhyoon/addTodo
+	```
+
+- `restore`
+	작업중인 파일을 해당파일의 마지막 커밋으로 리셋
+	```bash
+	# feature/jhyoon/addTodo의 변경사항 취소
+	git restore feature/jhyoon/addTodo
+	```
+</div>
