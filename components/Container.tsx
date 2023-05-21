@@ -25,10 +25,9 @@ const Container = ({ children, ...customMeta }) => {
 	const router = useRouter();
 	const meta = {
 		title: "wablog | tech, daily blabla",
-		description: "Frontend developer, friendly and humorous",
+		description: "Frontend developer Wa. Welcome to visit wablog!",
 		image: "https://wablog.vercel.app/static/images/banner.jpg",
 		type: "website",
-		author: "Jeonghyun Yoon",
 		...customMeta,
 	};
 
@@ -42,7 +41,7 @@ const Container = ({ children, ...customMeta }) => {
 				<meta property="og:url" content={`https://wablog.vercel.app${router.asPath}`} />
 				<link rel="canonical" href={`https://wablog.vercel.app${router.asPath}`} />
 				<meta property="og:type" content={meta.type} />
-				<meta property="og:site_name" content={meta.author} />
+				<meta property="og:site_name" content={meta.title} />
 				<meta property="og:description" content={meta.description} />
 				<meta property="og:title" content={meta.title} />
 				<meta property="og:image" content={meta.image} />
