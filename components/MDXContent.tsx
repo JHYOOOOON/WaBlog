@@ -1,10 +1,17 @@
 import styled from "@emotion/styled";
 import { SectionTitle } from "./Common.style";
 import TopButton from "./TopButton";
+import Head from "next/head";
 
 const MDXContent = ({ title, summary, date, children }) => {
 	return (
 		<div>
+			<Head>
+				<title>{`${title} | wablog`}</title>
+				<meta name="description" content={summary} />
+				<meta property="og:description" content={summary} />
+				<meta property="og:title" content={`${title} | wablog`} />
+			</Head>
 			<TitleWrapper>
 				<SectionTitle>{title}</SectionTitle>
 				<Summary>{summary}</Summary>
