@@ -42,10 +42,25 @@ const ContentWrapper = styled.div`
 	}
 
 	h3 {
-		margin-top: 20px;
+		margin-top: 15px;
 		font-size: 18px;
 		font-weight: 700;
-		padding: 7px 5px;
+	}
+
+	table {
+		border-collapse: collapse;
+		thead {
+			background-color: var(--bg-sub-light);
+		}
+		tr > td:first-child {
+			background-color: var(--bg-subpoint);
+		}
+		td,
+		th {
+			padding: 7px 10px;
+			border: 1px solid #555;
+			font-size: 16px;
+		}
 	}
 
 	strong {
@@ -53,8 +68,7 @@ const ContentWrapper = styled.div`
 	}
 
 	p {
-		margin-top: 10px;
-		margin-bottom: 10px;
+		margin: 10px 0;
 	}
 
 	p,
@@ -77,7 +91,8 @@ const ContentWrapper = styled.div`
 		text-decoration-line: line-through;
 	}
 
-	img, iframe {
+	img,
+	iframe {
 		display: block;
 		max-width: 90%;
 		margin: 5px auto;

@@ -1,0 +1,184 @@
+---
+title: "호이스팅이란"
+summary: "var, let, const, 스코프, TDZ"
+date: "2023.05.21"
+thumbnailUrl: "/static/images/blog/hoisting/hoisting.png"
+---
+
+<div align="center">
+	<img src="/static/images/blog/hoisting/hoisting.png" width="300px" alt="뭔가를 끌고 있는 스폰지밥" />
+</div>
+
+## 🪢 호이스팅이란?
+> 💡 **호이스팅**이란, 인터프리터가 변수와 함수의 메모리 공간을 선언 전에 미리 할당하는 것
+
+주로 변수 또는 함수의 **선언**을 해당 스코프의 최상단으로 끌어올리는 것이라고 설명하곤 한다.
+
+## 🍀 var, let, const란
+&nbsp; `var`, `let`, `const`란 변수 선언 방식으로 다음과 같다.
+||var|let|const|
+|:---:|:---:|:---:|:---:|
+|스코프|함수|블록|블록|
+|재할당|O|O|X|
+|재선언|O|X|X|
+
+`const`의 경우 반드시 **선언과 동시에 초기화**를 해야한다.
+
+## 🔭 스코프(Scope)
+&nbsp;스코프란, 식별자 접근 규칙에 따른 유효 범위를 말한다.
+스코프는 다음에 자세히 게시글로 작성하고, 여기서는 `블록(중괄호) 레벨 스코프`, `함수 레벨 스코프`에 대해서만 다룬다.
+<div>
+- 블록 레벨 스코프
+
+    &nbsp;한 쌍의 중괄호로 이루어진 스코프(ex: if문, for문, while문 등)로 블록 내에서 생성된 변수는 해당 블록 내에서만 참조 가능
+- 함수 레벨 스코프
+
+    &nbsp;말그대로 함수 내 생성된 지역 스코프로, 함수 내에서 생성된 변수는 함수 내에서만 참조 가능
+</div>
+
+
+> 🚨 **화살표 함수**는 함수 스코프가 아닌 블록 스코프
+
+&nbsp;다음은 블록레벨스코프, 함수 레벨 스코프 코드 예제이다.
+
+```javascript:블록레벨스코프
+for (let index = 0; index < 10; index++) {
+    // 생략
+}
+
+console.log(index); // ReferenceError
+// let의 경우 블록 스코프라 이 위치에서 참조 불가
+// for 블록 내에서만 참조가 가능
+```
+
+
+```javascript:함수레벨스코프
+for (var index = 0; index < 10; index++) {
+    // 생략
+}
+
+console.log(index); // 9
+// var의 경우 함수 스코프만 따르므로 for 블록 바깥에서 참조 가능
+```
+
+
+## 🐶 예제
+
+### 👊 var
+&nbsp; 하단의 코드는 정상적으로 동작한다. 왜일까?
+```javascript
+cat = "meow";
+console.log(cat); // "meow"
+var cat;
+```
+&nbsp;그 이유는, 호이스팅이 일어나 실제로는 이렇게 동작하고 있기 때문이다.
+```javascript
+var cat;
+cat = "meow";
+console.log(cat); // "meow"
+```
+&nbsp;var의 스코프의 최상단으로 변수의 선언이 끌어올려진 모습
+
+
+### 👊 function
+&nbsp;함수의 경우에도 호이스팅이 일어난다. 다만, 함수 선언식으로는 호이스팅 되지만 함수 표현식으로는 호이스팅이 되지 않는다.
+```javascript
+/* 함수 선언 */
+foo(); // "bar"
+
+function foo() {
+  console.log('bar');
+}
+
+/* 함수 표현식 */
+baz(); // TypeError: baz is not a function
+
+var baz = function() {
+  console.log('bar2');
+};
+```
+&nbsp;함수 표현식은 왜 호이스팅이 되지 않을까? 이유는 변수에 있다.
+```javascript
+var baz;
+baz(); // TypeError: baz is not a function
+
+baz = function() {
+  console.log('bar2');
+};
+```
+변수 선언이 맨 위로 끌어올려져 `baz` 실행 당시에는 `baz`의 값은 `undefined`이기 때문이다.
+
+### 👊 let, const
+&nbsp;`let`과 `const`는 어떨까?
+
+&nbsp;`let`과 `const`로 선언한 변수도 호이스팅 대상이지만, `var`와 다르게 호이스팅 시 `undefined`로 변수를 초기화하지는 않는다. 따라서 변수의 초기화를 수행하기 전에 읽는 코드가 먼저 나타나면 예외가 발생한다(TDZ).
+```javascript
+let foo = 1; // 전역 변수
+
+{
+    console.log(foo); // ReferenceError
+    let foo = 2;
+}
+```
+`let`으로 선언한 변수가 호이스팅되지 않는다면 전역 변수`foo`가 정상적으로 출력되어야한다. 그러나 호이스팅이 발생하기 때문에 ReferenceError가 발생한다.
+
+## ☠️ TDZ(Temporal Dead Zone, 시간상 사각 지대)
+&nbsp;변수 스코프의 맨 위에서부터 변수의 초기화 완료시점까지를 TDZ라고 부른다. 시간상 사각지대인 이유는 코드의 위치가 아닌 코드의 실행 시간에 영향을 받기 때문이다.
+```javascript
+{
+    // TDZ 시작
+    const func = () => console.log(letVar);
+
+    // 여기서 func 호출 또는 letVar에 접근 시, ReferenceError 발생
+
+    let letVar = 3; // TDZ 종료
+    func(); // TDZ 밖에서 호출하여 ReferenceError 발생하지 않음
+}
+```
+
+<div>
+- TDZ의 영향을 받는 구문(선언 이후에 사용해야 함)
+
+    `const`, `let`, `class`, `constructor 내부의 super()`, `기본 함수 매개변수`
+    - constructor 내부의 super()
+
+        부모 클래스를 상속받았다면 super() 호출 전까지 this 바인딩이 TDZ에 있음
+    - 기본 함수 매개변수
+
+        ```javascript
+        const a = 2;
+        function square(a = a) {
+            return a * a;
+        }
+        // Does not work!
+        square(); // throws `ReferenceError`
+        ```
+        &nbsp;기본 매개변수 `a`가 선언되기 이전에 `a = a` 우변에서 사용됨(기본 매개변수는 선언 및 초기화 다음에 사용되어야함)
+        ```javascript
+        const init = 2;
+        function square(a = init) {
+            return a * a;
+        }
+        // Works!
+        square(); // => 4
+        ```
+- TDZ의 영향을 받지 않는 구문(현재 스코프 내에서 호이스팅 영향을 받기 때문)
+
+    `var`, `function`, `import`
+    ```javascript
+    // 이게되네
+    myFunction();
+    import { myFunction } from './myModule';
+    ```
+</div>
+
+## 📚 참고자료
+<div>
+- [mdn 호이스팅](https://developer.mozilla.org/ko/docs/Glossary/Hoisting)
+- [mdn let 시간상 사각지대](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/let#%EC%8B%9C%EA%B0%84%EC%83%81_%EC%82%AC%EA%B0%81%EC%A7%80%EB%8C%80)
+- [mdn 문법과 자료형](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Grammar_and_types)
+- [스코프와 변수선언 키워드 차이점](https://hanamon.kr/javascript-%EC%8A%A4%EC%BD%94%ED%94%84%EC%99%80-%EB%B3%80%EC%88%98%EC%84%A0%EC%96%B8%ED%82%A4%EC%9B%8C%EB%93%9C-%EC%B0%A8%EC%9D%B4%EC%A0%90/)
+- [TDZ를 모른 채 자바스크립트 변수를 사용하지 말라](https://ui.toast.com/weekly-pick/ko_20191014)
+- [이웅모, ⌜모던 자바스크립트 Deep Dive⌟, 위키북스, 2020 15장](http://www.yes24.com/Product/Goods/92742567)
+- [mdn block](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/block)
+</div>
