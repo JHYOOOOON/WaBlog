@@ -7,37 +7,28 @@ const TitleImage = () => {
 	const [hover, setHover] = useState(false);
 
 	return (
-		<a
-			href="https://garrulous-front-8cf.notion.site/87bfa5e43d0d467f9e4fe968022dcb0f"
-			title="이력서 보기"
-			target="_blank"
-			rel="noreferrer"
-			onMouseEnter={() => setHover(true)}
-			onMouseLeave={() => setHover(false)}
-		>
-			<TitleImageWrapper>
-				{hover === false && (
-					<div>
-						<Emoji>😊💫</Emoji>
-						<Title>Have a Nice Day!</Title>
-						<SubTitle>Frontend Developer, Jeonghyun</SubTitle>
-					</div>
-				)}
-				{hover && (
-					<div>
-						<Emoji>🙂🍀</Emoji>
-						<Title>별 탈 없는 하루 되세요</Title>
-						<SubTitle>프론트엔드 개발자, 윤정현</SubTitle>
-					</div>
-				)}
-				<StyledImage
-					layout="fill"
-					objectFit="cover"
-					src="/static/images/banner.jpg"
-					alt="title image"
-				/>
-			</TitleImageWrapper>
-		</a>
+		<TitleImageWrapper>
+			{hover === false && (
+				<div>
+					<Emoji>😊💫</Emoji>
+					<Title>Have a Nice Day!</Title>
+					<SubTitle>Frontend Developer, Jeonghyun</SubTitle>
+				</div>
+			)}
+			{hover && (
+				<div>
+					<Emoji>🙂🍀</Emoji>
+					<Title>별 탈 없는 하루 되세요</Title>
+					<SubTitle>프론트엔드 개발자, 윤정현</SubTitle>
+				</div>
+			)}
+			<StyledImage
+				layout="fill"
+				objectFit="cover"
+				src="/static/images/banner.jpg"
+				alt="title image"
+			/>
+		</TitleImageWrapper>
 	);
 };
 
