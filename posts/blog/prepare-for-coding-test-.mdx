@@ -1,0 +1,121 @@
+---
+title: "알고리즘 문제 유형별로 풀어보기"
+summary: "코딩테스트 대비 프로그래머스 문제 다시보기"
+date: "2023.09.14"
+thumbnailUrl: "/static/images/blog/kneekick.png"
+---
+
+<div align="center">
+	<img src="/static/images/blog/kneekick.png" width="300px" alt="뿌셔뿌셔" />
+</div>
+
+## 👊 문제 풀이
+
+### 🧢 의상(해시)
+[문제링크](https://school.programmers.co.kr/learn/courses/30/lessons/42578)
+```javascript
+function solution(clothes) {
+    const clothesSet = {};
+
+    clothes.forEach((cloth) => {
+        clothesSet[cloth[1]] = clothesSet[cloth[1]] ? clothesSet[cloth[1]] + 1 : 1;
+    });
+
+    return Object.values(clothesSet).reduce((acc, cur) => acc * (cur + 1), 1) - 1;
+}
+```
+
+&nbsp;옷 종류별로 수를 센 후, `개수 + 1`을 다 곱한 후 `-1` 해주었다. `개수 + 1`을 곱한 이유는 입지 않았을 경우의 수를 더한 것! 마지막에 `-1`을 함으로써 모든 종류의 의상을 입지 않았을 경우를 빼주었다.
+
+&nbsp;예를 들어 모자 2 / 상의 2 경우, `{2 + 1(모자를 착용하지 않은 경우)} * {2 + 1(상의를 착용하지 않은 경우)} - 1(모자 & 상의 착용하지 않음)` 이렇게 계산했다.
+
+### 🚛 다리를 지나는 트럭(큐)
+[문제링크](https://school.programmers.co.kr/learn/courses/30/lessons/42583)
+```javascript
+function solution(bridge_length, weight, truck_weights) {
+    let time = 0;
+    let total_weights = 0;
+    let truck_index = 0;
+    const bridge_trucks = [];
+
+    while (++time) {
+        if (bridge_trucks.length > 0 && bridge_trucks[0].time === time) {
+            total_weights -= bridge_trucks[0].weight;
+            bridge_trucks.shift();
+        }
+
+        if (total_weights + truck_weights[truck_index] <= weight) {
+            total_weights += truck_weights[truck_index];
+            bridge_trucks.push({
+                weight: truck_weights[truck_index],
+                time: time + bridge_length
+            });
+            truck_index++;
+        }
+
+        if (bridge_trucks.length === 0 && truck_index === truck_weights.length) return time;
+    }
+}
+```
+
+&nbsp;문제 조건 그대로 구현했다. `bridge_trucks` 큐에 다리를 건너는 트럭의 정보를 담았다. 무게와 빠져나가는 시간을 기재해, 빠져나가는 시간과 현재 시간이 일치할 때 큐(`bridge_trucks`)와 다리에 올라가있는 전체 트럭의 무게(`total_weights`)에서 빼주는 식으로 구현했다.
+
+### 👀 올바른 괄호(스택)
+[문제링크](https://school.programmers.co.kr/learn/courses/30/lessons/12909)
+```javascript
+function solution(s){
+    let sum = 0;
+
+    for (const bracket of s) {
+        if (bracket === '(') {
+            sum++;
+        } else {
+            if (sum === 0) return false;
+            sum--;
+        }
+    }
+
+    return sum > 0 ? false : true;
+}
+```
+
+&nbsp;이전에는 스택을 이용해 풀었던 기억이 있는데, 배열로 구현하니 효율성 검사에서 시간초과가 발생해 +-로 변경하여 풀었다.
+
+### 🎈 이중우선순위큐(힙)
+[문제링크](https://school.programmers.co.kr/learn/courses/30/lessons/42628)
+```javascript
+function solution(operations) {
+    const queue = [];
+
+    operations.forEach((operation) => {
+        const [cmd, data] = operation.split(' ');
+
+        if (cmd === 'I') {
+            queue.push(Number(data));
+        } else if (cmd === 'D') {
+            const target = (data === '1' ? Math.max : Math.min)(...queue);
+            const targetIndex = queue.indexOf(target);
+
+            queue.splice(targetIndex, 1);
+        }
+    })
+
+    return queue.length > 0 ? [Math.max(...queue), Math.min(...queue)] : [0, 0];
+}
+```
+
+&nbsp;문제 설명 그대로 구현한 거라 설명할 부분이 없다..!
+
+### 💡 가장 큰 수(정렬)
+[문제링크](https://school.programmers.co.kr/learn/courses/30/lessons/42746)
+```javascript
+function solution(numbers) {
+    const answer = numbers.sort((a, b) => `${b}${a}` * 1 - `${a}${b}` * 1).join('');
+    return answer[0] === '0' ? '0' : answer;
+}
+```
+
+&nbsp;문자열로 만든 다음, 1을 곱해 숫자로 변경 후 비교해 정렬해주었다. 여담이지만 정렬할 때 -는 매번 헷갈리는 거 같다. 오름차순, 내림차순 정렬 수식 매번 헷갈려서 수식 앞 뒤 바꿔가면서 해보는듯..
+
+[추가 예정]
+
