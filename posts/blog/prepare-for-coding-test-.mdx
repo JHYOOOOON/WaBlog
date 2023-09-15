@@ -117,5 +117,54 @@ function solution(numbers) {
 
 &nbsp;문자열로 만든 다음, 1을 곱해 숫자로 변경 후 비교해 정렬해주었다. 여담이지만 정렬할 때 -는 매번 헷갈리는 거 같다. 오름차순, 내림차순 정렬 수식 매번 헷갈려서 수식 앞 뒤 바꿔가면서 해보는듯..
 
-[추가 예정]
+### 😵 피로도(완전탐색)
+[문제링크](https://school.programmers.co.kr/learn/courses/30/lessons/87946)
+```javascript
+function solution(k, dungeons) {
+    let answer = -1;
+    const isVisited = Array(dungeons.length).fill(false);
 
+    const explore = (tired, count) => {
+        answer = Math.max(answer, count);
+
+        for (let index = 0; index < dungeons.length; index++) {
+            if (isVisited[index] === false && tired >= dungeons[index][0]) {
+                isVisited[index] = true;
+                explore(tired - dungeons[index][1], count + 1);
+                isVisited[index] = false;
+            }
+        }
+    }
+
+    explore(k, 0);
+
+    return answer;
+}
+```
+&nbsp;처음부터 하나하나 경우의 수를 다 타가면서 확인하도록 짰다. 예시의 1 -> 2 -> 3, 1 -> 3 -> 2부터 해서.. 2 -> 3 -> 1, 3 -> 2 -> 1 다 돌아볼 수 있는 방법이다.
+
+### 🎯 타겟 넘버(DFS/BFS)
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43165)
+```javascript
+function solution(numbers, target) {
+    let answer = 0;
+
+    const checkTarget = (numbers, target, index, total) => {
+        if (index === numbers.length) {
+            if (total === target) {
+                answer += 1;
+            }
+            return;
+        }
+
+        checkTarget(numbers, target, index + 1, total + numbers[index]);
+        checkTarget(numbers, target, index + 1, total - numbers[index]);
+    }
+
+    checkTarget(numbers, target, 0, 0);
+
+    return answer;
+}
+```
+
+&nbsp;index를 처음부터 하나하나 돌면서 모든 경우의 수를 확인해주었습니다.
