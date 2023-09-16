@@ -1,0 +1,98 @@
+---
+title: "230916"
+summary: "7월 퇴사, 그 후"
+date: "2023.09.16"
+thumbnailUrl: "/static/images/memo/day8/day8.jpeg"
+---
+
+<div align="center">
+	<img src="/static/images/memo/day8/day8.jpeg" width="300px" alt="왼다리 통깁스" />
+</div>
+
+
+## 😋 근황
+
+&nbsp;클라이밍 욕심 부리다가 잘못 떨어져서 발등이 부러졌다. 다시 생각해도 어이가 없는.. 왜 그때 욕심이 생겼지. 정말 웃기는 사람이다 ㅋㅋㅋ 그로 인해 계획했던 일들(부산/대전 여행, 취준, PT 마무리 등)이 도미노처럼 무너지면서 '아.. 계획 좀 적당히 세우자.' 모드로 돌입했다(공들여 세운만큼 무너졌을 때 이로인한 스트레스가 몰려오기 때문). 이걸 부러진 뼈 덕분이라고 해야되나, 집에서 거의 안 나가고 한 달 간 푹 쉴 수 있었다. 번아웃으로 인한 답답함은 다행히 확실하게 해소됐다. 깁스는 10월에 풀지만, 취준은 슬슬 시작해야지. 진짜 웃긴 거 같다. 나는 평생 깁스 같은 거 안 할줄 알았는데 원숭이도 나무에서 떨어진다고 안정추구형인 내가 한순간의 욕심으로 뼈가 부러지다니 ㅋㅋㅋ 깁스도 두 달이나 하고.. 사는 건 정말 예측할 수 없다. 계획을 아무리 여러개에 예외처리까지 한다고 해도 커버를 못 치는 게 있다는 걸 받아들이게 되는 계기가 됐다. 뭐든 적당히 하자 ㅋㅋㅋ 
+
+## 🙏 면접 질문 정리
+* 브라우저의 렌더링 과정
+	1. HTML 파싱 후, DOM 트리 구축
+		- HTML 중간에 자바스크립트가 있다면 HTML 파싱이 중단됨
+	2. CSS 파싱 후, CSSOM 트리 구축
+	3. 자바스크립트 실행
+	4. DOM과 CSSOM 조합 후 렌더트리 구축
+		- display: none과 같이 화면에 보이지도 않고 자리도 차지하지 않는 친구들은 렌더트리에 포함되지 않음
+	5. 뷰포트 기반으로 렌더트리의 각 노드가 가지는 정확한 크기와 위치 계산(Layout/reflow)
+	6. 5 기반 화면에 그림(paint)
+
+* HTML 중간에 자바스크립트가 있으면 HTML 파싱이 중단되는 이유
+	- 자바스크립트는 DOM을 변경시킬 수 있음
+	- HTML 중간에 있는 스크립트가 아직 그려지지 않은 DOM 트리 노드에 접근 시 오류 발생 가능
+	- 따라서 body 태그 최하단에 script 태그 삽입 권장
+
+* `<script>` async, defer
+	- async
+		- HTML 파싱과 병렬적으로 스크립트를 다운받고, 다운로드가 완료된 시점에 HTML 파싱 멈춘 뒤 스크립트 실행
+		- 스크립트 내에 DOM을 조작하는 코드가 있다면 위험할 수 있음
+	- defer
+		- HTML 파싱과 병렬적으로 스크립트를 다운받고, HTML 파싱이 완료된 이후에 스크립트 실행
+
+* reflow, repaint
+	- reflow
+		- 변경된 요소를 화면에 실제로 그리는 작업
+		- repaint 이후에 필히 실행됨
+		- reflow만 일어나는 작업
+			- visibility, background-color, outline, opacity 등
+			- 다른 노드에 영향을 주지 않고 발생하기 때문
+	- repaint
+		- 웹 페이지의 일부 또는 전부를 다시 처리하고 그려야할 때
+		- 생성된 DOM 노드의 너비, 높이, 위치 등을 변경했을 때 영향을 받는 모든 노드의 수치를 계산하여 렌더트리 재생성
+
+* URL 검색 시 발생하는 일
+	1. 웹 브라우저가 해당 도메인의 IP 주소 탐색
+		- 캐시 확인 후 없을 경우, DNS 서버에서 IP 주소 탐색
+	2. 웹 브라우저가 서버와의 TCP 연결 시작
+	3. 웹 브라우저가 HTTP 요청을 서버로 전송
+	4. 웹 서버가 요청을 수행하고 응답 전송
+	5. 웹 브라우저가 콘텐츠 렌더링
+
+* 클로저
+	- 주변 상태(어휘적 환경)에 대한 참조와 함께 묶인(포함된) 함수의 조합 -> 이게 무슨 소리지?
+	- 내부 함수에서 외부 함수의 범위에 접근
+	-  예제
+		- `myFunc = makeFunc()` 여기서 `myFunc`에는 `displayName` 함수가 할당되는데 `myFunc()` 여기서 console.log가 정상적으로 찍힘 왜?
+			```javascript
+			function makeFunc() {
+				const name = "Mozilla";
+				function displayName() {
+					console.log(name);
+				}
+				return displayName;
+			}
+
+			const myFunc = makeFunc();
+			myFunc();
+			```
+		- `makeFunc()`이 실행될 때 `name` 변수가 있는 환경에 대한 참조를 유지하기 때문
+	- 장점
+		- 데이터 보존
+			- 외부 함수의 실행이 끝나도 내부 함수에서 외부 함수 환경에 접근이 가능
+		- 캡슐화
+			- 외부에서 내부 함수 접근 불가능
+		- 모듈화에 유리
+			- 데이터와 메소드를 클로저 형식으로 묶어 처리 가능
+	- 렉시컬 스코프
+		- 함수 호출 환경이 아니라 선언 환경을 따름
+
+
+## 😲 참고자료
+<div>
+	- [취준생이 반드시 알아야 할 프론트엔드 지식들](https://github.com/baeharam/Must-Know-About-Frontend)
+	- [JavaScript 실행되면 html 파싱 중단되는 이유](https://velog.io/@eojine94/JavaScript-%EC%8B%A4%ED%96%89%EB%90%98%EB%A9%B4-html-%ED%8C%8C%EC%8B%B1-%EC%A4%91%EB%8B%A8%EB%90%98%EB%8A%94-%EC%9D%B4%EC%9C%A0)
+	- [script async와 defer의 차이](https://velog.io/@cherrycock/script-async%EC%99%80-defer%EC%9D%98-%EC%B0%A8%EC%9D%B4)
+	- [[Browser] Reflow와 Repaint](https://beomy.github.io/tech/browser/reflow-repaint/)
+	- [브라우저 렌더링 - 리플로우(reflow) 와 리페인트(repaint)](https://kwangsunny.tistory.com/42)
+	- [웹 브라우저에 URL을 입력하면 어떤 일이 생기나요?](https://aws.amazon.com/ko/blogs/korea/what-happens-when-you-type-a-url-into-your-browser/)
+	- [mdn 클로저](https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures)
+	- [[JavaScript] 클로저(Closures)란 무엇일까?](https://hanamon.kr/javascript-%ED%81%B4%EB%A1%9C%EC%A0%80/)
+</div>
