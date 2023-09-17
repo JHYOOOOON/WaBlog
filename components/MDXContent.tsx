@@ -37,7 +37,7 @@ const ContentWrapper = styled.div`
 	p,
 	li,
 	pre code {
-		line-height: 1.5;
+		line-height: 1.6;
 	}
 
 	h2 {
@@ -228,7 +228,7 @@ const ContentWrapper = styled.div`
 const Summary = styled.p`
 	margin-top: 10px;
 	font-size: 16px;
-	line-height: 1.5;
+	line-height: 1.6;
 `;
 
 const StyledDate = styled.p`
