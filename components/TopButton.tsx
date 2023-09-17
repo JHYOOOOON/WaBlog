@@ -8,7 +8,6 @@ const TopButton = () => {
 
 	useEffect(() => {
 		const handleScroll = throttle((event) => {
-			console.log(window.scrollY);
 			if (window.scrollY < 500) {
 				setIsTopButtonShow(false);
 			} else {
