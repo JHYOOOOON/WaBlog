@@ -167,4 +167,94 @@ function solution(numbers, target) {
 }
 ```
 
-&nbsp;index를 처음부터 하나하나 돌면서 모든 경우의 수를 확인해주었습니다.
+&nbsp;index를 처음부터 하나하나 돌면서 모든 경우의 수를 확인했다.
+
+### 🪢 네트워크(DFS/BFS)
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43162)
+```javascript
+function solution(n, computers) {
+    let answer = 0;
+    const isVisited = Array.from(Array(n), () => false);
+
+    const dfs = (start) => {
+        isVisited[start] = true;
+
+        for (let index = 0; index < n; index++) {
+            if (isVisited[index] === false && computers[start][index]) {
+                dfs(index);
+            }
+        }
+    }
+
+    for (let index = 0; index < n; index++) {
+        if (isVisited[index] === false) {
+            answer++;
+            dfs(index);
+        }
+    }
+    return answer;
+}
+```
+&nbsp;dfs로 탐색하면서 한 뭉탱이(?)를 방문할 때마다 정답값을 1씩 더했다(`answer++`).
+
+### 🎲 게임 맵 최단거리
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/1844)
+```javascript
+function solution(maps) {
+    let answer = 0;
+    const ROW = maps.length;
+    const COL = maps[0].length;
+    const dx = [0, 1, 0, -1];
+    const dy = [1, 0, -1, 0];
+    const visit = Array.from(Array(ROW), () => Array(COL).fill(0));
+    const queue = [];
+
+    visit[0][0] = 1;
+    queue.push([0, 0]);
+    while (queue.length > 0) {
+        const [x, y] = queue.shift();
+        if (x === ROW - 1 && y === COL - 1) return visit[x][y];
+        for (let k = 0; k < 4; k++) {
+            const nx = x + dx[k];
+            const ny = y + dy[k];
+            if (nx < 0 || nx >= ROW || ny < 0 || ny >= COL) continue;
+            if (visit[nx][ny] || maps[nx][ny] === 0) continue;
+            visit[nx][ny] = visit[x][y] + 1;
+            queue.push([nx, ny]);
+        }
+    }
+
+    return -1;
+}
+```
+&nbsp;bfs로 탐색하면서 출발 지점에서 출발하여 마지막 지점에 도달했을 경우 바로 그 지점까지 이동한 블럭 개수를 리턴하고, 마지막 지점에 도달하지 못했을 경우 -1을 리턴했다.
+
+### 🚁 여행경로(DFS/BFS)
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43164)
+```javascript
+function solution(tickets) {
+    let paths = [];
+    const isVisited = Array(tickets.length + 1).fill(false);
+
+    const dfs = (departure, path) => {
+        if (tickets.length + 1 === path.length) {
+            paths.push(path);
+            return;
+        }
+
+        for (let index = 0; index < tickets.length; index++) {
+            if (isVisited[index] === false && tickets[index][0] === departure) {
+                isVisited[index] = true;
+                dfs(tickets[index][1], [...path, tickets[index][1]]);
+                isVisited[index] = false;
+            }
+        }
+    }
+
+    dfs("ICN", ["ICN"]);
+
+    return paths.sort()[0];
+}
+```
+
+&nbsp;paths에 가능한 경로를 전부 다 넣고 마지막에 정렬하여 알파벳순으로 가장 빠른 경로를 리턴했다.
