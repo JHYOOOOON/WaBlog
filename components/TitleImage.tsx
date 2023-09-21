@@ -1,27 +1,20 @@
-import { useState } from "react";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
 
 const TitleImage = () => {
-	const [hover, setHover] = useState(false);
-
 	return (
 		<TitleImageWrapper>
-			{hover === false && (
-				<div>
-					<Emoji>😊💫</Emoji>
-					<Title>Have a Nice Day!</Title>
-					<SubTitle>Frontend Developer, Jeonghyun</SubTitle>
-				</div>
-			)}
-			{hover && (
-				<div>
-					<Emoji>🙂🍀</Emoji>
-					<Title>별 탈 없는 하루 되세요</Title>
-					<SubTitle>프론트엔드 개발자, 윤정현</SubTitle>
-				</div>
-			)}
+			<div className="hover-text">
+				<Emoji>🙂🍀</Emoji>
+				<Title>별 탈 없는 하루 되세요</Title>
+				<SubTitle>프론트엔드 개발자, 윤정현</SubTitle>
+			</div>
+			<div className="unhover-text">
+				<Emoji>😊💫</Emoji>
+				<Title>Have a Nice Day!</Title>
+				<SubTitle>Frontend Developer, Jeonghyun</SubTitle>
+			</div>
 			<StyledImage
 				layout="fill"
 				objectFit="cover"
@@ -67,8 +60,17 @@ const TitleImageWrapper = styled.div`
 		padding: 25px 30px;
 		z-index: 1;
 	}
-	&:hover div {
+
+	.hover-text {
+		display: none;
+	}
+	&:hover .unhover-text {
+		display: none;
+	}
+	&:hover .hover-text {
 		display: flex;
+	}
+	&:hover div {
 		animation: ${Pyongpyong} 1s cubic-bezier(0.165, 0.84, 0.44, 1);
 	}
 	&:hover img {
