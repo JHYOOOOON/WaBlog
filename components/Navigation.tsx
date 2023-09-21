@@ -47,7 +47,7 @@ const Navigation = () => {
 						</HamburgerIcon>
 					</Hamburger>
 					<Link href="/" passHref={true}>
-						<Logo src="/static/logo.png" />
+						<Logo src={isDarkMode ? "/static/logo-dark.png" : "/static/logo.png"} />
 					</Link>
 					<DakrModeButton darkMode={isDarkMode} onClick={darkModeToggle}>
 						<Maybe test={isDarkMode} truthy={<BsMoon />} falsy={<BsSun />} />
