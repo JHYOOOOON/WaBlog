@@ -1,7 +1,9 @@
 import { AppProps } from "next/app";
 import { useEffect } from "react";
+import { RecoilRoot } from "recoil";
 import Script from "next/script";
 import { useRouter } from "next/router";
+
 import * as gtag from "../lib/gtag";
 import "../styles/globals.css";
 
@@ -41,7 +43,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 				}}
 			/>
 			{/* gtag End */}
-			<Component {...pageProps} />
+			<RecoilRoot>
+				<Component {...pageProps} />
+			</RecoilRoot>
 		</>
 	);
 }

@@ -8,26 +8,19 @@ import navData from "data/navData";
 import { BsMoon, BsSun } from "react-icons/bs";
 
 import { Maybe } from ".";
+import { useDarkMode } from "./hooks";
 
 const MOBILE_WIDTH = 750;
 const TIME_FOR_CHECK_MOBILE = 500;
-const DARK_MODE = "darkMode";
 
 const Navigation = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const router = useRouter();
-	const [darkMode, setDarkMode] = useState(false);
+	const { darkModeToggle, checkDarkMode, isDarkMode } = useDarkMode();
 
 	const handleHamburger = () => setIsOpen((prev) => !prev);
 
 	useEffect(() => {
-		const checkDarkMode = () => {
-			if (localStorage.getItem(DARK_MODE)) {
-				document.documentElement.classList.add(DARK_MODE);
-				setDarkMode(true);
-			}
-		};
-
 		const checkIsMobile = () => {
 			if (window.innerWidth < MOBILE_WIDTH) {
 				setIsOpen(false);
@@ -41,18 +34,6 @@ const Navigation = () => {
 			window.removeEventListener("resize", _.throttle(checkIsMobile, TIME_FOR_CHECK_MOBILE));
 		};
 	}, []);
-
-	const darkModeToggle = () => {
-		if (darkMode) {
-			document.documentElement.classList.remove(DARK_MODE);
-			setDarkMode(false);
-			localStorage.removeItem(DARK_MODE);
-		} else {
-			document.documentElement.classList.add(DARK_MODE);
-			setDarkMode(true);
-			localStorage.setItem(DARK_MODE, "true");
-		}
-	};
 
 	return (
 		<NavWrapper>
@@ -68,8 +49,8 @@ const Navigation = () => {
 					<Link href="/" passHref={true}>
 						<Logo src="/static/logo.png" />
 					</Link>
-					<DakrModeButton darkMode={darkMode} onClick={darkModeToggle}>
-						<Maybe test={darkMode} truthy={<BsMoon />} falsy={<BsSun />} />
+					<DakrModeButton darkMode={isDarkMode} onClick={darkModeToggle}>
+						<Maybe test={isDarkMode} truthy={<BsMoon />} falsy={<BsSun />} />
 					</DakrModeButton>
 				</NavLeft>
 				<NavRight>

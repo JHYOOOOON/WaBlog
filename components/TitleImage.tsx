@@ -2,7 +2,11 @@ import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
 
+import { useDarkMode } from "./hooks";
+
 const TitleImage = () => {
+	const { isDarkMode } = useDarkMode();
+
 	return (
 		<TitleImageWrapper>
 			<div className="hover-text">
@@ -18,7 +22,7 @@ const TitleImage = () => {
 			<StyledImage
 				layout="fill"
 				objectFit="cover"
-				src="/static/images/banner.jpg"
+				src={isDarkMode ? "/static/images/banner-dark.jpeg" : "/static/images/banner.jpg"}
 				alt="title image"
 			/>
 		</TitleImageWrapper>
