@@ -228,6 +228,13 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 
 1. 모든 비동기 API들은 작업이 완료되면 콜백 함수를 태스크큐에 추가
 2. 이벤트 루프는 '현재 실행 중인 태스크가 없을 때'(주로 콜스택이 비워졌을 때) 태스크큐의 실행가능한 첫 번째 태스크를 꺼내와 콜스택으로 보낸다.
+
+- 마이크로 태스크 큐
+    - promise callback
+    - async function
+    - queueMicrotask
+    - process.nextTick()
+    - 마이크로 태스크 큐를 우선적으로 처리
 </details>
 
 <details>
@@ -462,6 +469,11 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 </details>
 
 <details>
+<summary>세션</summary>
+
+</details>
+
+<details>
 <summary>CORS(Cross origin resource sharing)</summary>
 
 - 요청 헤더의 origin과 응답 헤더의 origin 비교 -> origin의 프로토콜(http, https), 호스트, 포트 중 하나라도 다르면 CORS 에러 발생
@@ -476,8 +488,24 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 </details>
 
 ## CS
+
 <details>
-<summary>싱글스레드, 멀티스레드</summary>
+<summary>스레드, 프로세스</summary>
+
+- 스레드
+    - 프로세스가 할당받은 자원을 이용하는 실행의 단위
+    - 프로세스 내의 Heap, Data, Code 영역을 공유
+    - 각각 Stack과 PC 레지스터 값 보유
+    - 프로세스 하나를 사용하기 위해 소요되는 시간을 줄이고 효율을 높이기 위해 등장
+    - 별도의 Stack을 가지지만 Heap은 공유하므로 서로 다른 스레드에서 가져와 읽고 쓰기 가능
+- 프로세스
+    - 프로그램이 돌아가고 있는 상태
+    - Stack, Heap, Data, Text 영역으로 구성되어 할당
+    - 메모리에 별도의 주소 공간에서 실행되기 때문에 다른 프로세스의 변수나 자료구조에 접근 불가
+</details>
+
+<details>
+<summary>싱글/멀티스레드</summary>
 
 </details>
 
@@ -493,11 +521,6 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 
 <details>
 <summary>RESTful</summary>
-
-</details>
-
-<details>
-<summary>스레드, 프로세스</summary>
 
 </details>
 
@@ -526,86 +549,164 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 <details>
 <summary>리액트란</summary>
 
+&nbsp;UI 구축을 위한 자바스크립트 라이브러리
+</details>
+
+<details>
+<summary>왜 씀?</summary>
+
+- 가상 돔의 사용으로 앱 성능 향상
+- 클라이언트, 서버 사이드 렌더링 지원 가능
+- 컴포넌트 기반 작업으로 효율적인 코드 분리 가능
+- 가독성이 높아 유지보수가 비교적 쉬움
+- 많은 커뮤니티
 </details>
 
 <details>
 <summary>내부 작동 원리</summary>
 
+&nbsp;virtual DOM이 변경될 때 실제 DOM을 변경하도록 되어있음(재조정)
 </details>
 
 <details>
 <summary>라이프사이클</summary>
 
+- componentDidMount
+- render
+- componentDidUpdate
+- componentWillUnmount
+</details>
+
+<details>
+<summary>클래스형 컴포넌트와 함수 컴포넌트</summary>
+
+- 클래스형 컴포넌트
+    - 여러 단계의 상속으로 이루어짐
+    - 라이프 사이클을 가짐
+- 함수 컴포넌트
+    - hook을 사용해 라이프 사이크에 따른 동작
+    - 가독성이 좋음
 </details>
 
 <details>
 <summary>CSR, SSR</summary>
+
+- CSR(Client Side Rendering)
+    - 클라이언트쪽에서 렌더링이 일어남
+    - 첨에 빈 페이지이다가 HTML, JS 다운로드 후 렌더링
+
+- SSR(Server Side Rendering)
+    - 서버쪽에서 렌더링이 끝난 후 클라에 전달
+    - 서버에서 HTML 전달 -> 첨에 HTML 렌더링된 상태
+    - 자바스크립트 다운로드, 컴파일 후 상호작용 가능
+
+- 첫 페이지 로딩시간은 SSR이 평균적으로 빠름
+- 다른 페이지로 이동 시, SSR은 처음과 동일한 과정 반복 -> CSR이 평균적으로 빠름
+- SEO 대응은 SSR이 용이
+    - 대부분의 웹 크롤러들은 JS를 실행시키지 못하고 HTML에서만 컨텐츠를 수집하기 때문
 
 </details>
 
 <details>
 <summary>state를 직접 변경하지 않고 setState를 사용하는 이유</summary>
 
+- state는 불변성을 유지해야함
+- 얕은 비교를 통해 리렌더링을 실행하는데, state가 참조형일 때 동일 참조일 경우 리렌더링을 실행하지 않음
 </details>
 
 <details>
 <summary>hooks의 장점</summary>
 
+- 로직의 재사용
+- 관리가 쉬움
+- 가독성이 좋음
+- 코드가 간결함
 </details>
 
 <details>
 <summary>useMemo, useCallback</summary>
 
+- useMemo
+    - 메모이제이션된 값을 반환
+- useCallback
+    - 메모이제이션된 함수를 반환
 </details>
 
 <details>
 <summary>virtual DOM</summary>
 
-</details>
-
-<details>
-<summary>상태변화 감지 방법</summary>
-
+&nbsp;DOM을 가볍게 만든 자바스크립트 표현
 </details>
 
 <details>
 <summary>Props drilling</summary>
 
+&nbsp;props를 오로지 하위 컴포넌트로 전달하는 용도로만 쓰이는 컴포넌트들을 여러개 거쳐 데이터를 전달하는 과정
 </details>
 
 <details>
 <summary>props와 state</summary>
 
+- props
+    - 부모에서 자식 컴포넌트로 전달하는 읽기 전용 데이터
+- state
+    - 본인 컴포넌트 내부에서 관리하는 변경 가능한 데이터
 </details>
 
 <details>
 <summary>Batching</summary>
 
+- state가 변경되었을 때, render 함수가 여러번 호출되는 것을 방지하기 위해 한 번만 호출하도록 하는 것
+- 여러 개의 상태 변경을 한 번에 묶어서 처리
 </details>
 
 <details>
 <summary>리렌더링이 일어나는 상황</summary>
 
+- state가 변경됐을 때
+- props가 변경됐을 때
+- 부모 컴포넌트가 리렌더링 될 때
+- forceUpdate 함수가 실행될 때
 </details>
 
 <details>
-<summary>SPA</summary>
+<summary>SPA(Single Page Application)</summary>
 
+- 뭐임?
+    - 모든 리소스를 최초에 한 번 다운로드하고, 이후에 새로운 에지이 요청 시 필요한 데이터만을 전달받아 페이지를 갱신
+    - CSR 방식으로 렌더링
+- 장점
+    - 빠른 페이지 이동 가능 및 깜빡거림이 없음
+    - 필요한 리소스만 부분적으로 로딩
+    - 모듈화 또는 컴포넌트별 개발이 용이
+- 단점
+    - 처음에 모든 리소스를 한번에 다운로드 하기 때문에 초기 구동 속도가 느림
+    - SEO가 어려움(검색 엔진이 앱 로딩 전 빈 상태의 코드를 크롤링하기 때문)
+    - 코드가 외부에 노출됨
 </details>
 
 <details>
 <summary>hydration</summary>
 
+&nbsp;서버단에서 정적 페이지를 렌더링, JS파일 번들링 후 클라단에 보내주는데(SSR).. 그 DOM에는 이벤트가 하나도 없는 메마른 상태일 것. 그래서 인제 hydration(직역하면 수분 보충) 그 DOM 노드들에 이벤트 핸들러를 매칭시켜 동적으로 상호작용 하도록 촉촉하게 바꿔주는.. 수분 보충해주는 그런.. 그런 것
+
+&nbsp;React v16~ `React.hydrate`
 </details>
 
 <details>
 <summary>fiber</summary>
 
+- React v16 전까지 재귀방식의 알고리즘을 virtualDom의 재조정에 사용
+- 변경해야 할 노드가 너무 많은 경우 콜스택이 다 비게 될 때까지 메인 스레드가 다른 작업을 못함
+- 재귀동작에서 체인형 링크드 리스트로 수정
+- 특정 작업에 우선순위를 매겨 작업의 작은 조각들을 동시적으로 일시 정지, 재가동 할 수 있게 함
 </details>
 
 <details>
 <summary>Suspense</summary>
 
+- 컴포넌트 Lazy Loading이나 Data Fetching 등의 비동기 처리를 하는 동안 fallback 화면을 띄워줌
+- Relay, SWR, React-Query, Recoil 지원
 </details>
 
 ## Typescript
@@ -613,55 +714,98 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 <details>
 <summary>사용 이유</summary>
 
+- 오류를 잡아내기 쉬움(컴파일 단계에서 오류 잡기 가능)
+- 생산성 향상
+- 코드 유지보수성 향상
 </details>
 
 <details>
 <summary>any, void, unknown, never</summary>
+
+- any
+    - 예외
+    - 모든 타입의 변수에 any 타입 값을 할당 가능하고, any 타입의 변수에 모든 값을 할당 가능함
+- unknown
+    - 모든 타입의 상위 개념
+    - unknown 타입의 변수에 모든 값을 할당 가능
+- never
+    - 최하위 개념
+    - never 타입에 아무것도 할당 불가 그러나 아무 타입의 변수에 never 타입 변수 할당 가능
+    - naver 아님 ㅋㅋ ㅈㅅ
+- void
+    - undefined의 상위 개념
+    - void 반환으로 선언한 함수에서 undefined를 반환해도 오류 발생하지 않음
 
 </details>
 
 <details>
 <summary>type, interface 차이</summary>
 
+- type
+    - 원시 타입
+    - 튜플 타입
+    - 함수 타입
+    - 유니온 타입
+    - 매핑된 타입
+- interface
+    - 객체 타입 정의 또는 타입 사용할 필요가 없을 경우
+    - 자동 병합을 활용해야할 경우
 </details>
 
 <details>
 <summary>제네릭</summary>
+
+&nbsp;타입을 파라미터처럼 사용하는 것
 
 </details>
 
 <details>
 <summary>유틸리티</summary>
 
+- 이미 정의해 놓은 타입을 변환할 때 사용하기 좋은 문법
+- Partial(부분집합)
+- Pick(몇 개 찝어 쓰기)
+- Omit(몇 개 버리고 쓰기)
 </details>
 
 ## Redux
 
 <details>
-<summary>왜 사용</summary>
+<summary>사용 이유</summary>
+
+- Props drilling 문제 해결
+- devtool이 있음
 
 </details>
 
 <details>
-<summary>Flux</summary>
+<summary>store, action, reducer</summary>
 
+- store
+    - 상태가 관리되는 곳
+- action
+    - 앱에서 스토어에 보낼 데이터
+- reducer
+    - action을 reducer에 전달하면 reducer가 store의 상태를 업데이트
+    - action을 reducer에 전달하려면 dispatch 메소드 사용
+
+</details>
+
+<details>
+<summary>Flux 패턴</summary>
+
+&nbsp;사용자 입력을 기반으로 Action을 만들고, Action을 Dispatcher에 전달하여 Store의 데이터를 변경한 뒤 View에 반영하는 단방향 데이터 흐름
 </details>
 
 <details>
 <summary>리듀서 내부에서 불변성을 지키는 이유</summary>
 
-</details>
-
-<details>
-<summary>어떻게 작동하나</summary>
-
+&nbsp;참조값을 비교하여 상태변화를 감지하기 때문
 </details>
 
 ## NextJS
 
 ## 그 외
-
-### Recoil
 
 ### WebRTC
 <details>
@@ -686,7 +830,7 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 ### MQTT
 
 <details>
-<summary>뭐임?</summary>
+<summary>MQTT란</summary>
 
 &nbsp;Publisher, Broker, Subscriber 구조로 이루어져 Publisher가 Topic을 발행하고, Subscriber는 Topic을 구독한다. Broker는 중계자 역할을 하며, 1:1, 1:N 통신이 가능하다.
 </details>
@@ -704,7 +848,35 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
     - 4way handshaking을 사용하여 정확히 한 번의 메시지 전송을 보장하는 방법
 </details>
 
-## 인성
+### 그 외
+
+<details>
+<summary>LCP, FCP, TTI, TTFB</summary>
+
+- LCP(Largest Contentful Paint)
+    - 용량 젤 큰 컨텐츠 표시되는 시점
+- FCP(First Contentful Paint)
+    - 컨텐츠의 일부가 화면에 렌더링될 때까지의 시간
+- TTI(Time To Interactive)
+    - 웹 페이지가 완전히 상호작용 가능하게된 시간
+- TTFB(Time To First Byte)
+    - 페이지 요청 시, 서버에서 데이터의 첫 번째 바이트가 도착하는 시간
+
+</details>
+
+<details>
+<summary>웹 접근성</summary>
+    - 장애인이나 고령자분들이 웹 사이트에서 제공하는 정보를 비장애인과 동등하게 접근하고 이용 할 수 있도록 보장하는 것
+    - 적절한 대체텍스트
+    - 색에 무관한 콘텐츠 인식
+    - 키보드만으로 사용 가능하도록
+    - 응답시간 조절 가능하도록
+    - 정지 기능 제공
+    - 제목 제공
+    등등..
+</details>
+
+## 인성(맞나..?)
 
 <details>
 <summary>자기소개</summary>
@@ -758,5 +930,10 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 
 <details>
 <summary>나의 장/단점</summary>
+
+</details>
+
+<details>
+<summary>이상적으로 생각하는 팀 문화</summary>
 
 </details>
