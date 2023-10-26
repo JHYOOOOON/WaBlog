@@ -440,6 +440,18 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 </details>
 
 <details>
+<summary>reflow 최적화</summary>
+
+- 애니메이션은 position fixed 또는 absolute로 설정
+- transform 속성은 reflow가 일어나지 않음
+- 안 쓰는 노드는 렌더트리에서 제외시키기
+- table 태그 지양
+    - 테이블 컨텐츠는 컨텐츠 변경 시 테이블 너비가 다시 계산되고 모든 셀의 reflow가 발생
+- inline style 최소화
+    - HTML 파싱 시 레이아웃에 영향을 미쳐 reflow 발생
+</details>
+
+<details>
 <summary>쿠키와 세션/로컬 스토리지</summary>
 
 - 쿠키
@@ -731,7 +743,6 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 - never
     - 최하위 개념
     - never 타입에 아무것도 할당 불가 그러나 아무 타입의 변수에 never 타입 변수 할당 가능
-    - naver 아님 ㅋㅋ ㅈㅅ
 - void
     - undefined의 상위 개념
     - void 반환으로 선언한 함수에서 undefined를 반환해도 오류 발생하지 않음
@@ -803,7 +814,32 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 &nbsp;참조값을 비교하여 상태변화를 감지하기 때문
 </details>
 
+<details>
+<summary>원칙</summary>
+
+1. 상태는 store에서 집중관리
+2. 상태는 불변하며, action만이 상태교체를 요청할 수 있음
+3. 변화는 순수함수(reducer)로 작성해야함
+</details>
+
 ## NextJS
+
+<details>
+<summary>NextJS란</summary>
+
+&nbsp;vercel에서 개발한 리액트 프레임워크
+</details>
+
+<details>
+<summary>주요 기능</summary>
+
+- hot reloading
+- automatic routing
+- single file components
+- server rendering
+- code splitting
+등등
+</details>
 
 ## 그 외
 
@@ -811,11 +847,33 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 <details>
 <summary>시그널링 과정</summary>
 
+1. A SDP 오퍼 생성 후 시그널링 채널을 통해 원격 피어에 전달
+2. B 오퍼 수신 후 오퍼 설정, 시그널링 채널을 통해 답변 전송
+3. A 답변 받은 후 setLocalDescription을 사용해 설정
+4. STUN 또는 TURN 서버를 사용해 RTCPeerConnection 객체를 생성
+5. peerConnection에 connectionstatechange 이벤트 받아서 connected 상태일 경우 성공적 연결
 </details>
 
 <details>
-<summary>STUN, TURN 서버 차이</summary>
+<summary>NAT, STUN, TURN</summary>
 
+- NAT(Network Address Translation)
+    - Private IP를 Public IP를 1:1로 대응시켜 변화하는 장치
+- ICE(Interactive Connectivity Establishment)
+    - ICE는 두 단말이 서로 통신할 수 있는 최적의 경로를 찾을 수 있도록 도와주는 프레임워크
+    - ICE는 혼자 작동하지 않으며 STUN, TURN 서버 사용
+- STUN(Session Traversal Utilities for NAT)
+    - 해당 Peer의 Public IP 주소를 보내는 역할
+    - 두 Peer가 같은 NAT 환경에 있을 경우나 NAT의 보안 정책이 엄격할 때는 좋지 않음
+- TURN(Traversal Using Relays around NAT)
+    - 각 Peer들이 TURN 서버를 경유하여 통신
+    - STUN에 비해 리소스 낭비가 심함
+</details>
+
+<details>
+<summary>재접속 어떻게 아냐</summary>
+
+&nbsp;`connectionstatechange` 이벤트에서 disconnected 떴다가 재접속되면 connected 이벤트가 날아옴
 </details>
 
 <details>
@@ -824,7 +882,7 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 - navigator.mediaDevices.getUserMedia
 - navigator.mediaDevices.enumerateDevices
 - navigator.mediaDevices.ondevicechange
-- navigator.permissions
+- navigator.permissions onchange
 </details>
 
 ### MQTT
