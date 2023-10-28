@@ -132,7 +132,7 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 <details>
 <summary>css 적용 우선순위</summary>
 
-1. `!important``
+1. `!important`
 2. inline css
 3. id
 4. class, 추상클래스
@@ -371,7 +371,7 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 - 얕은 복사
     - 객체 복사 시, 원본 값과 복사된 값이 같은 참조(= 메모리 주소)를 가리키는 것
     - 얕은 복사 후, 해당 변수를 재사용하여 수정한다면 원본 값도 변하므로 주의
-    - `Object.assin()`, 전개 구문
+    - `Object.assign()`, 전개 구문
 - 깊은 복사
     - 복사된 객체가 다른 주소를 참조하며 내부의 값만 복사
     - 재귀함수, `JSON.parse()`, `JSON.stringify()` 이용
@@ -685,7 +685,7 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 <summary>SPA(Single Page Application)</summary>
 
 - 뭐임?
-    - 모든 리소스를 최초에 한 번 다운로드하고, 이후에 새로운 에지이 요청 시 필요한 데이터만을 전달받아 페이지를 갱신
+    - 모든 리소스를 최초에 한 번 다운로드하고, 이후에 새로운 데이터 요청 시 필요한 데이터만을 전달받아 페이지를 갱신
     - CSR 방식으로 렌더링
 - 장점
     - 빠른 페이지 이동 가능 및 깜빡거림이 없음
@@ -858,7 +858,7 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 <summary>NAT, STUN, TURN</summary>
 
 - NAT(Network Address Translation)
-    - Private IP를 Public IP를 1:1로 대응시켜 변화하는 장치
+    - Private IP를 Public IP와 1:1로 대응시켜 변화하는 장치
 - ICE(Interactive Connectivity Establishment)
     - ICE는 두 단말이 서로 통신할 수 있는 최적의 경로를 찾을 수 있도록 도와주는 프레임워크
     - ICE는 혼자 작동하지 않으며 STUN, TURN 서버 사용
@@ -924,14 +924,15 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 
 <details>
 <summary>웹 접근성</summary>
-    - 장애인이나 고령자분들이 웹 사이트에서 제공하는 정보를 비장애인과 동등하게 접근하고 이용 할 수 있도록 보장하는 것
-    - 적절한 대체텍스트
-    - 색에 무관한 콘텐츠 인식
-    - 키보드만으로 사용 가능하도록
-    - 응답시간 조절 가능하도록
-    - 정지 기능 제공
-    - 제목 제공
-    등등..
+
+- 장애인이나 고령자분들이 웹 사이트에서 제공하는 정보를 비장애인과 동등하게 접근하고 이용 할 수 있도록 보장하는 것
+- 적절한 대체텍스트
+- 색에 무관한 콘텐츠 인식
+- 키보드만으로 사용 가능하도록
+- 응답시간 조절 가능하도록
+- 정지 기능 제공
+- 제목 제공
+등등..
 </details>
 
 ## 인성(맞나..?)
