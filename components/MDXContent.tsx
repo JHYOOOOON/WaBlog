@@ -32,6 +32,10 @@ const TitleWrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+	details {
+		margin: 12px 0;
+	}
+
 	h2,
 	h3,
 	p,
