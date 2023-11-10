@@ -1,0 +1,55 @@
+---
+title: "next/image"
+summary: "어떻게 알고 브라우저마다 지원하는 이미지 확장자를 내려주는 거지?"
+date: "2023.11.10"
+thumbnailUrl: "/static/images/blog/next-image/christmas.jpeg"
+---
+
+<div align="center">
+	<img src="/static/images/blog/next-image/christmas.jpeg" width="300px" alt="크리스마스트리" />
+</div>
+
+## 🌟 next/image
+&nbsp;Next에서는 자체적으로 이미지 최적화를 지원해주고 있다. 이를 이용함으로써 얻을 수 있는 장점은 다음과 같다.
+<div>
+1. 사이즈 최적화
+	- 디바이스 사이즈에 따라 WebP and AVIF와 같은 모던 이미지 포맷으로 적절한 사이즈의 이미지를 내려줌
+2. 이미지가 로드될 때 레이아웃이 변경되는 것을 방지
+	- 이미지 로딩 시, 다른 element들을 밀어내면서 레이아웃이 변경되는 것
+3. lazy loading(placeholder 설정 가능)를 통한 빠른 페이지 로드
+	- 사용자가 보는 곳에 있는 이미지만 로드
+</div>
+&nbsp;`next/image`를 사용하기 위해서는 width와 height 속성을 지정해 주어야 하는데, 이는 종횡비를 위함이지 렌더링되는 사이즈와는 관계가 없고, 이미지가 로드될 때 레이아웃이 변경되는 것을 방지(장점 2)하기 위해 사용된다고 한다.
+
+## 👊 WebP, AVIF
+<div>
+- WebP
+	- PNG, JPEG 등 기존 이미지 포맷보다 파일 크기가 작음
+	- 다양한 웹 브라우저와 호환
+	- 파일 저장 시, 무손실/손실 압축 선택 가능
+	<div align="center">
+		<img src="/static/images/blog/next-image/webp.png" width="500px" alt="webp 지원 브라우저" />
+	</div>
+- AVIF
+	- WebP보다 더 압축된 이미지
+	- 지원하는 브라우저가 많지 않음
+	<div align="center">
+		<img src="/static/images/blog/next-image/webp.png" width="500px" alt="avif 지원 브라우저" />
+	</div>
+</div>
+
+## 👀 어떻게 알고 브라우저마다 지원하는 확장자의 이미지를 내려줄까
+&nbsp;WebP도 그렇고 AVIF도 그렇고 지원하지 않는 브라우저 및 버전이 있는데, 이런 걸 어떻게 판별해서 내려주는 걸까? 답은 이미지를 요청하는 과정에서 헤더에 Accept라고 브라우저 본인이 허용하는 이미지 확장자를 실어 보내는데, 이를 바탕으로 검증해서 지원하는 확장자로 내려주게 되어있다.
+- 크롬
+	<div align="center">
+		<img src="/static/images/blog/next-image/chrome.png" width="500px" alt="크롬 이미지 요청 헤더" />
+	</div>
+- 엣지
+	<div align="center">
+		<img src="/static/images/blog/next-image/edge.png" width="500px" alt="엣지 이미지 요청 헤더" />
+	</div>
+
+## 📚 참고자료
+- [Next 공식문서](https://nextjs.org/docs/app/building-your-application/optimizing/images#image-sizing)
+- [Can I Use](https://caniuse.com/)
+- [NEXT.JS의 이미지 최적화는 어떻게 동작하는가?](https://oliveyoung.tech/blog/2023-06-09/nextjs-image-optimization/)
