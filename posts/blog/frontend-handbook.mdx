@@ -557,32 +557,54 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 <summary>HTTP, HTTPS</summary>
 
 - HTTP
-    
+    - Hypertext Transfer Protocol
+    - 서로 다른 시스템들 사이에 통신을 주고 받게 해주는 가장 기본적인 프로토콜
 - HTTPS
+    - Hypertext Transfer Protocol Secure
+    - HTTP에 데이터 암호화가 추가된 프로토콜
+    - HTTPS를 사용하기 위해서는 인증된 기관 CA(Certificate Authority)에 공개키를 전송하여 인증서를 발급받아야 함
 </details>
 
 <details>
 <summary>HTTP 프로토콜의 특징</summary>
 
+- 클라이언트-서버 구조로 되어있음
+- 무상태 프로토콜(Stateless)
+    - 서버가 클라이언트의 이전 상태를 보존하지 않음
+    - 이때문에 로그인 상태를 유지하려면 다른 방법을 이용해야함
+- 비연결성(Connectionless)
+    - 클라이언트가 서버의 응답을 받으면 연결을 끊어버림
+    - 서버의 자원을 효율적으로 관리
 </details>
 
 <details>
-<summary>HTTP/1, HTTP/1.1, HTTP/2, HTTP/3</summary>
+<summary>HTTP/1.1, HTTP/2, HTTP/3</summary>
 
+- HTTP/1.1
+    - 연결(Connection) 하나 당 하나의 요청을 처리
+    - 매 요청마다 중복된 헤더를 전송하게 되어 무거운 헤더가 단점
+- HTTP/2
+    - 연결 하나로 동시에 여러 개의 메시지를 주고 받을 수 있음
+    - 클라이언트가 여러 번 중복 요청 시 HPACK 압축 방식을 이용한 헤더 압축 전송
+- HTTP/3
+    - 1.1, 2.0과 달리 UDP 기반 프로토콜인 QUIC를 이용해 통신
+    - 안전하고 암호화된 방식으로만 수행될 수 있음
 </details>
 
 <details>
 <summary>대칭/비대칭키 암호화</summary>
 
+- 대칭키 암호화
+    - 클라이언트와 서버가 동일한 키를 사용해서 암호화와 복호화를 진행
+    - 키가 노출되면 매우 위험할 수 있지만 연산속도가 빠름
+- 비대칭키 암호화
+    - 1개의 쌍으로 구성된 공개키와 개인키를 이용해 암호화와 복호화를 진행
+    - 키가 노출되어도 비교적 안전할 수 있지만 연산속도가 느림
+
 </details>
 
 <details>
 <summary>RESTful</summary>
-
-</details>
-
-<details>
-<summary>PCB</summary>
 
 </details>
 
