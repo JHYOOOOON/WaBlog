@@ -45,6 +45,11 @@ const Container = ({ children, ...customMeta }) => {
 				<meta property="og:description" content={meta.description} />
 				<meta property="og:title" content={meta.title} />
 				<meta property="og:image" content={meta.image} />
+				<script
+					async
+					src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5431636472076338"
+					crossOrigin="anonymous"
+				></script>
 			</Head>
 			<Section>
 				<Header />
