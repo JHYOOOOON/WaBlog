@@ -2,27 +2,21 @@ import styled from "@emotion/styled";
 import { allBlogs } from "contentlayer/generated";
 import Component from "components/Container";
 import Posting from "components/Posting";
-import TitleImage from "components/TitleImage";
 
 export default function Home({ blogPosts }) {
 	return (
 		<Component>
-			<TitleImage />
-			<Section>
+			<section>
 				<SectionTitle>Recent Posts</SectionTitle>
 				<PostWrapper>
 					{blogPosts.map((post) => (
 						<Posting key={`blog_${post._id}`} {...post} />
 					))}
 				</PostWrapper>
-			</Section>
+			</section>
 		</Component>
 	);
 }
-
-const Section = styled.section`
-	margin-top: 30px;
-`;
 
 const PostWrapper = styled.div`
 	display: flex;
