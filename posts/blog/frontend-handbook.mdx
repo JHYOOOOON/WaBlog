@@ -424,15 +424,15 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 </details>
 
 <details>
-<summary>repaint, reflow</summary>
+<summary>reflow, repaint</summary>
 
-- repaint
+- reflow
     - 웹 페이지의 일부 또는 전부를 다시 처리하고 그려야 할 때
     - 생성된 DOM 노드의 너비, 높이 위치 등을 변경했을 때 영향을 받는 모든 노드의 수치를 계산하여 렌더트리 재생성
-- reflow
+- repaint
     - 변경된 요소를 화면에 그리는 작업
-    - repaint 이후에 필히 실행됨
-    - reflow만 일어나는 작업
+    - reflow 이후에 필히 실행됨
+    - repaint만 일어나는 작업
         - visibility, background-color, outline, opacity
         - 다른 노드에 영향을 주지 않고 발생하기 때문
 </details>
