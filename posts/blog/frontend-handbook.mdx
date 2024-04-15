@@ -786,6 +786,12 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 </details>
 
 <details>
+<summary>hydration 오류 발생</summary>
+
+&nbsp;서버에서 생성한 HTML과 클라이언트에서 생성한 DOM 트리에 차이가 있을 때 발생
+</details>
+
+<details>
 <summary>fiber</summary>
 
 - React v16 전까지 재귀방식의 알고리즘을 virtualDom의 재조정에 사용
@@ -1024,6 +1030,37 @@ border 기준으로 `margin`은 바깥, `padding`은 안쪽 여백을 의미
 - 정지 기능 제공
 - 제목 제공
 등등..
+</details>
+
+<details>
+<summary>상태관리 툴 비교</summary>
+
+- Recoil
+    - 장점
+        - 리액트 훅과 유사하게 사용 가능(러닝커브가 가파름)
+        - selector로 비동기처리가 가능
+    - 단점
+        - 아직도 1 버전이 출시되지 않음
+        - devtool이 없음
+- Redux
+    - 장점
+        - Flux 패턴으로 상태 변화를 더욱 예측하기 쉬워 유지보수에 용이
+        - devtool이 있음
+    - 단점
+        - 보일러 플레이트 코드가 많음
+        - 비동기 처리를 위한 별도의 라이브러리가 필요
+- Jotai
+    - 장점
+        - 리액트 훅과 유사하게 사용 가능(러닝커브가 가파름)
+        - Recoil과 비교했을 때, key를 지정하지 않아도 됨
+    - 단점
+        - 자료가 적고 커뮤니티가 작음
+- Zustand
+    - 장점
+        - Redux Devtools로 디버깅 가능
+        - 보일러플레이트가 적음
+    - 단점
+        - 자료가 적고 커뮤니티가 작음
 </details>
 
 ## 인성(?)
